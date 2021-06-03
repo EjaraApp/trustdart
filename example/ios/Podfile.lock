@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - trustdart (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - trustdart (from `.symlinks/plugins/trustdart/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  trustdart:
+    :path: ".symlinks/plugins/trustdart/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  trustdart: d7f7b4e8801f70967b318b846174a2ce70b9f48a
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
