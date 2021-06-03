@@ -5,16 +5,17 @@
 Pod::Spec.new do |s|
   s.name             = 'trustdart'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'A dart library that can interact with the trust wallet core library.'
   s.description      = <<-DESC
-A new flutter plugin project.
+  A dart library that can interact with the trust wallet core library.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/EjaraApp/trustdart'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Ejara' => 'sbk@ejara.africa' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.dependency 'TrustWalletCore'
   s.platform = :ios, '8.0'
 
   # Flutter.framework does not contain a i386 slice.
