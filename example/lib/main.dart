@@ -52,7 +52,47 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    backgroundColor: Colors.red,
+                    primary: Colors.black,
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Create a new multi-coin wallet'),
+                ),
+              ),
+              Container(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    backgroundColor: Colors.yellow,
+                    primary: Colors.black,
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Generate the default addresses.'),
+                ),
+              ),
+              Container(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    backgroundColor: Colors.green,
+                    primary: Colors.black,
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Sign transactions for sending.'),
+                ),
+              ),
+            ],
+          )
         ),
       ),
     );
