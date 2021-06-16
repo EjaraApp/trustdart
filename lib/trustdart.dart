@@ -11,4 +11,14 @@ class Trustdart {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  static Future<String> createWallet() async {
+    final mnemonic = await _channel.invokeMethod('createWallet');
+    return mnemonic;
+  }
+
+  static Future<bool> importWalletFromMnemonic(String mnemonic) async {
+    final importStatus = await _channel.invokeMethod('importWalletFromMnemonic', mnemonic);
+    return importStatus;
+  }
 }

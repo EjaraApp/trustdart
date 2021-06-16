@@ -30,6 +30,10 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion =
           await Trustdart.platformVersion ?? 'Unknown platform version';
+      String mnemonic = await Trustdart.createWallet();
+      print('Here is our mnemonic: \n$mnemonic');
+      var wallet = await Trustdart.importWalletFromMnemonic(mnemonic);
+      print(wallet);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
