@@ -34,6 +34,10 @@ class _MyAppState extends State<MyApp> {
       print('Here is our mnemonic: \n$mnemonic');
       var wallet = await Trustdart.importWalletFromMnemonic(mnemonic);
       print(wallet);
+      var btcAddress = await Trustdart.generateAddressForCoin("m/44'/0'/0'/0/0", 'BTC');
+      var ethAddress = await Trustdart.generateAddressForCoin("m/44'/60'/0'/0/0", 'ETH');
+      var xtzAddress = await Trustdart.generateAddressForCoin("m/44'/1729'/0'/0'", 'XTZ');
+      print([btcAddress, ethAddress, xtzAddress]);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }

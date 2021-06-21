@@ -21,4 +21,12 @@ class Trustdart {
     final importStatus = await _channel.invokeMethod('importWalletFromMnemonic', mnemonic);
     return importStatus;
   }
+
+  static Future<String> generateAddressForCoin(String path, String coin) async {
+    final address = await _channel.invokeMethod('generateAddressForCoin', <String, String> {
+      'coin': coin,
+      'path': path,
+    });
+    return address;
+  }
 }
