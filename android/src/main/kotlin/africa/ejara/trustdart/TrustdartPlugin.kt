@@ -11,6 +11,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 import wallet.core.jni.HDWallet
 import wallet.core.jni.CoinType
+import wallet.core.jni.BitcoinAddress
 
 /** TrustdartPlugin */
 class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
@@ -34,8 +35,6 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    println(call.method)
-    println(::wallet.isInitialized)
     when(call.method) {
       "getPlatformVersion" -> {
         result.success("Android ${android.os.Build.VERSION.RELEASE}")
@@ -51,6 +50,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         result.success(true)
       }
       "generateAddressForCoin" -> {
+        if (!::wallet.isInitialized) return result.error("empty_wallet", "wallet not initialized", null)
         val path: String? = call.argument("path")
         val coin: String? = call.argument("coin")
         print("$coin $path")
@@ -70,16 +70,19 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   private fun generateAddressForCoin(path: String, coin: String): String? {
-    val key = wallet.getKey(path)   // m/44'/60'/1'/0/0
+    val privateKey = wallet.getKey(path)
     return when(coin) {
       "BTC" -> {
-        CoinType.BITCOIN.deriveAddress(key)
+        val publicKey = privateKey.getPublicKeySecp256k1(true)
+        val address = BitcoinAddress(publicKey, CoinType.BITCOIN.p2pkhPrefix())
+//        CoinType.BITCOIN.deriveAddress(key)
+        address.description()
       }
       "ETH" -> {
-        CoinType.ETHEREUM.deriveAddress(key)
+        CoinType.ETHEREUM.deriveAddress(privateKey)
       }
       "XTZ" -> {
-        CoinType.TEZOS.deriveAddress(key)
+        CoinType.TEZOS.deriveAddress(privateKey)
       }
       else -> null
     }

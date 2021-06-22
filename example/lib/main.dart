@@ -32,7 +32,8 @@ class _MyAppState extends State<MyApp> {
           await Trustdart.platformVersion ?? 'Unknown platform version';
       String mnemonic = await Trustdart.createWallet();
       print('Here is our mnemonic: \n$mnemonic');
-      var wallet = await Trustdart.importWalletFromMnemonic(mnemonic);
+      String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+      var wallet = await Trustdart.importWalletFromMnemonic(dondo);
       print(wallet);
       var btcAddress = await Trustdart.generateAddressForCoin("m/44'/0'/0'/0/0", 'BTC');
       var ethAddress = await Trustdart.generateAddressForCoin("m/44'/60'/0'/0/0", 'ETH');
