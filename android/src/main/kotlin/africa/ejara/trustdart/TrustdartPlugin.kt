@@ -45,7 +45,6 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       }
       "importWalletFromMnemonic" -> {
         val mnmemonic: String = call.arguments()
-        println(mnmemonic)
         wallet = HDWallet(mnmemonic, "")
         result.success(true)
       }
@@ -53,10 +52,19 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         if (!::wallet.isInitialized) return result.error("empty_wallet", "wallet not initialized", null)
         val path: String? = call.argument("path")
         val coin: String? = call.argument("coin")
-        print("$coin $path")
         if (path != null && coin != null) {
-          val address: String? = generateAddressForCoin(path, coin)
+          val address: Map<String, String?>? = generateAddressForCoin(path, coin)
           if (address == null) result.error("address_null", "failed to generate address", null) else result.success(address)
+        } else {
+          result.error("arguments_null", "$path and $coin cannot be null", null)
+        }
+      }
+      "validateAddressForCoin" -> {
+        val address: String? = call.argument("address")
+        val coin: String? = call.argument("coin")
+        if (path != null && coin != null) {
+          val isValid: bool = validateAddressForCoin(coin, address)
+          result.success(bool)
         } else {
           result.error("arguments_null", "$path and $coin cannot be null", null)
         }
@@ -69,20 +77,35 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun generateAddressForCoin(path: String, coin: String): String? {
+  private fun generateAddressForCoin(path: String, coin: String): Map<String, String?>? {
     val privateKey = wallet.getKey(path)
     return when(coin) {
       "BTC" -> {
         val publicKey = privateKey.getPublicKeySecp256k1(true)
         val address = BitcoinAddress(publicKey, CoinType.BITCOIN.p2pkhPrefix())
-//        CoinType.BITCOIN.deriveAddress(key)
-        address.description()
+        mapOf("legacy" to CoinType.BITCOIN.deriveAddress(privateKey), "segwit" to address.description())
       }
       "ETH" -> {
-        CoinType.ETHEREUM.deriveAddress(privateKey)
+        mapOf("legacy" to CoinType.ETHEREUM.deriveAddress(privateKey))
       }
       "XTZ" -> {
-        CoinType.TEZOS.deriveAddress(privateKey)
+        CoinType.TEZOS.
+        mapOf("legacy" to CoinType.TEZOS.deriveAddress(privateKey))
+      }
+      else -> null
+    }
+  }
+
+  private fun validateAddressForCoin(coin: String, address: String): bool {
+    return when(coin) {
+      "BTC" -> {
+        CoinType.BITCOIN.validateAddress(address)
+      }
+      "ETH" -> {
+        CoinType.ETHEREUM.validateAddress(address)
+      }
+      "XTZ" -> {
+        CoinType.TEZOS.validateAddress(address)
       }
       else -> null
     }
