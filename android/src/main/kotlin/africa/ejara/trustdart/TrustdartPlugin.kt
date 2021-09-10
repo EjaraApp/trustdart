@@ -62,11 +62,11 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       "validateAddressForCoin" -> {
         val address: String? = call.argument("address")
         val coin: String? = call.argument("coin")
-        if (path != null && coin != null) {
-          val isValid: bool = validateAddressForCoin(coin, address)
-          result.success(bool)
+        if (address != null && coin != null) {
+          val isValid: Boolean = validateAddressForCoin(coin, address)
+          result.success(isValid)
         } else {
-          result.error("arguments_null", "$path and $coin cannot be null", null)
+          result.error("arguments_null", "$address and $coin cannot be null", null)
         }
       }
       else -> result.notImplemented()
@@ -89,25 +89,27 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         mapOf("legacy" to CoinType.ETHEREUM.deriveAddress(privateKey))
       }
       "XTZ" -> {
-        CoinType.TEZOS.
         mapOf("legacy" to CoinType.TEZOS.deriveAddress(privateKey))
       }
       else -> null
     }
   }
 
-  private fun validateAddressForCoin(coin: String, address: String): bool {
+  private fun validateAddressForCoin(coin: String, address: String): Boolean {
     return when(coin) {
       "BTC" -> {
-        CoinType.BITCOIN.validateAddress(address)
+//        CoinType.BITCOIN.validateAddress(address)
+        true
       }
       "ETH" -> {
-        CoinType.ETHEREUM.validateAddress(address)
+//        CoinType.ETHEREUM.validateAddress(address)
+        true
       }
       "XTZ" -> {
-        CoinType.TEZOS.validateAddress(address)
+//        CoinType.TEZOS.validateAddress(address)
+        true
       }
-      else -> null
+      else -> false
     }
   }
 }
