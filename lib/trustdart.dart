@@ -22,11 +22,19 @@ class Trustdart {
     return importStatus;
   }
 
-  static Future<Map> generateAddressForCoin(String path, String coin) async {
+  static Future<Map> generateAddressForCoin(String coin, String path) async {
     final address = await _channel.invokeMethod('generateAddressForCoin', <String, String> {
       'coin': coin,
       'path': path,
     });
     return address;
+  }
+
+  static Future<bool> validateAddressForCoin(String coin, String address) async {
+    final isAddressValid = await _channel.invokeMethod('validateAddressForCoin', <String, String> {
+      'coin': coin,
+      'address': address,
+    });
+    return isAddressValid;
   }
 }

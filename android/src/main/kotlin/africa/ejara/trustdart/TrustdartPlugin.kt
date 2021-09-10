@@ -69,6 +69,9 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
           result.error("arguments_null", "$address and $coin cannot be null", null)
         }
       }
+      "buildTransaction" -> {
+        result.notImplemented()
+      }
       else -> result.notImplemented()
     }
   }
@@ -83,7 +86,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       "BTC" -> {
         val publicKey = privateKey.getPublicKeySecp256k1(true)
         val address = BitcoinAddress(publicKey, CoinType.BITCOIN.p2pkhPrefix())
-        mapOf("legacy" to CoinType.BITCOIN.deriveAddress(privateKey), "segwit" to address.description())
+        mapOf("legacy" to address.description(), "segwit" to CoinType.BITCOIN.deriveAddress(privateKey))
       }
       "ETH" -> {
         mapOf("legacy" to CoinType.ETHEREUM.deriveAddress(privateKey))
@@ -98,16 +101,13 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
   private fun validateAddressForCoin(coin: String, address: String): Boolean {
     return when(coin) {
       "BTC" -> {
-//        CoinType.BITCOIN.validateAddress(address)
-        true
+        CoinType.BITCOIN.validate(address)
       }
       "ETH" -> {
-//        CoinType.ETHEREUM.validateAddress(address)
-        true
+        CoinType.ETHEREUM.validate(address)
       }
       "XTZ" -> {
-//        CoinType.TEZOS.validateAddress(address)
-        true
+        CoinType.TEZOS.validate(address)
       }
       else -> false
     }
