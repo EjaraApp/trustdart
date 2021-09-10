@@ -33,12 +33,21 @@ class _MyAppState extends State<MyApp> {
       String mnemonic = await Trustdart.createWallet();
       print('Here is our mnemonic: \n$mnemonic');
       String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
-      var wallet = await Trustdart.importWalletFromMnemonic(dondo);
+      bool wallet = await Trustdart.importWalletFromMnemonic(dondo);
       print(wallet);
-      var btcAddress = await Trustdart.generateAddressForCoin("m/44'/0'/0'/0/0", 'BTC');
-      var ethAddress = await Trustdart.generateAddressForCoin("m/44'/60'/0'/0/0", 'ETH');
-      var xtzAddress = await Trustdart.generateAddressForCoin("m/44'/1729'/0'/0'", 'XTZ');
+      Map btcAddress = await Trustdart.generateAddressForCoin('BTC', "m/44'/0'/0'/0/0");
+      Map ethAddress = await Trustdart.generateAddressForCoin('ETH', "m/44'/60'/0'/0/0");
+      Map xtzAddress = await Trustdart.generateAddressForCoin('XTZ', "m/44'/1729'/0'/0'");
       print([btcAddress, ethAddress, xtzAddress]);
+      bool isBtcLegacyValid = await Trustdart.validateAddressForCoin('BTC', btcAddress['legacy']);
+      bool isBtcSegWitValid = await Trustdart.validateAddressForCoin('BTC', btcAddress['segwit']);
+      bool isEthValid = await Trustdart.validateAddressForCoin('ETH', ethAddress['legacy']);
+      bool isXtzValid = await Trustdart.validateAddressForCoin('XTZ', xtzAddress['legacy']);
+      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid]);
+      bool invalidBTC = await Trustdart.validateAddressForCoin('BTC', ethAddress['legacy']);
+      bool invalidETH = await Trustdart.validateAddressForCoin('ETH', xtzAddress['legacy']);
+      bool invalidXTZ = await Trustdart.validateAddressForCoin('XTZ', btcAddress['legacy']);
+      print([invalidBTC, invalidETH, invalidXTZ]);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
