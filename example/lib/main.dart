@@ -22,6 +22,50 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
+  Map _getTezosOperation() {
+    return {
+      "operationList": {
+        "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
+        "operations": [{
+          "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+          "fee": 1272,
+          "counter": 30738,
+          "gasLimit": 10100,
+          "storageLimit": 257,
+          "kind": 107,
+          "revealOperationData": {
+            "publicKey": "QpqYbIBypAofOj4qtaWBm7Gy+2mZPFAEg3gVudxVkj4="
+          }
+        }, {
+          "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+          "fee": 1272,
+          "counter": 30739,
+          "gasLimit": 10100,
+          "storageLimit": 257,
+          "kind": 108,
+          "transactionOperationData": {
+            "destination": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+            "amount": 1
+          }
+        }]
+      }
+    };
+  }
+
+  Map _getEthereumOperation() {
+    return {
+      "chainId": "AQ==",
+      "gasPrice": "1pOkAA==",
+      "gasLimit": "Ugg=",
+      "toAddress": "0x7d8bf18C7cE84b3E175b339c4Ca93aEd1dD166F1",
+      "transaction": {
+        "transfer": {
+          "amount":"A0i8paFgAA=="
+        }
+      }
+    };
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
@@ -35,9 +79,12 @@ class _MyAppState extends State<MyApp> {
       String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
       bool wallet = await Trustdart.importWalletFromMnemonic(dondo);
       print(wallet);
-      Map btcAddress = await Trustdart.generateAddressForCoin('BTC', "m/44'/0'/0'/0/0");
-      Map ethAddress = await Trustdart.generateAddressForCoin('ETH', "m/44'/60'/0'/0/0");
-      Map xtzAddress = await Trustdart.generateAddressForCoin('XTZ', "m/44'/1729'/0'/0'");
+      String btcPath = "m/44'/0'/0'/0/0";
+      String ethPath = "m/44'/60'/0'/0/0";
+      String xtzPath = "m/44'/1729'/0'/0'";
+      Map btcAddress = await Trustdart.generateAddressForCoin('BTC', btcPath);
+      Map ethAddress = await Trustdart.generateAddressForCoin('ETH', ethPath);
+      Map xtzAddress = await Trustdart.generateAddressForCoin('XTZ', xtzPath);
       print([btcAddress, ethAddress, xtzAddress]);
       bool isBtcLegacyValid = await Trustdart.validateAddressForCoin('BTC', btcAddress['legacy']);
       bool isBtcSegWitValid = await Trustdart.validateAddressForCoin('BTC', btcAddress['segwit']);
@@ -48,6 +95,10 @@ class _MyAppState extends State<MyApp> {
       bool invalidETH = await Trustdart.validateAddressForCoin('ETH', xtzAddress['legacy']);
       bool invalidXTZ = await Trustdart.validateAddressForCoin('XTZ', btcAddress['legacy']);
       print([invalidBTC, invalidETH, invalidXTZ]);
+
+      String xtzTx = await Trustdart.buildAndSignTransaction('XTZ', xtzPath, _getTezosOperation());
+      String ethTx = await Trustdart.buildAndSignTransaction('ETH', ethPath, _getEthereumOperation());
+      print([xtzTx, ethTx]);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }

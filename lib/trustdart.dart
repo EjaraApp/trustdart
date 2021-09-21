@@ -37,4 +37,13 @@ class Trustdart {
     });
     return isAddressValid;
   }
+
+  static Future<String> buildAndSignTransaction(String coin, String path, Map txData) async {
+    final txHash = await _channel.invokeMethod('buildAndSignTransaction', <String, dynamic> {
+      'coin': coin,
+      'txData': txData,
+      'path': path,
+    });
+    return txHash;
+  }
 }

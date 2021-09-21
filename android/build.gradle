@@ -18,6 +18,13 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url = uri("https://maven.pkg.github.com/trustwallet/wallet-core")
+            credentials {
+                username = "baahkusi"//System.getenv("GITHUB_USER")
+                password = "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" //System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 
@@ -35,10 +42,13 @@ android {
     }
 
     dependencies {
-        implementation "com.trustwallet:wallet-core:0.12.31"
+        implementation "com.trustwallet:wallet-core:2.6.25"
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
