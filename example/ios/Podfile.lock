@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/trustdart/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   SwiftProtobuf: 84cd6b8f4fd2fc3d9fbd80a0aaf2e957d52824ec
   trustdart: 5571b2b0b3f12cb09c10ef09f697bf87b4f485bc
   TrustWalletCore: 23db235c1278488a07548b37f4ee2be248cf141e

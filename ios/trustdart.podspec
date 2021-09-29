@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = 'https://github.com/EjaraApp/trustdart'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Ejara' => 'sbk@ejara.africa' }
+  s.author           = { 'Ejara' => 'baah.kusi@ejara.africa' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
