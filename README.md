@@ -2,8 +2,12 @@
 A dart library that can interact with the trust wallet core library.
 
 ## Install
-
-You can install from here https://pub.dev/packages/trustdart.
+- You first need to setup a personal access token for github as decribed here, https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token .
+- You only need to select `read:package` scope.
+- Next set the following variables in your environment 
+- `TRUST_DART_GITHUB_USER` ~ the github username of the account you used to create the access token.
+- `TRUST_DART_GITHUB_TOKEN` ~ the github access token you just generated.
+- You can install from here https://pub.dev/packages/trustdart.
 
 ## Overview
 

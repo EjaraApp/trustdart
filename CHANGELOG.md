@@ -14,3 +14,7 @@ Added change logs.
 ### 0.0.4
 
 Github Access Tokens Added from Dummy user
+
+### 0.0.5
+
+Added instructions for setting up github access tokens since dummy access token did not work. Github deletes access tokens committed to github.
