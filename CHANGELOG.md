@@ -10,3 +10,7 @@ Improved readme and added github access tokens for access to trustwallet android
 ### 0.0.3 
 
 Added change logs.
+
+### 0.0.4
+
+Github Access Tokens Added from Dummy user
