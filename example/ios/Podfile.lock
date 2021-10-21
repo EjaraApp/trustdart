@@ -1,11 +1,15 @@
 PODS:
   - Flutter (1.0.0)
-  - SwiftProtobuf (1.3.1)
+  - SwiftProtobuf (1.18.0)
   - trustdart (0.0.1):
     - Flutter
     - TrustWalletCore
-  - TrustWalletCore (0.10.0):
-    - SwiftProtobuf (~> 1.3.0)
+  - TrustWalletCore (2.6.30):
+    - TrustWalletCore/Core (= 2.6.30)
+  - TrustWalletCore/Core (2.6.30):
+    - TrustWalletCore/Types
+  - TrustWalletCore/Types (2.6.30):
+    - SwiftProtobuf
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -24,10 +28,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  SwiftProtobuf: 84cd6b8f4fd2fc3d9fbd80a0aaf2e957d52824ec
-  trustdart: 5571b2b0b3f12cb09c10ef09f697bf87b4f485bc
-  TrustWalletCore: 23db235c1278488a07548b37f4ee2be248cf141e
+  SwiftProtobuf: c3c12645230d9b09c72267e0de89468c5543bd86
+  trustdart: 6fdf048c1837d89806c55912845af3987fd8defe
+  TrustWalletCore: 544c56e602078359252c24313bf2be89ccdf1661
 
-PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

@@ -1,6 +1,6 @@
 import Flutter
 import UIKit
-import TrustWalletCore
+import WalletCore
 
 public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -62,7 +62,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let args = call.arguments as! [String: Any]
                 let coin: String? = args["coin"] as? String
                 let path: String? = args["path"] as? String
-                let txData: [String: String]? = args["txData"] as? [String: String]
+                let txData: [String: Any]? = args["txData"] as? [String: Any]
                 if coin != nil && path != nil && txData != nil {
                     let txHash: String? = buildAndSignTransaction(coin: coin!, path: path!, txData: txData!)
                     if txHash == nil {
@@ -84,19 +84,21 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
     
     func generateAddressForCoin(path: String, coin: String) -> [String: String]? {
         var addressMap: [String: String]?
-        let privateKey = wallet!.getKey(derivationPath: path)
         switch coin {
         case "BTC":
+            let privateKey = wallet!.getKey(coin: CoinType.bitcoin, derivationPath: path)
             let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
             let legacyAddress = BitcoinAddress(publicKey: publicKey, prefix: 0)
             let scriptHasgAddress = BitcoinAddress(publicKey: publicKey, prefix: 5)
-            addressMap = ["legacy": legacyAddress.description,
+            addressMap = ["legacy": legacyAddress!.description,
                           "segwit": CoinType.bitcoin.deriveAddress(privateKey: privateKey),
-                          "p2sh": scriptHasgAddress.description,
+                          "p2sh": scriptHasgAddress!.description,
             ]
         case "ETH":
+            let privateKey = wallet!.getKey(coin: CoinType.ethereum, derivationPath: path)
             addressMap = ["legacy": CoinType.ethereum.deriveAddress(privateKey: privateKey)]
         case "XTZ":
+            let privateKey = wallet!.getKey(coin: CoinType.tezos, derivationPath: path)
             addressMap = ["legacy": CoinType.tezos.deriveAddress(privateKey: privateKey)]
         default:
             addressMap = nil
@@ -121,7 +123,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
 
     }
     
-    func buildAndSignTransaction(coin: String, path: String, txData: [String: String]) -> String? {
+    func buildAndSignTransaction(coin: String, path: String, txData: [String: Any]) -> String? {
         var txHash: String?
         switch coin {
         case "BTC":
@@ -144,24 +146,23 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         return String(data: data, encoding: String.Encoding.utf8)
     }
     
-     func buildAndSignTezosTransaction(path: String, txData:  [String: String]) -> String? {
-//        let privateKey = wallet!.getKey(derivationPath: path)
-//        let opJson =  objToJson(from:txData)
-//
-//        let result = AnySigner.signJSON(opJson, privateKey.data, CoinType.tezos.rawValue)
-        return "xtz"
+     func buildAndSignTezosTransaction(path: String, txData:  [String: Any]) -> String? {
+        let privateKey = wallet!.getKey(coin: CoinType.tezos, derivationPath: path)
+        let opJson =  objToJson(from:txData)
+
+        let result = AnySigner.signJSON(opJson!, key: privateKey.data, coin: CoinType.tezos)
+        return result
       }
 
-    func buildAndSignEthereumTransaction(path: String, txData:  [String: String]) -> String? {
-//        let privateKey = wallet!.getKey(derivationPath: path)
-//        let opJson =  objToJson(from:txData)
-//        let result = EthereumSigner.s(opJson, privateKey.data, CoinType.ethereum.rawValue)
-//        return result
-        return "eth"
+    func buildAndSignEthereumTransaction(path: String, txData:  [String: Any]) -> String? {
+        let privateKey = wallet!.getKey(coin: CoinType.ethereum, derivationPath: path)
+        let opJson =  objToJson(from:txData)
+        let result = AnySigner.signJSON(opJson!, key: privateKey.data, coin: CoinType.ethereum)
+        return result
       }
 
-    func buildAndSignBitcoinTransaction(path: String, txData:  [String: String]) -> String? {
-//        val privateKey = wallet.getKey(CoinType.BITCOIN, path)
+    func buildAndSignBitcoinTransaction(path: String, txData:  [String: Any]) -> String? {
+        let privateKey = wallet!.getKey(coin: CoinType.bitcoin, derivationPath: path)
         return "btc"
       }
 }
