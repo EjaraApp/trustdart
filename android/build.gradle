@@ -22,7 +22,7 @@ rootProject.allprojects {
             url = uri("https://maven.pkg.github.com/trustwallet/wallet-core")
             credentials {
                 username = "ej-ssh-user-007"
-                password = "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"
+                password = "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"
             }
         }
     }
