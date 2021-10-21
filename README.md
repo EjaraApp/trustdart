@@ -3,7 +3,7 @@ A dart library that can interact with the trust wallet core library.
 
 ## Install
 
-You can install from here https://pub.dev/packages/trustdart .
+You can install from here https://pub.dev/packages/trustdart.
 
 ## Overview
 
@@ -28,6 +28,14 @@ For every blockchain, there are two groups of operations, those that can be done
 
 #### Refere to the examples folder to see how to use test application
 
+### Roadmap
+
+- Add all the cryptos supported by trustwallet (this initial version only works for Tezos, Ethereum & Bitcoin)
+- For Bitcoin transaction signing hasn't been implemented yet.
+
+### Approach
+
+- This flutter plugin makes use of method channels approach. Learn more about the approach here https://github.com/EjaraApp/trustdart/wiki/Resources.
 
 ### Contribution
 
