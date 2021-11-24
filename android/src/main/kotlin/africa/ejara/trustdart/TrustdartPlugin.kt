@@ -9,11 +9,20 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
+import com.google.protobuf.ByteString
 
 import wallet.core.jni.HDWallet
 import wallet.core.jni.CoinType
 import wallet.core.jni.BitcoinAddress
 import wallet.core.java.AnySigner
+
+import wallet.core.jni.BitcoinScript
+import wallet.core.jni.BitcoinSigHashType
+import wallet.core.jni.proto.Bitcoin
+import wallet.core.jni.proto.Bitcoin.SigningOutput
+import wallet.core.jni.proto.Common.SigningError
+
+import africa.ejara.trustdart.Numeric
 
 /** TrustdartPlugin */
 class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
@@ -28,9 +37,6 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
 
-  private lateinit var wallet: HDWallet
-
-
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "trustdart")
     channel.setMethodCallHandler(this)
@@ -38,48 +44,82 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when(call.method) {
-      "getPlatformVersion" -> {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
-      }
-      "createWallet" -> {
-        wallet = HDWallet(128, "")
+      "generateMnemonic" -> {
+        val passphrase: String = call.arguments()
+        val wallet: HDWallet = HDWallet(128, passphrase)
         result.success(wallet.mnemonic())
       }
-      "importWalletFromMnemonic" -> {
-        val mnmemonic: String = call.arguments()
-        wallet = HDWallet(mnmemonic, "")
-        result.success(true)
-      }
-      "generateAddressForCoin" -> {
-        if (!::wallet.isInitialized) return result.error("empty_wallet", "wallet not initialized", null)
-        val path: String? = call.argument("path")
-        val coin: String? = call.argument("coin")
-        if (path != null && coin != null) {
-          val address: Map<String, String?>? = generateAddressForCoin(path, coin)
-          if (address == null) result.error("address_null", "failed to generate address", null) else result.success(address)
+      "checkMnemonic" -> {
+        val mnemonic: String? = call.argument("mnemonic")
+        val passphrase: String? = call.argument("passphrase")
+        if (mnemonic != null) {
+          HDWallet(mnemonic, passphrase)
+          result.success(true)
         } else {
-          result.error("arguments_null", "[path] and [coin] cannot be null", null)
+          result.error("arguments_null", "[mnemonic] cannot be null", null)
         }
       }
-      "validateAddressForCoin" -> {
+      "generateAddress" -> {
+        val path: String? = call.argument("path")
+        val coin: String? = call.argument("coin")
+        val mnemonic: String? = call.argument("mnemonic")
+        val passphrase: String? = call.argument("passphrase")
+        if (path != null && coin != null && mnemonic != null) {
+          val wallet: HDWallet = HDWallet(mnemonic, passphrase)
+          val address: Map<String, String?>? = generateAddress(wallet, path, coin)
+          if (address == null) result.error("address_null", "failed to generate address", null) else result.success(address)
+        } else {
+          result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
+        }
+      }
+      "validateAddress" -> {
         val address: String? = call.argument("address")
         val coin: String? = call.argument("coin")
         if (address != null && coin != null) {
-          val isValid: Boolean = validateAddressForCoin(coin, address)
+          val isValid: Boolean = validateAddress(coin, address)
           result.success(isValid)
         } else {
           result.error("arguments_null", "$address and $coin cannot be null", null)
         }
       }
-      "buildAndSignTransaction" -> {
+      "signTransaction" -> {
         val coin: String? = call.argument("coin")
         val path: String? = call.argument("path")
-        val txData: Map<String, String>? = call.argument("txData")
-        if (txData != null && coin != null && path != null) {
-          val txHash: String? = buildAndSignTransaction(coin, path, txData)
+        val mnemonic: String? = call.argument("mnemonic")
+        val passphrase: String? = call.argument("passphrase")
+        val txData: Map<String, Any>? = call.argument("txData")
+        if (txData != null && coin != null && path != null && mnemonic != null) {
+          val wallet: HDWallet = HDWallet(mnemonic, passphrase)
+          val txHash: String? = signTransaction(wallet, coin, path, txData)
           if (txHash == null) result.error("txhash_null", "failed to buid and sign transaction", null) else result.success(txHash)
         } else {
-          result.error("arguments_null", "[txData], [coin] and [path] cannot be null", null)
+          result.error("arguments_null", "[txData], [coin] and [path] and [mnemonic] cannot be null", null)
+        }
+      }
+      "getPublicKey" -> {
+        val path: String? = call.argument("path")
+        val coin: String? = call.argument("coin")
+        val mnemonic: String? = call.argument("mnemonic")
+        val passphrase: String? = call.argument("passphrase")
+        if (path != null && coin != null && mnemonic != null) {
+          val wallet: HDWallet = HDWallet(mnemonic, passphrase)
+          val publicKey: String? = getPublicKey(wallet, coin, path)
+          if (publicKey == null) result.error("address_null", "failed to generate address", null) else result.success(publicKey)
+        } else {
+          result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
+        }
+      }
+      "getPrivateKey" -> {
+        val path: String? = call.argument("path")
+        val coin: String? = call.argument("coin")
+        val mnemonic: String? = call.argument("mnemonic")
+        val passphrase: String? = call.argument("passphrase")
+        if (path != null && coin != null && mnemonic != null) {
+          val wallet: HDWallet = HDWallet(mnemonic, passphrase)
+          val privateKey: String? = getPrivateKey(wallet, coin, path)
+          if (privateKey == null) result.error("address_null", "failed to generate address", null) else result.success(privateKey)
+        } else {
+          result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
         }
       }
       else -> result.notImplemented()
@@ -90,7 +130,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun generateAddressForCoin(path: String, coin: String): Map<String, String?>? {
+  private fun generateAddress(wallet: HDWallet, path: String, coin: String): Map<String, String?>? {
     return when(coin) {
       "BTC" -> {
         val privateKey = wallet.getKey(CoinType.BITCOIN, path)
@@ -110,7 +150,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
     }
   }
 
-  private fun validateAddressForCoin(coin: String, address: String): Boolean {
+  private fun validateAddress(coin: String, address: String): Boolean {
     return when(coin) {
       "BTC" -> {
         CoinType.BITCOIN.validate(address)
@@ -125,37 +165,113 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
     }
   }
 
-  private fun buildAndSignTransaction(coin: String, path: String, txData: Map<String, String>): String? {
+  private fun getPublicKey(wallet: HDWallet, coin: String, path: String): String? {
     return when(coin) {
-      "XTZ" -> {
-        buildAndSignTezosTransaction(path, txData)
+      "BTC" -> {
+        val privateKey = wallet.getKey(CoinType.BITCOIN, path)
+        val publicKey = privateKey.getPublicKeySecp256k1(true)
+        Numeric.toHexString(publicKey.data())
       }
       "ETH" -> {
-        buildAndSignEthereumTransaction(path, txData)
+        val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
+        val publicKey = privateKey.getPublicKeySecp256k1(true)
+        Numeric.toHexString(publicKey.data())
       }
-      "BTC" -> {
-        buildAndSignBitcoinTransaction(path, txData)
+      "XTZ" -> {
+        val privateKey = wallet.getKey(CoinType.TEZOS, path)
+        val publicKey = privateKey.getPublicKeyEd25519()
+        Numeric.toHexString(publicKey.data())
       }
       else -> null
     }
   }
 
-  private fun buildAndSignTezosTransaction(path: String, txData: Map<String, String>): String? {
+  private fun getPrivateKey(wallet: HDWallet, coin: String, path: String): String? {
+    return when(coin) {
+      "BTC" -> {
+        val privateKey = wallet.getKey(CoinType.BITCOIN, path)
+        Numeric.toHexString(privateKey.data())
+      }
+      "ETH" -> {
+        val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
+        Numeric.toHexString(privateKey.data())
+      }
+      "XTZ" -> {
+        val privateKey = wallet.getKey(CoinType.TEZOS, path)
+        Numeric.toHexString(privateKey.data())
+      }
+      else -> null
+    }
+  }
+
+  private fun signTransaction(wallet: HDWallet, coin: String, path: String, txData: Map<String, Any>): String? {
+    return when(coin) {
+      "XTZ" -> {
+        signTezosTransaction(wallet, path, txData)
+      }
+      "ETH" -> {
+        signEthereumTransaction(wallet, path, txData)
+      }
+      "BTC" -> {
+        signBitcoinTransaction(wallet, path, txData)
+      }
+      else -> null
+    }
+  }
+
+  private fun signTezosTransaction(wallet: HDWallet, path: String, txData: Map<String, Any>): String? {
     val privateKey = wallet.getKey(CoinType.TEZOS, path)
     val opJson =  JSONObject(txData).toString();
     val result = AnySigner.signJSON(opJson, privateKey.data(), CoinType.TEZOS.value())
     return result
   }
 
-  private fun buildAndSignEthereumTransaction(path: String, txData: Map<String, String>): String? {
+  private fun signEthereumTransaction(wallet: HDWallet, path: String, txData: Map<String, Any>): String? {
     val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
     val opJson =  JSONObject(txData).toString();
     val result = AnySigner.signJSON(opJson, privateKey.data(), CoinType.ETHEREUM.value())
     return result
   }
 
-  private fun buildAndSignBitcoinTransaction(path: String, txData: Map<String, String>): String? {
+  private fun signBitcoinTransaction(wallet: HDWallet, path: String, txData: Map<String, Any>): String? {
     val privateKey = wallet.getKey(CoinType.BITCOIN, path)
-    return null;
+    val utxos: List<Map<String, Any>> = txData["utxos"] as List<Map<String, Any>>
+
+    val input = Bitcoin.SigningInput.newBuilder()
+            .setAmount((txData["amount"] as Int).toLong())
+            .setHashType(BitcoinScript.hashTypeForCoin(CoinType.BITCOIN))
+            .setToAddress(txData["toAddress"] as String)
+            .setChangeAddress(txData["changeAddress"] as String)
+            .setByteFee(1)
+            .addPrivateKey(ByteString.copyFrom(privateKey.data()))
+
+    for (utx in utxos) {
+      val txHash = Numeric.hexStringToByteArray(utx["txid"] as String);
+      txHash.reverse();
+      val outPoint = Bitcoin.OutPoint.newBuilder()
+              .setHash(ByteString.copyFrom(txHash))
+              .setIndex(utx["vout"] as Int)
+              .setSequence(Long.MAX_VALUE.toInt())
+              .build()
+      val txScript = Numeric.hexStringToByteArray(utx["script"] as String);
+      val utxo = Bitcoin.UnspentTransaction.newBuilder()
+              .setAmount((utx["value"] as Int).toLong())
+              .setOutPoint(outPoint)
+              .setScript(ByteString.copyFrom(txScript))
+              .build()
+      input.addUtxo(utxo)
+    }
+
+    var output = AnySigner.sign(input.build(), CoinType.BITCOIN, Bitcoin.SigningOutput.parser())
+    // since we want to set our own fee
+    // but such functionality is not obvious in the trustwalletcore library
+    // a hack is used for now to calculate the byteFee
+    val size = output.encoded.toByteArray().size;
+    val fees =  (txData["fees"] as Int).toLong()
+    val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
+    // now we set new byte size
+    if (byteFee > 1) input.setByteFee(byteFee)
+    output = AnySigner.sign(input.build(), CoinType.BITCOIN, Bitcoin.SigningOutput.parser())
+    return  Numeric.toHexString(output.encoded.toByteArray())
   }
 }
