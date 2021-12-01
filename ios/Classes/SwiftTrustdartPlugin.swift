@@ -10,6 +10,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
   }
   
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+      print(AnySigner.supportsJSON(coin: CoinType.tezos))
     switch call.method {
             case "generateMnemonic":
                 let passphrase: String = call.arguments as! String
@@ -155,6 +156,9 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         case "XTZ":
             let privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path)
             addressMap = ["legacy": CoinType.tezos.deriveAddress(privateKey: privateKey)]
+        case "TRX":
+            let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
+            addressMap = ["legacy": CoinType.tron.deriveAddress(privateKey: privateKey)]
         default:
             addressMap = nil
         }
@@ -171,6 +175,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             isValid = CoinType.ethereum.validate(address: address)
         case "XTZ":
             isValid = CoinType.tezos.validate(address: address)
+        case "TRX":
+            isValid = CoinType.tron.validate(address: address)
         default:
             isValid = false
         }
@@ -190,6 +196,9 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         case "XTZ":
             let privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path)
             publicKey = privateKey.getPublicKeyEd25519().data.hexString
+        case "TRX":
+            let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
+            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.hexString
         default:
             publicKey = nil
         }
@@ -205,6 +214,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             privateKey = wallet.getKey(coin: CoinType.ethereum, derivationPath: path).data.hexString
         case "XTZ":
             privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path).data.hexString
+        case "TRX":
+            privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path).data.hexString
         default:
             privateKey = nil
         }
@@ -220,6 +231,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             txHash = signEthereumTransaction(wallet: wallet, path: path, txData: txData)
         case "XTZ":
             txHash = signTezosTransaction(wallet: wallet, path: path, txData: txData)
+        case "TRX":
+            txHash = signTronTransaction(wallet: wallet, path: path, txData: txData)
         default:
             txHash = nil
         }
@@ -247,6 +260,116 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         let result = AnySigner.signJSON(opJson!, key: privateKey.data, coin: CoinType.ethereum)
         return result
       }
+    
+    func signTronTransaction(wallet: HDWallet, path: String, txData:  [String: Any]) -> String? {
+       let cmd = txData["cmd"] as! String
+        print(txData)
+        var txHash: String?
+        let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
+        switch cmd {
+        case "TRC20":
+                let contract = TronTransferTRC20Contract.with {
+                    $0.ownerAddress = txData["ownerAddress"] as! String
+                    $0.toAddress = txData["toAddress"] as! String
+                    $0.contractAddress = txData["contractAddress"] as! String
+                    $0.amount = Data(hexString: txData["amount"] as! String)!
+                }
+                
+                let input = TronSigningInput.with {
+                    $0.transaction = TronTransaction.with {
+                        $0.transferTrc20Contract = contract
+                        $0.timestamp = txData["timestamp"] as! Int64
+                        $0.blockHeader = TronBlockHeader.with {
+                            $0.timestamp = txData["blockTime"] as! Int64
+                            $0.number = txData["number"] as! Int64
+                            $0.version = txData["version"] as! Int32
+                            $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
+                            $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
+                            $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
+                        }
+                    }
+                    $0.privateKey = privateKey.data
+                }
+                let output: TronSigningOutput = AnySigner.sign(input: input, coin: CoinType.tron)
+                txHash = output.json
+        case "TRC10":
+            let transferAsset = TronTransferAssetContract.with {
+                $0.ownerAddress = txData["ownerAddress"] as! String
+                $0.toAddress = txData["toAddress"] as! String
+                $0.amount = txData["amount"] as! Int64
+                $0.assetName = txData["assetName"] as! String
+            }
+            let input = TronSigningInput.with {
+                $0.transaction = TronTransaction.with {
+                    $0.transferAsset = transferAsset
+                    $0.timestamp = txData["timestamp"] as! Int64
+                    $0.blockHeader = TronBlockHeader.with {
+                        $0.timestamp = txData["blockTime"] as! Int64
+                        $0.number = txData["number"] as! Int64
+                        $0.version = txData["version"] as! Int32
+                        $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
+                        $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
+                        $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
+                    }
+                }
+                $0.privateKey = privateKey.data
+            }
+            let output: TronSigningOutput = AnySigner.sign(input: input, coin: CoinType.tron)
+            txHash = output.json
+        case "TRX":
+            let transfer = TronTransferContract.with {
+                $0.ownerAddress = txData["ownerAddress"] as! String
+                $0.toAddress = txData["toAddress"] as! String
+                $0.amount = txData["amount"] as! Int64
+            }
+            let input = TronSigningInput.with {
+                $0.transaction = TronTransaction.with {
+                    $0.transfer = transfer
+                    $0.timestamp = txData["timestamp"] as! Int64
+                    $0.blockHeader = TronBlockHeader.with {
+                        $0.timestamp = txData["blockTime"] as! Int64
+                        $0.number = txData["number"] as! Int64
+                        $0.version = txData["version"] as! Int32
+                        $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
+                        $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
+                        $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
+                    }
+                }
+                $0.privateKey = privateKey.data
+            }
+            let output: TronSigningOutput = AnySigner.sign(input: input, coin: CoinType.tron)
+            txHash = output.json
+        case "CONTRACT":
+            txHash = ""
+        case "FREEZE":
+            let contract = TronFreezeBalanceContract.with {
+                $0.frozenBalance = txData["frozenBalance"] as! Int64
+                $0.frozenDuration = txData["frozenDuration"] as! Int64
+                $0.ownerAddress = txData["ownerAddress"] as! String
+                $0.resource = txData["resource"] as! String
+            }
+            let input = TronSigningInput.with {
+                $0.transaction = TronTransaction.with {
+                    $0.freezeBalance = contract
+                    $0.timestamp = txData["timestamp"] as! Int64
+                    $0.blockHeader = TronBlockHeader.with {
+                        $0.timestamp = txData["blockTime"] as! Int64
+                        $0.number = txData["number"] as! Int64
+                        $0.version = txData["version"] as! Int32
+                        $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
+                        $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
+                        $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
+                    }
+                }
+                $0.privateKey = privateKey.data
+            }
+            let output: TronSigningOutput = AnySigner.sign(input: input, coin: CoinType.tron)
+            txHash = output.json
+        default:
+            txHash = nil
+        }
+        return txHash
+    }
 
     func signBitcoinTransaction(wallet: HDWallet, path: String, txData:  [String: Any]) -> String? {
         let privateKey = wallet.getKey(coin: CoinType.bitcoin, derivationPath: path)

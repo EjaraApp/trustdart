@@ -78,6 +78,29 @@ class _MyAppState extends State<MyApp> {
     };
   }
 
+  Map _getTronOperation() {
+    return {
+      "cmd": "TRC20", // can be TRC20 | TRX | TRC10 | CONTRACT | FREEZE
+      "ownerAddress": "TYjYrDy7yE9vyJfnF5S3EfPrzfXM3eehri", // from address
+      "toAddress": "TYjYrDy7yE9vyJfnF5S3EfPrzfXM3eehri", // to address
+      "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
+      "timestamp": DateTime.now().millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
+      "amount": "0001", //1000000 hex 2's signed complement for asset TRC20 | integer for any other
+      // reference block data to be obtained by querying the blockchain
+      "blockTime": 1638188733000, // timestamp of block to be included milliseconds
+      "txTrieRoot": "16992401b53a43909f6f31c732f4bacfd9843e2954828480d374cb53ee812aa6", // trie root of block
+      "witnessAddress": "41c05142fd1ca1e03688a43585096866ae658f2cb2", // address of witness that signed block
+      "parentHash": "0000000002239602ffd618d5294dc8021bedc2f965062197dd8cd5812541292b", // parent hash of block
+      "version": 23, // block version
+      "number": 35886595, // block number
+      // freezing
+      "frozenDuration": 3, // frozen duration
+      "frozenBalance": 1000000, // frozen balance
+      "resource": "ENERGY", // Resource type: BANDWIDTH | ENERGY
+      "assetName": "ALLOW_SAME_TOKEN_NAME"
+    };
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -88,36 +111,48 @@ class _MyAppState extends State<MyApp> {
       String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
       bool wallet = await Trustdart.checkMnemonic(dondo);
       print(wallet);
+      // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
       String btcPath = "m/44'/0'/0'/0/0";
       String ethPath = "m/44'/60'/0'/0/0";
       String xtzPath = "m/44'/1729'/0'/0'";
-      String btcPrivKey = await Trustdart.getPrivateKey(mnemonic, 'BTC', btcPath);
-      String ethPrivKey = await Trustdart.getPrivateKey(mnemonic, 'ETH', ethPath);
-      String xtzPrivKey = await Trustdart.getPrivateKey(mnemonic, 'XTZ', xtzPath);
-      print([btcPrivKey, ethPrivKey, xtzPrivKey]);
-      String btcPubKey = await Trustdart.getPublicKey(mnemonic, 'BTC', btcPath);
-      String ethPubKey = await Trustdart.getPublicKey(mnemonic, 'ETH', ethPath);
-      String xtzPubKey = await Trustdart.getPublicKey(mnemonic, 'XTZ', xtzPath);
-      print([btcPubKey, ethPubKey, xtzPubKey]);
-      Map btcAddress = await Trustdart.generateAddress(mnemonic, 'BTC', btcPath);
-      Map ethAddress = await Trustdart.generateAddress(mnemonic, 'ETH', ethPath);
-      Map xtzAddress = await Trustdart.generateAddress(mnemonic, 'XTZ', xtzPath);
-      print([btcAddress, ethAddress, xtzAddress]);
+      String trxPath = "m/44'/195'/0'/0/0";
+
+      String btcPrivKey = await Trustdart.getPrivateKey(dondo, 'BTC', btcPath);
+      String ethPrivKey = await Trustdart.getPrivateKey(dondo, 'ETH', ethPath);
+      String xtzPrivKey = await Trustdart.getPrivateKey(dondo, 'XTZ', xtzPath);
+      String trxPrivKey = await Trustdart.getPrivateKey(dondo, 'TRX', trxPath);
+      print([btcPrivKey, ethPrivKey, xtzPrivKey, trxPrivKey]);
+
+      String btcPubKey = await Trustdart.getPublicKey(dondo, 'BTC', btcPath);
+      String ethPubKey = await Trustdart.getPublicKey(dondo, 'ETH', ethPath);
+      String xtzPubKey = await Trustdart.getPublicKey(dondo, 'XTZ', xtzPath);
+      String trxPubKey = await Trustdart.getPublicKey(dondo, 'TRX', trxPath);
+      print([btcPubKey, ethPubKey, xtzPubKey, trxPubKey]);
+
+      Map btcAddress = await Trustdart.generateAddress(dondo, 'BTC', btcPath);
+      Map ethAddress = await Trustdart.generateAddress(dondo, 'ETH', ethPath);
+      Map xtzAddress = await Trustdart.generateAddress(dondo, 'XTZ', xtzPath);
+      Map trxAddress = await Trustdart.generateAddress(dondo, 'TRX', trxPath);
+      print([btcAddress, ethAddress, xtzAddress, trxAddress]);
+
       bool isBtcLegacyValid = await Trustdart.validateAddress('BTC', btcAddress['legacy']);
       bool isBtcSegWitValid = await Trustdart.validateAddress('BTC', btcAddress['segwit']);
       bool isEthValid = await Trustdart.validateAddress('ETH', ethAddress['legacy']);
       bool isXtzValid = await Trustdart.validateAddress('XTZ', xtzAddress['legacy']);
-      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid]);
+      bool isTrxValid = await Trustdart.validateAddress('TRX', trxAddress['legacy']);
+      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid, isTrxValid]);
+
       bool invalidBTC = await Trustdart.validateAddress('BTC', ethAddress['legacy']);
       bool invalidETH = await Trustdart.validateAddress('ETH', xtzAddress['legacy']);
       bool invalidXTZ = await Trustdart.validateAddress('XTZ', btcAddress['legacy']);
-      print([invalidBTC, invalidETH, invalidXTZ]);
+      bool invalidTRX = await Trustdart.validateAddress('TRX', btcAddress['legacy']);
+      print([invalidBTC, invalidETH, invalidXTZ, invalidTRX]);
 
-      String xtzTx = await Trustdart.signTransaction(mnemonic, 'XTZ', xtzPath, _getTezosOperation());
-      String ethTx = await Trustdart.signTransaction(mnemonic, 'ETH', ethPath, _getEthereumOperation());
+      String xtzTx = await Trustdart.signTransaction(dondo, 'XTZ', xtzPath, _getTezosOperation());
+      String ethTx = await Trustdart.signTransaction(dondo, 'ETH', ethPath, _getEthereumOperation());
       String btcTx = await Trustdart.signTransaction(dondo, 'BTC', btcPath, _getBitcoinSendOperation());
-      print([xtzTx, ethTx]);
-      print([btcTx]);
+      String trxTx = await Trustdart.signTransaction(dondo, 'TRX', trxPath, _getTronOperation());
+      print([xtzTx, ethTx, trxTx, btcTx]);
     } catch (e) {
       print(e);
     }
