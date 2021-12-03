@@ -277,6 +277,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 
                 let input = TronSigningInput.with {
                     $0.transaction = TronTransaction.with {
+                        $0.feeLimit = txData["feeLimit"] as! Int64
                         $0.transferTrc20Contract = contract
                         $0.timestamp = txData["timestamp"] as! Int64
                         $0.blockHeader = TronBlockHeader.with {

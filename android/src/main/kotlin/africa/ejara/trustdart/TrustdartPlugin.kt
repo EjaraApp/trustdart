@@ -264,7 +264,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
                 .setTimestamp(txData["timestamp"] as Long)
                 .setTransferTrc20Contract(trc20Contract)
                 .setBlockHeader(blockHeader)
-                .setFeeLimit(10_000_000)
+                .setFeeLimit((txData["feeLimit"] as Int).toLong())
                 .build()
 
         val signingInput = Tron.SigningInput.newBuilder()

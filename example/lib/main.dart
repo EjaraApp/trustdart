@@ -85,10 +85,10 @@ class _MyAppState extends State<MyApp> {
       "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
       "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
       "timestamp": DateTime.now().millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
-      "amount": "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
+      "amount": "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
       // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
       // for asset TRC20 | integer for any other in SUN, 1000000 SUN = 1 TRX
-
+      "feeLimit": 10000000,
       // reference block data to be obtained by querying the blockchain
       "blockTime": 1638519600000, // timestamp of block to be included milliseconds
       "txTrieRoot": "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304", // trie root of block
