@@ -18,3 +18,8 @@ Github Access Tokens Added from Dummy user
 ### 0.0.5
 
 Added instructions for setting up github access tokens since dummy access token did not work. Github deletes access tokens committed to github.
+
+
+### 0.0.6
+
+Added support for TRON TOKENS, TRX, TRC10, TRC20 and Asset Freezing.
