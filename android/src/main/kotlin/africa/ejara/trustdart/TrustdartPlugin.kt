@@ -151,6 +151,10 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val privateKey = wallet.getKey(CoinType.TRON, path)
         mapOf("legacy" to CoinType.TRON.deriveAddress(privateKey))
       }
+      "SOL" -> {
+        val privateKey = wallet.getKey(CoinType.SOLANA, path)
+        mapOf("legacy" to CoinType.SOLANA.deriveAddress(privateKey))
+      }
       else -> null
     }
   }
@@ -168,6 +172,9 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       }
       "TRX" -> {
         CoinType.TRON.validate(address)
+      }
+      "SOL" -> {
+        CoinType.SOL.validate(address)
       }
       else -> false
     }
@@ -191,6 +198,11 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         Numeric.toHexString(publicKey.data())
       }
       "TRX" -> {
+        val privateKey = wallet.getKey(CoinType.TRON, path)
+        val publicKey = privateKey.getPublicKeySecp256k1(true)
+        Numeric.toHexString(publicKey.data())
+      }
+      "SOL" -> {
         val privateKey = wallet.getKey(CoinType.TRON, path)
         val publicKey = privateKey.getPublicKeyEd25519()
         Numeric.toHexString(publicKey.data())
@@ -217,6 +229,10 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val privateKey = wallet.getKey(CoinType.TRON, path)
         Numeric.toHexString(privateKey.data())
       }
+      "SOL" -> {
+        val privateKey = wallet.getKey(CoinType.SOLANA, path)
+        Numeric.toHexString(privateKey.data())
+      }
       else -> null
     }
   }
@@ -234,6 +250,9 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       }
       "TRX" -> {
         signTronTransaction(wallet, path, txData)
+      }
+      "SOL" -> {
+        signSolanaTransaction(wallet, path, txData)
       }
       else -> null
     }
@@ -379,6 +398,13 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
     val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
     val opJson =  JSONObject(txData).toString();
     val result = AnySigner.signJSON(opJson, privateKey.data(), CoinType.ETHEREUM.value())
+    return result
+  }
+
+  private fun signSolanaTransaction(wallet: HDWallet, path: String, txData: Map<String, Any>): String? {
+    val privateKey = wallet.getKey(CoinType.SOLANA, path)
+    val opJson =  JSONObject(txData).toString();
+    val result = AnySigner.signJSON(opJson, privateKey.data(), CoinType.SOLANA.value())
     return result
   }
 

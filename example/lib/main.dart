@@ -104,6 +104,13 @@ class _MyAppState extends State<MyApp> {
     };
   }
 
+  Map _getSolOperation() {
+    return {
+      "recentBlockhash": "C6oRG8fykBeM7sL5eYyqRSZp9m2QdkGHQqtE8nTszURZ",
+      "transferTransaction": {"recipient": "CiFADrjcd1acfVqg7hU1jpbNsdNkiUAexY9mRutsQUoR", "value": "250000"}
+    };
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -119,44 +126,51 @@ class _MyAppState extends State<MyApp> {
       String ethPath = "m/44'/60'/0'/0/0";
       String xtzPath = "m/44'/1729'/0'/0'";
       String trxPath = "m/44'/195'/0'/0/0";
+      String solPath = "m/44'/501'/0'/0/0";
 
       String btcPrivKey = await Trustdart.getPrivateKey(dondo, 'BTC', btcPath);
       String ethPrivKey = await Trustdart.getPrivateKey(dondo, 'ETH', ethPath);
       String xtzPrivKey = await Trustdart.getPrivateKey(dondo, 'XTZ', xtzPath);
       String trxPrivKey = await Trustdart.getPrivateKey(dondo, 'TRX', trxPath);
-      print([btcPrivKey, ethPrivKey, xtzPrivKey, trxPrivKey]);
+      String solPrivKey = await Trustdart.getPrivateKey(dondo, 'SOL', solPath);
+      print([btcPrivKey, ethPrivKey, xtzPrivKey, trxPrivKey, solPrivKey]);
 
       String btcPubKey = await Trustdart.getPublicKey(dondo, 'BTC', btcPath);
       String ethPubKey = await Trustdart.getPublicKey(dondo, 'ETH', ethPath);
       String xtzPubKey = await Trustdart.getPublicKey(dondo, 'XTZ', xtzPath);
       String trxPubKey = await Trustdart.getPublicKey(dondo, 'TRX', trxPath);
-      print([btcPubKey, ethPubKey, xtzPubKey, trxPubKey]);
+      String solPubKey = await Trustdart.getPublicKey(dondo, 'SOL', solPath);
+      print([btcPubKey, ethPubKey, xtzPubKey, trxPubKey, solPubKey]);
 
       Map btcAddress = await Trustdart.generateAddress(dondo, 'BTC', btcPath);
       Map ethAddress = await Trustdart.generateAddress(dondo, 'ETH', ethPath);
       Map xtzAddress = await Trustdart.generateAddress(dondo, 'XTZ', xtzPath);
       Map trxAddress = await Trustdart.generateAddress(dondo, 'TRX', trxPath);
-      print([btcAddress, ethAddress, xtzAddress, trxAddress]);
+      Map solAddress = await Trustdart.generateAddress(dondo, 'SOL', solPath);
+      print([btcAddress, ethAddress, xtzAddress, trxAddress, solAddress]);
 
       bool isBtcLegacyValid = await Trustdart.validateAddress('BTC', btcAddress['legacy']);
       bool isBtcSegWitValid = await Trustdart.validateAddress('BTC', btcAddress['segwit']);
       bool isEthValid = await Trustdart.validateAddress('ETH', ethAddress['legacy']);
       bool isXtzValid = await Trustdart.validateAddress('XTZ', xtzAddress['legacy']);
       bool isTrxValid = await Trustdart.validateAddress('TRX', trxAddress['legacy']);
-      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid, isTrxValid]);
+      bool isSolValid = await Trustdart.validateAddress('SOL', solAddress['legacy']);
+      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid, isTrxValid, isSolValid]);
 
       bool invalidBTC = await Trustdart.validateAddress('BTC', ethAddress['legacy']);
       bool invalidETH = await Trustdart.validateAddress('ETH', xtzAddress['legacy']);
       bool invalidXTZ = await Trustdart.validateAddress('XTZ', btcAddress['legacy']);
       bool invalidTRX = await Trustdart.validateAddress('TRX', btcAddress['legacy']);
-      print([invalidBTC, invalidETH, invalidXTZ, invalidTRX]);
+      bool invalidSOL = await Trustdart.validateAddress('SOL', btcAddress['legacy']);
+      print([invalidBTC, invalidETH, invalidXTZ, invalidTRX, invalidSOL]);
 
       String xtzTx = await Trustdart.signTransaction(dondo, 'XTZ', xtzPath, _getTezosOperation());
       String ethTx = await Trustdart.signTransaction(dondo, 'ETH', ethPath, _getEthereumOperation());
       String btcTx = await Trustdart.signTransaction(dondo, 'BTC', btcPath, _getBitcoinSendOperation());
       String trxTx = await Trustdart.signTransaction(dondo, 'TRX', trxPath, _getTronOperation());
-      print([xtzTx, ethTx, trxTx, btcTx]);
-      print(trxTx);
+      String solTx = await Trustdart.signTransaction(dondo, 'SOL', solPath, _getSolOperation());
+      print([xtzTx, ethTx, trxTx, btcTx, solTx]);
+      print(solTx);
     } catch (e) {
       print(e);
     }

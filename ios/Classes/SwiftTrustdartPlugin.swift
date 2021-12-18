@@ -159,6 +159,9 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         case "TRX":
             let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
             addressMap = ["legacy": CoinType.tron.deriveAddress(privateKey: privateKey)]
+        case "SOL":
+            let privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path)
+            addressMap = ["legacy": CoinType.solana.deriveAddress(privateKey: privateKey)]
         default:
             addressMap = nil
         }
@@ -177,6 +180,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             isValid = CoinType.tezos.validate(address: address)
         case "TRX":
             isValid = CoinType.tron.validate(address: address)
+        case "SOL":
+            isValid = CoinType.solana.validate(address: address)
         default:
             isValid = false
         }
@@ -199,6 +204,9 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         case "TRX":
             let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
             publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.hexString
+        case "SOL":
+            let privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path)
+            publicKey = privateKey.getPublicKeyEd25519().data.hexString
         default:
             publicKey = nil
         }
@@ -216,6 +224,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path).data.hexString
         case "TRX":
             privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path).data.hexString
+        case "SOL":
+            privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path).data.hexString
         default:
             privateKey = nil
         }
@@ -233,6 +243,8 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             txHash = signTezosTransaction(wallet: wallet, path: path, txData: txData)
         case "TRX":
             txHash = signTronTransaction(wallet: wallet, path: path, txData: txData)
+        case "SOL":
+            txHash = signSolanaTransaction(wallet: wallet, path: path, txData: txData)
         default:
             txHash = nil
         }
@@ -258,6 +270,13 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         let privateKey = wallet.getKey(coin: CoinType.ethereum, derivationPath: path)
         let opJson =  objToJson(from:txData)
         let result = AnySigner.signJSON(opJson!, key: privateKey.data, coin: CoinType.ethereum)
+        return result
+      }
+    
+    func signSolanaTransaction(wallet: HDWallet, path: String, txData:  [String: Any]) -> String? {
+        let privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path)
+        let opJson =  objToJson(from:txData)
+        let result = AnySigner.signJSON(opJson!, key: privateKey.data, coin: CoinType.solana)
         return result
       }
     
