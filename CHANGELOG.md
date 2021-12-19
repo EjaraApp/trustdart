@@ -23,3 +23,8 @@ Added instructions for setting up github access tokens since dummy access token 
 ### 0.0.6
 
 Added support for TRON TOKENS, TRX, TRC10, TRC20 and Asset Freezing.
+
+
+### 0.0.7
+
+Added support for Solana, transfere and receive SOL as well as any token on Solana.

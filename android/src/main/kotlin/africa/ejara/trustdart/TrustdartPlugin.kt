@@ -174,7 +174,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         CoinType.TRON.validate(address)
       }
       "SOL" -> {
-        CoinType.SOL.validate(address)
+        CoinType.SOLANA.validate(address)
       }
       else -> false
     }
@@ -203,7 +203,7 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         Numeric.toHexString(publicKey.data())
       }
       "SOL" -> {
-        val privateKey = wallet.getKey(CoinType.TRON, path)
+        val privateKey = wallet.getKey(CoinType.SOLANA, path)
         val publicKey = privateKey.getPublicKeyEd25519()
         Numeric.toHexString(publicKey.data())
       }
