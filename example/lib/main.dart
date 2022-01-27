@@ -18,6 +18,8 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
+//f33e86906e93690567a58af681ceabf10fe64bb9b441fe847fd5629d6f262973
+
   Map _getTezosOperation() {
     return {
       "operationList": {
@@ -30,7 +32,9 @@ class _MyAppState extends State<MyApp> {
             "gasLimit": 10100,
             "storageLimit": 257,
             "kind": 107,
-            "revealOperationData": {"publicKey": "QpqYbIBypAofOj4qtaWBm7Gy+2mZPFAEg3gVudxVkj4="}
+            "revealOperationData": {
+              "publicKey": "8z6GkG6TaQVnpYr2gc6r8Q/mS7m0Qf6Ef9VinW8mKXM="
+            }
           },
           {
             "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
@@ -39,7 +43,10 @@ class _MyAppState extends State<MyApp> {
             "gasLimit": 10100,
             "storageLimit": 257,
             "kind": 108,
-            "transactionOperationData": {"destination": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW", "amount": 1}
+            "transactionOperationData": {
+              "destination": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+              "amount": 1
+            }
           }
         ]
       }
@@ -64,7 +71,8 @@ class _MyAppState extends State<MyApp> {
     return {
       "utxos": [
         {
-          "txid": "fce42021fd2d2fa793dc3d5d6520fc853e327e5c2c638c3a0be7529c559d3536",
+          "txid":
+              "fce42021fd2d2fa793dc3d5d6520fc853e327e5c2c638c3a0be7529c559d3536",
           "vout": 1,
           "value": 4500,
           "script": "001434977ae25a9298fac1feef0b1a52be058ab13751",
@@ -83,17 +91,24 @@ class _MyAppState extends State<MyApp> {
       "cmd": "TRC20", // can be TRC20 | TRX | TRC10 | CONTRACT | FREEZE
       "ownerAddress": "TYjYrDy7yE9vyJfnF5S3EfPrzfXM3eehri", // from address
       "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
-      "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
-      "timestamp": DateTime.now().millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
-      "amount": "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
+      "contractAddress":
+          "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
+      "timestamp": DateTime.now()
+          .millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
+      "amount":
+          "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
       // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
       // for asset TRC20 | integer for any other in SUN, 1000000 SUN = 1 TRX
       "feeLimit": 10000000,
       // reference block data to be obtained by querying the blockchain
-      "blockTime": 1638519600000, // timestamp of block to be included milliseconds
-      "txTrieRoot": "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304", // trie root of block
-      "witnessAddress": "41e5e572797a3d479030e2596a239bd142a890a305", // address of witness that signed block
-      "parentHash": "0000000002254183f6d15ba4115b3a5e8a8359adc663f7e6f02fa2bd51c07055", // parent hash of block
+      "blockTime":
+          1638519600000, // timestamp of block to be included milliseconds
+      "txTrieRoot":
+          "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304", // trie root of block
+      "witnessAddress":
+          "41e5e572797a3d479030e2596a239bd142a890a305", // address of witness that signed block
+      "parentHash":
+          "0000000002254183f6d15ba4115b3a5e8a8359adc663f7e6f02fa2bd51c07055", // parent hash of block
       "version": 23, // block version
       "number": 35996036, // block number
       // freezing
@@ -128,7 +143,8 @@ class _MyAppState extends State<MyApp> {
     try {
       String mnemonic = await Trustdart.generateMnemonic();
       print('Here is our mnemonic: \n$mnemonic');
-      String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+      String dondo =
+          "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
       bool wallet = await Trustdart.checkMnemonic(dondo);
       print(wallet);
       // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
@@ -159,26 +175,49 @@ class _MyAppState extends State<MyApp> {
       Map solAddress = await Trustdart.generateAddress(dondo, 'SOL', solPath);
       print([btcAddress, ethAddress, xtzAddress, trxAddress, solAddress]);
 
-      bool isBtcLegacyValid = await Trustdart.validateAddress('BTC', btcAddress['legacy']);
-      bool isBtcSegWitValid = await Trustdart.validateAddress('BTC', btcAddress['segwit']);
-      bool isEthValid = await Trustdart.validateAddress('ETH', ethAddress['legacy']);
-      bool isXtzValid = await Trustdart.validateAddress('XTZ', xtzAddress['legacy']);
-      bool isTrxValid = await Trustdart.validateAddress('TRX', trxAddress['legacy']);
-      bool isSolValid = await Trustdart.validateAddress('SOL', solAddress['legacy']);
-      print([isBtcLegacyValid, isBtcSegWitValid, isEthValid, isXtzValid, isTrxValid, isSolValid]);
+      bool isBtcLegacyValid =
+          await Trustdart.validateAddress('BTC', btcAddress['legacy']);
+      bool isBtcSegWitValid =
+          await Trustdart.validateAddress('BTC', btcAddress['segwit']);
+      bool isEthValid =
+          await Trustdart.validateAddress('ETH', ethAddress['legacy']);
+      bool isXtzValid =
+          await Trustdart.validateAddress('XTZ', xtzAddress['legacy']);
+      bool isTrxValid =
+          await Trustdart.validateAddress('TRX', trxAddress['legacy']);
+      bool isSolValid =
+          await Trustdart.validateAddress('SOL', solAddress['legacy']);
+      print([
+        isBtcLegacyValid,
+        isBtcSegWitValid,
+        isEthValid,
+        isXtzValid,
+        isTrxValid,
+        isSolValid
+      ]);
 
-      bool invalidBTC = await Trustdart.validateAddress('BTC', ethAddress['legacy']);
-      bool invalidETH = await Trustdart.validateAddress('ETH', xtzAddress['legacy']);
-      bool invalidXTZ = await Trustdart.validateAddress('XTZ', btcAddress['legacy']);
-      bool invalidTRX = await Trustdart.validateAddress('TRX', btcAddress['legacy']);
-      bool invalidSOL = await Trustdart.validateAddress('SOL', btcAddress['legacy']);
+      bool invalidBTC =
+          await Trustdart.validateAddress('BTC', ethAddress['legacy']);
+      bool invalidETH =
+          await Trustdart.validateAddress('ETH', xtzAddress['legacy']);
+      bool invalidXTZ =
+          await Trustdart.validateAddress('XTZ', btcAddress['legacy']);
+      bool invalidTRX =
+          await Trustdart.validateAddress('TRX', btcAddress['legacy']);
+      bool invalidSOL =
+          await Trustdart.validateAddress('SOL', btcAddress['legacy']);
       print([invalidBTC, invalidETH, invalidXTZ, invalidTRX, invalidSOL]);
 
-      String xtzTx = await Trustdart.signTransaction(dondo, 'XTZ', xtzPath, _getTezosOperation());
-      String ethTx = await Trustdart.signTransaction(dondo, 'ETH', ethPath, _getEthereumOperation());
-      String btcTx = await Trustdart.signTransaction(dondo, 'BTC', btcPath, _getBitcoinSendOperation());
-      String trxTx = await Trustdart.signTransaction(dondo, 'TRX', trxPath, _getTronOperation());
-      String solTx = await Trustdart.signTransaction(dondo, 'SOL', solPath, _getSolOperation());
+      String xtzTx = await Trustdart.signTransaction(
+          dondo, 'XTZ', xtzPath, _getTezosOperation());
+      String ethTx = await Trustdart.signTransaction(
+          dondo, 'ETH', ethPath, _getEthereumOperation());
+      String btcTx = await Trustdart.signTransaction(
+          dondo, 'BTC', btcPath, _getBitcoinSendOperation());
+      String trxTx = await Trustdart.signTransaction(
+          dondo, 'TRX', trxPath, _getTronOperation());
+      String solTx = await Trustdart.signTransaction(
+          dondo, 'SOL', solPath, _getSolOperation());
       print([xtzTx, ethTx, trxTx, btcTx, solTx]);
       print(solTx);
     } catch (e) {

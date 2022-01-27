@@ -132,7 +132,6 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                                         message: "[path] and [coin] and [mnemonic] cannot be null",
                                         details: nil))
                 }
-
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -194,19 +193,19 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         switch coin {
         case "BTC":
             let privateKey = wallet.getKey(coin: CoinType.bitcoin, derivationPath: path)
-            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.hexString
+            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.base64EncodedString()
         case "ETH":
             let privateKey = wallet.getKey(coin: CoinType.ethereum, derivationPath: path)
-            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.hexString
+            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.base64EncodedString()
         case "XTZ":
             let privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path)
-            publicKey = privateKey.getPublicKeyEd25519().data.hexString
+            publicKey = privateKey.getPublicKeyEd25519().data.base64EncodedString()
         case "TRX":
             let privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path)
-            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.hexString
+            publicKey = privateKey.getPublicKeySecp256k1(compressed: true).data.base64EncodedString()
         case "SOL":
             let privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path)
-            publicKey = privateKey.getPublicKeyEd25519().data.hexString
+            publicKey = privateKey.getPublicKeyEd25519().data.base64EncodedString()
         default:
             publicKey = nil
         }
@@ -217,15 +216,15 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         var privateKey: String?
         switch coin {
         case "BTC":
-            privateKey = wallet.getKey(coin: CoinType.bitcoin, derivationPath: path).data.hexString
+            privateKey = wallet.getKey(coin: CoinType.bitcoin, derivationPath: path).data.base64EncodedString()
         case "ETH":
-            privateKey = wallet.getKey(coin: CoinType.ethereum, derivationPath: path).data.hexString
+            privateKey = wallet.getKey(coin: CoinType.ethereum, derivationPath: path).data.base64EncodedString()
         case "XTZ":
-            privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path).data.hexString
+            privateKey = wallet.getKey(coin: CoinType.tezos, derivationPath: path).data.base64EncodedString()
         case "TRX":
-            privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path).data.hexString
+            privateKey = wallet.getKey(coin: CoinType.tron, derivationPath: path).data.base64EncodedString()
         case "SOL":
-            privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path).data.hexString
+            privateKey = wallet.getKey(coin: CoinType.solana, derivationPath: path).data.base64EncodedString()
         default:
             privateKey = nil
         }
