@@ -10,6 +10,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 import com.google.protobuf.ByteString
+import java.util.Base64
 
 import wallet.core.jni.HDWallet
 import wallet.core.jni.CoinType
@@ -185,27 +186,27 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       "BTC" -> {
         val privateKey = wallet.getKey(CoinType.BITCOIN, path)
         val publicKey = privateKey.getPublicKeySecp256k1(true)
-        Numeric.toHexString(publicKey.data())
+        Base64.getEncoder().encodeToString(publicKey.data())
       }
       "ETH" -> {
         val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
         val publicKey = privateKey.getPublicKeySecp256k1(true)
-        Numeric.toHexString(publicKey.data())
+        Base64.getEncoder().encodeToString(publicKey.data())
       }
       "XTZ" -> {
         val privateKey = wallet.getKey(CoinType.TEZOS, path)
         val publicKey = privateKey.getPublicKeyEd25519()
-        Numeric.toHexString(publicKey.data())
+        Base64.getEncoder().encodeToString(publicKey.data())
       }
       "TRX" -> {
         val privateKey = wallet.getKey(CoinType.TRON, path)
         val publicKey = privateKey.getPublicKeySecp256k1(true)
-        Numeric.toHexString(publicKey.data())
+        Base64.getEncoder().encodeToString(publicKey.data())
       }
       "SOL" -> {
         val privateKey = wallet.getKey(CoinType.SOLANA, path)
         val publicKey = privateKey.getPublicKeyEd25519()
-        Numeric.toHexString(publicKey.data())
+        Base64.getEncoder().encodeToString(publicKey.data())
       }
       else -> null
     }
@@ -214,24 +215,25 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
   private fun getPrivateKey(wallet: HDWallet, coin: String, path: String): String? {
     return when(coin) {
       "BTC" -> {
+
         val privateKey = wallet.getKey(CoinType.BITCOIN, path)
-        Numeric.toHexString(privateKey.data())
+        Base64.getEncoder().encodeToString(privateKey.data())
       }
       "ETH" -> {
         val privateKey = wallet.getKey(CoinType.ETHEREUM, path)
-        Numeric.toHexString(privateKey.data())
+        Base64.getEncoder().encodeToString(privateKey.data())
       }
       "XTZ" -> {
         val privateKey = wallet.getKey(CoinType.TEZOS, path)
-        Numeric.toHexString(privateKey.data())
+        Base64.getEncoder().encodeToString(privateKey.data())
       }
       "TRX" -> {
         val privateKey = wallet.getKey(CoinType.TRON, path)
-        Numeric.toHexString(privateKey.data())
+        Base64.getEncoder().encodeToString(privateKey.data())
       }
       "SOL" -> {
         val privateKey = wallet.getKey(CoinType.SOLANA, path)
-        Numeric.toHexString(privateKey.data())
+        Base64.getEncoder().encodeToString(privateKey.data())
       }
       else -> null
     }

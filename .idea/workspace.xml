@@ -27,14 +27,15 @@
   <component name="ChangeListManager">
     <list default="true" id="82a5fe71-ba34-4016-bf2b-a4a4222a787d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftTrustdartPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftTrustdartPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/trustdart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/trustdart.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/baahkusi/.android/avd/Pixel_5_API_S.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/baahkusi/.android/avd/Pixel_3_XL_API_S.avd]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>

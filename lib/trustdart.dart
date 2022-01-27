@@ -22,7 +22,7 @@ class Trustdart {
     });
     return importStatus;
   }
-
+/// generates an address for a particular coin
   static Future<Map> generateAddress(String mnemonic, String coin, String path, [String passphrase = ""]) async {
     final Map address = await _channel.invokeMethod('generateAddress', <String, String>{
       'coin': coin,
@@ -32,7 +32,7 @@ class Trustdart {
     });
     return address;
   }
-
+/// validates address belonging to a particular crypto
   static Future<bool> validateAddress(String coin, String address) async {
     final bool isAddressValid = await _channel.invokeMethod('validateAddress', <String, String>{
       'coin': coin,
@@ -63,7 +63,7 @@ class Trustdart {
     return privateKey;
   }
 
-  ///
+  ///signs a transaction
   static Future<String> signTransaction(String mnemonic, String coin, String path, Map txData,
       [String passphrase = ""]) async {
     final String txHash = await _channel.invokeMethod('signTransaction', <String, dynamic>{
