@@ -28,3 +28,7 @@ Added support for TRON TOKENS, TRX, TRC10, TRC20 and Asset Freezing.
 ### 0.0.7
 
 Added support for Solana, transfere and receive SOL as well as any token on Solana.
+
+### 0.0.8
+
+Changed return of getPrivateKey, getPublicKey to base64 encoding
