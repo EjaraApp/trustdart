@@ -27,8 +27,15 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let mnemonic: String? = args["mnemonic"]
                 let passphrase: String? = args["passphrase"]
                 if mnemonic != nil {
-                    HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-                    result(true)
+                    let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
+                    
+                    if wallet != nil {
+                        result(true)
+                    } else {
+                        result(FlutterError(code: "no_wallet",
+                                            message: "Could not generate wallet, why?",
+                                            details: nil))
+                    }
                 } else {
                     result(FlutterError(code: "arguments_null",
                                         message: "[mnemonic] cannot be null",
@@ -43,13 +50,19 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let passphrase: String? = args["passphrase"]
                 if path != nil && coin != nil && mnemonic != nil {
                     let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-                    let address: [String: String]? = generateAddress(wallet: wallet!, path: path!, coin: coin!)
-                    if address == nil {
-                        result(FlutterError(code: "address_null",
-                                            message: "Failed to generate address",
-                                            details: nil))
+                    if wallet != nil {
+                        let address: [String: String]? = generateAddress(wallet: wallet!, path: path!, coin: coin!)
+                        if address == nil {
+                            result(FlutterError(code: "address_null",
+                                                message: "Failed to generate address",
+                                                details: nil))
+                        } else {
+                            result(address)
+                        }
                     } else {
-                        result(address)
+                        result(FlutterError(code: "no_wallet",
+                                            message: "Could not generate wallet, why?",
+                                            details: nil))
                     }
                 } else {
                     result(FlutterError(code: "arguments_null",
@@ -77,13 +90,20 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let passphrase: String? = args["passphrase"] as? String
                 if coin != nil && path != nil && txData != nil && mnemonic != nil {
                     let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-                    let txHash: String? = signTransaction(wallet: wallet!, coin: coin!, path: path!, txData: txData!)
-                    if txHash == nil {
-                        result(FlutterError(code: "txhash_null",
-                                            message: "Failed to buid and sign transaction",
-                                            details: nil))
+                    
+                    if wallet != nil {
+                        let txHash: String? = signTransaction(wallet: wallet!, coin: coin!, path: path!, txData: txData!)
+                        if txHash == nil {
+                            result(FlutterError(code: "txhash_null",
+                                                message: "Failed to buid and sign transaction",
+                                                details: nil))
+                        } else {
+                            result(txHash)
+                        }
                     } else {
-                        result(txHash)
+                        result(FlutterError(code: "no_wallet",
+                                            message: "Could not generate wallet, why?",
+                                            details: nil))
                     }
                 } else {
                     result(FlutterError(code: "arguments_null",
@@ -98,13 +118,20 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let passphrase: String? = args["passphrase"]
                 if path != nil && coin != nil && mnemonic != nil {
                     let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-                    let publicKey: String? = getPublicKey(wallet: wallet!, path: path!, coin: coin!)
-                    if publicKey == nil {
-                        result(FlutterError(code: "address_null",
-                                            message: "Failed to generate address",
-                                            details: nil))
+                    
+                    if wallet != nil {
+                        let publicKey: String? = getPublicKey(wallet: wallet!, path: path!, coin: coin!)
+                        if publicKey == nil {
+                            result(FlutterError(code: "address_null",
+                                                message: "Failed to generate address",
+                                                details: nil))
+                        } else {
+                            result(publicKey)
+                        }
                     } else {
-                        result(publicKey)
+                        result(FlutterError(code: "no_wallet",
+                                            message: "Could not generate wallet, why?",
+                                            details: nil))
                     }
                 } else {
                     result(FlutterError(code: "arguments_null",
@@ -119,13 +146,20 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let passphrase: String? = args["passphrase"]
                 if path != nil && coin != nil && mnemonic != nil {
                     let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-                    let privateKey: String? = getPrivateKey(wallet: wallet!, path: path!, coin: coin!)
-                    if privateKey == nil {
-                        result(FlutterError(code: "address_null",
-                                            message: "Failed to generate address",
-                                            details: nil))
+                    
+                    if wallet != nil {
+                        let privateKey: String? = getPrivateKey(wallet: wallet!, path: path!, coin: coin!)
+                        if privateKey == nil {
+                            result(FlutterError(code: "address_null",
+                                                message: "Failed to generate address",
+                                                details: nil))
+                        } else {
+                            result(privateKey)
+                        }
                     } else {
-                        result(privateKey)
+                        result(FlutterError(code: "no_wallet",
+                                            message: "Could not generate wallet, why?",
+                                            details: nil))
                     }
                 } else {
                     result(FlutterError(code: "arguments_null",

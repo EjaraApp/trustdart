@@ -49,14 +49,26 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
       "generateMnemonic" -> {
         val passphrase: String = call.arguments()
         val wallet: HDWallet = HDWallet(128, passphrase)
-        result.success(wallet.mnemonic())
+
+        if (wallet != null) {
+          result.success(wallet.mnemonic())
+        } else {
+          result.error("no_wallet",
+                  "Could not generate wallet, why?", null)
+        }
       }
       "checkMnemonic" -> {
         val mnemonic: String? = call.argument("mnemonic")
         val passphrase: String? = call.argument("passphrase")
         if (mnemonic != null) {
-          HDWallet(mnemonic, passphrase)
-          result.success(true)
+          val wallet: HDWallet = HDWallet(mnemonic, passphrase)
+
+          if (wallet != null) {
+            result.success(true)
+          } else {
+            result.error("no_wallet",
+                    "Could not generate wallet, why?", null)
+          }
         } else {
           result.error("arguments_null", "[mnemonic] cannot be null", null)
         }
@@ -68,8 +80,14 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val passphrase: String? = call.argument("passphrase")
         if (path != null && coin != null && mnemonic != null) {
           val wallet: HDWallet = HDWallet(mnemonic, passphrase)
-          val address: Map<String, String?>? = generateAddress(wallet, path, coin)
-          if (address == null) result.error("address_null", "failed to generate address", null) else result.success(address)
+
+          if (wallet != null) {
+            val address: Map<String, String?>? = generateAddress(wallet, path, coin)
+            if (address == null) result.error("address_null", "failed to generate address", null) else result.success(address)
+          } else {
+            result.error("no_wallet",
+                    "Could not generate wallet, why?", null)
+          }
         } else {
           result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
         }
@@ -92,8 +110,14 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val txData: Map<String, Any>? = call.argument("txData")
         if (txData != null && coin != null && path != null && mnemonic != null) {
           val wallet: HDWallet = HDWallet(mnemonic, passphrase)
-          val txHash: String? = signTransaction(wallet, coin, path, txData)
-          if (txHash == null) result.error("txhash_null", "failed to buid and sign transaction", null) else result.success(txHash)
+
+          if (wallet != null) {
+            val txHash: String? = signTransaction(wallet, coin, path, txData)
+            if (txHash == null) result.error("txhash_null", "failed to buid and sign transaction", null) else result.success(txHash)
+          } else {
+            result.error("no_wallet",
+                    "Could not generate wallet, why?", null)
+          }
         } else {
           result.error("arguments_null", "[txData], [coin] and [path] and [mnemonic] cannot be null", null)
         }
@@ -105,8 +129,14 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val passphrase: String? = call.argument("passphrase")
         if (path != null && coin != null && mnemonic != null) {
           val wallet: HDWallet = HDWallet(mnemonic, passphrase)
-          val publicKey: String? = getPublicKey(wallet, coin, path)
-          if (publicKey == null) result.error("address_null", "failed to generate address", null) else result.success(publicKey)
+
+          if (wallet != null) {
+            val publicKey: String? = getPublicKey(wallet, coin, path)
+            if (publicKey == null) result.error("address_null", "failed to generate address", null) else result.success(publicKey)
+          } else {
+            result.error("no_wallet",
+                    "Could not generate wallet, why?", null)
+          }
         } else {
           result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
         }
@@ -118,8 +148,14 @@ class TrustdartPlugin: FlutterPlugin, MethodCallHandler {
         val passphrase: String? = call.argument("passphrase")
         if (path != null && coin != null && mnemonic != null) {
           val wallet: HDWallet = HDWallet(mnemonic, passphrase)
-          val privateKey: String? = getPrivateKey(wallet, coin, path)
-          if (privateKey == null) result.error("address_null", "failed to generate address", null) else result.success(privateKey)
+
+          if (wallet != null) {
+            val privateKey: String? = getPrivateKey(wallet, coin, path)
+            if (privateKey == null) result.error("address_null", "failed to generate address", null) else result.success(privateKey)
+          } else {
+            result.error("no_wallet",
+                    "Could not generate wallet, why?", null)
+          }
         } else {
           result.error("arguments_null", "[path] and [coin] and [mnemonic] cannot be null", null)
         }

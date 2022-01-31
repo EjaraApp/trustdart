@@ -32,3 +32,8 @@ Added support for Solana, transfere and receive SOL as well as any token on Sola
 ### 0.0.8
 
 Changed return of getPrivateKey, getPublicKey to base64 encoding
+
+
+### 0.0.9
+
+Improve error handling and checking for null wallet
