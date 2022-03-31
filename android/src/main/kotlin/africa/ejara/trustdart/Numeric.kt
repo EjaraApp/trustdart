@@ -40,7 +40,10 @@ object Numeric {
         var i = startIdx
         while (i < len) {
             data[(i + 1) / 2] =
-                    ((Character.digit(cleanInput.get(i), 16) shl 4) + Character.digit(cleanInput.get(i + 1), 16)).toByte()
+                ((Character.digit(
+                    cleanInput.get(i),
+                    16
+                ) shl 4) + Character.digit(cleanInput.get(i + 1), 16)).toByte()
             i += 2
         }
         return data
