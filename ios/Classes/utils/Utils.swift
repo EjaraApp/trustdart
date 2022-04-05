@@ -12,4 +12,5 @@ struct Utils {
         }
         return String(data: data, encoding: String.Encoding.utf8)
     }
+    
 }

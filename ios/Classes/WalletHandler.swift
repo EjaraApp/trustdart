@@ -25,36 +25,23 @@ class WalletHandler {
         return self.coins[coin]!
     }
     
-    func generateMnemonic(passphrase: String) -> (FlutterError?, String?) {
-        let wallet = HDWallet(strength: 128, passphrase: passphrase)
-        if wallet != nil {
-            return (nil, wallet!.mnemonic)
-        }else {
-            return (FlutterError(code: "no_wallet",
-                                message: "Could not generate wallet, why?",
-                                details: nil), nil)
-        }
+    func generateMnemonic(strength: Int32, passphrase: String) -> String? {
+        return HDWallet(strength: strength, passphrase: passphrase)?.mnemonic
     }
     
-    func checkMnemonic(mnemonic: String?, passphrase: String?) -> (FlutterError?, Bool){
-        if mnemonic != nil {
-            let wallet = HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
-            
-            if wallet != nil {
-                return (nil, true)
-            } else {
-                return (FlutterError(code: "no_wallet",
-                                      message: "Could not generate wallet, why?",
-                                      details: nil), false)
+    func checkMnemonic(mnemonic: String?, passphrase: String?) -> HDWallet?{
+        return HDWallet(mnemonic: mnemonic!, passphrase: passphrase!)
+    }
+    
+    static func validate<T>(walletError: WalletError, _ data: T?...) -> (Bool, WalletError) {
+        var isValid = true
+        data.forEach { _data in
+            if _data == nil {
+                isValid = false
             }
-        } else {
-            return (FlutterError(code: "arguments_null",
-                                 message: "[mnemonic] cannot be null",
-                                 details: nil), false)
         }
+        return (isValid, walletError.self)
     }
-    
-    
 }
 
 
