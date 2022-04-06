@@ -10,7 +10,12 @@ import wallet.core.jni.proto.Bitcoin
 
 
 class BTC : Coin("BTC", CoinType.BITCOIN) {
-    override fun generateAddress(wallet: HDWallet, path: String): Map<String, String>? {
+    override fun generateAddress(
+        path: String,
+        mnemonic: String,
+        passphrase: String
+    ): Map<String, String>? {
+        val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val publicKey = privateKey.getPublicKeySecp256k1(true)
         val address = BitcoinAddress(publicKey, coinType!!.p2pkhPrefix())
@@ -21,10 +26,12 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
     }
 
     override fun signTransaction(
-        wallet: HDWallet,
         path: String,
-        txData: Map<String, Any>
+        txData: Map<String, Any>,
+        mnemonic: String,
+        passphrase: String
     ): String? {
+        val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val utxos: List<Map<String, Any>> = txData["utxos"] as List<Map<String, Any>>
 

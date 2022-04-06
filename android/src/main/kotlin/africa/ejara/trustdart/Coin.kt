@@ -1,12 +1,11 @@
 package africa.ejara.trustdart
 
 import africa.ejara.trustdart.interfaces.CoinInterface
-import android.annotation.SuppressLint
+import android.util.Base64
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
-import java.util.*
 
 open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
@@ -19,86 +18,43 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     }
 
     override fun generateAddress(
-        path: String?,
-        mnemonic: String?,
-        passphrase: String?
+        path: String,
+        mnemonic: String,
+        passphrase: String
     ): Map<String, String?>? {
-        if (path != null && mnemonic != null && passphrase != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
-
-            if (wallet != null) {
-                val address: Map<String, String?>? = generateAddress(wallet, path)
-                return if (address == null) null else address
-            }
-        }
-        return null
-    }
-
-
-    override fun generateAddress(wallet: HDWallet, path: String): Map<String, String>? {
+        val wallet = HDWallet(mnemonic, passphrase)
         return mapOf("legacy" to coinType!!.deriveAddress(wallet.getKey(coinType, path)))
     }
 
-    @SuppressLint("NewApi")
-    override fun getPrivateKey(path: String?, mnemonic: String?, passphrase: String?): String? {
-        if (path != null && mnemonic != null && passphrase != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
 
-            if (wallet != null) {
-                val privateKey: String? =
-                    Base64.getEncoder().encodeToString(wallet.getKey(coinType, path).data())
-                return if (privateKey == null) null else privateKey
-            }
-        }
-        return null
+    override fun getPrivateKey(path: String, mnemonic: String, passphrase: String): String? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val privateKey: String? =
+            Base64.encodeToString(wallet.getKey(coinType, path).data(), Base64.DEFAULT)
+        return if (privateKey == null) null else privateKey
     }
 
-    @SuppressLint("NewApi")
-    override fun getPublicKey(path: String?, mnemonic: String?, passphrase: String?): String? {
-        if (path != null && mnemonic != null && passphrase != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
-
-            if (wallet != null) {
-                val publicKey: String? = Base64.getEncoder().encodeToString(
-                    wallet.getKey(coinType, path)
-                        .getPublicKeySecp256k1(true).data()
-                )
-                return if (publicKey == null) null else publicKey
-            }
-        }
-        return null
+    override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val publicKey: String? = Base64.encodeToString(
+            wallet.getKey(coinType, path)
+                .getPublicKeySecp256k1(true).data(),
+            Base64.DEFAULT
+        )
+        return if (publicKey == null) null else publicKey
     }
 
-    override fun validateAddress(address: String?): Boolean? {
-        if (address != null) {
-            return coinType!!.validate(address)
-        }
-        return null
+    override fun validateAddress(address: String): Boolean {
+        return coinType!!.validate(address)
     }
 
     override fun signTransaction(
-        path: String?,
-        txData: Map<String, Any>?,
-        mnemonic: String?,
-        passphrase: String?
-    ): String? {
-        if (txData != null && path != null && mnemonic != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
-
-            if (wallet != null) {
-                val txHash: String? = signTransaction(wallet, path, txData)
-                return if (txHash == null) null else txHash
-            }
-        }
-        return null
-    }
-
-    override fun signTransaction(
-        wallet: HDWallet,
         path: String,
-        txData: Map<String, Any>
+        txData: Map<String, Any>,
+        mnemonic: String,
+        passphrase: String
     ): String? {
-        print("CoinType" + coinType)
+        val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val opJson = JSONObject(txData).toString();
         return AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())

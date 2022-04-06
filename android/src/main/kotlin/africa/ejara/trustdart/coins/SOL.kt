@@ -1,23 +1,16 @@
 import africa.ejara.trustdart.Coin
-import android.annotation.SuppressLint
+import android.util.Base64
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
-import java.util.*
+
 
 class SOL : Coin("SOL", CoinType.SOLANA) {
-    @SuppressLint("NewApi")
-    override fun getPublicKey(path: String?, mnemonic: String?, passphrase: String?): String? {
-        if (path != null && mnemonic != null && passphrase != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
-
-            if (wallet != null) {
-                val publicKey: String? = Base64.getEncoder().encodeToString(
-                    wallet.getKey(coinType, path)
-                        .publicKeyEd25519.data()
-                )
-                return if (publicKey == null) null else publicKey
-            }
-        }
-        return null
+    override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val publicKey: String? = Base64.encodeToString(
+            wallet.getKey(coinType, path)
+                .publicKeyEd25519.data(), Base64.DEFAULT
+        )
+        return if (publicKey == null) null else publicKey
     }
 }

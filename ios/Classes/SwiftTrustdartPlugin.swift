@@ -68,7 +68,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 let txData: [String: Any]? = args["txData"] as? [String: Any]
                 let mnemonic: String? = args["mnemonic"] as? String
                 let passphrase: String? = args["passphrase"] as? String
-                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin], [path] and [mnemonic] are required.", details: nil), coin, path, mnemonic, passphrase)
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin], [path], [mnemonic] and [passphrase] are required.", details: nil), coin, path, mnemonic, passphrase)
         
                 if isValid {
                     let txHash = WalletHandler().getCoin(coin!).signTransaction(path: path!, txData: txData!, mnemonic: mnemonic!, passphrase: passphrase!)

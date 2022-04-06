@@ -9,11 +9,13 @@ import wallet.core.jni.proto.Tron
 class TRX : Coin("TRX", CoinType.TRON) {
 
     override fun signTransaction(
-        wallet: HDWallet,
         path: String,
-        txData: Map<String, Any>
+        txData: Map<String, Any>,
+        mnemonic: String,
+        passphrase: String
     ): String? {
         val cmd = txData["cmd"] as String
+        val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val txHash: String?;
         when (cmd) {

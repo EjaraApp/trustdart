@@ -5,6 +5,9 @@ import ETH
 import SOL
 import TRX
 import XTZ
+import africa.ejara.trustdart.utils.WalletError
+import africa.ejara.trustdart.utils.WalletValidateResponse
+
 import wallet.core.jni.HDWallet
 
 class WalletHandler {
@@ -22,16 +25,21 @@ class WalletHandler {
         return coins[coin]!!
     }
 
-    fun generateMnemonic(passphrase: String): String? {
-        return HDWallet(128, passphrase).mnemonic()
+    fun generateMnemonic(strength: Int, passphrase: String): String? {
+        return HDWallet(strength, passphrase).mnemonic()
     }
 
-    fun checkMnemonic(mnemonic: String?, passphrase: String?): Boolean {
-        if (mnemonic != null && passphrase != null) {
-            val wallet = HDWallet(mnemonic, passphrase)
-            if (wallet != null) return true
+    fun checkMnemonic(mnemonic: String, passphrase: String): HDWallet {
+        return HDWallet(mnemonic, passphrase)
+    }
+
+    fun <T> validate(walletError: WalletError, data: Array<T>): WalletValidateResponse {
+        var isValid = true
+        for (_data in data) {
+            if (_data == null) {
+                isValid = false
+            }
         }
-        return false
+        return WalletValidateResponse(isValid, walletError)
     }
-
 }
