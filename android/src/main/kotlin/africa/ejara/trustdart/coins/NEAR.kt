@@ -1,6 +1,3 @@
-package android.src.main.kotlin.africa.ejara.trustdart.coins
-
-
 import android.util.Base64
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
