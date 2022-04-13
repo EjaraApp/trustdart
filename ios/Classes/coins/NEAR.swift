@@ -34,7 +34,6 @@ class NEAR: Coin  {
                     $0.blockHash = Base58.decodeNoCheck(string: txData["blockHash"] as! String)!
                     $0.privateKey = privateKey!.data
                 }
-
                 let output: NEARSigningOutput = AnySigner.sign(input: input, coin: .near)
         return output.signedTransaction.hexString
     }
