@@ -34,7 +34,7 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
         }.build()
         val signingInput = NEAR.SigningInput.newBuilder().apply {
             signerId = txData["signerID"] as String
-            nonce = txData["nonce"] as Long
+            nonce = (txData["nonce"] as Int).toLong()
             receiverId = txData["receiverID"] as String
             addActionsBuilder().apply {
                 transfer = transferAction
