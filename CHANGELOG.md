@@ -37,3 +37,10 @@ Changed return of getPrivateKey, getPublicKey to base64 encoding
 ### 0.0.9
 
 Improve error handling and checking for null wallet
+
+
+### 0.1.0
+
+- Replaced `java.util.Base64` with `android.util.Base64`
+
+- Added support for Near Crypto transfer transactions
