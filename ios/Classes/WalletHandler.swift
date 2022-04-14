@@ -17,7 +17,8 @@ class WalletHandler {
             "ETH": ETH(),
             "XTZ": XTZ(),
             "TRX": TRX(),
-            "SOL": SOL()
+            "SOL": SOL(),
+            "NEAR": NEAR()
         ]
     }
     
