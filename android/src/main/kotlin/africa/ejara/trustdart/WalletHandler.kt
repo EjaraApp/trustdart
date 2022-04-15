@@ -1,14 +1,15 @@
 package africa.ejara.trustdart
 
-import wallet.core.jni.HDWallet
-import africa.ejara.trustdart.utils.WalletError
-import africa.ejara.trustdart.utils.WalletValidateResponse
 import BTC
 import ETH
+import NEAR
 import SOL
+import TERRA
 import TRX
 import XTZ
-import NEAR
+import africa.ejara.trustdart.utils.WalletError
+import africa.ejara.trustdart.utils.WalletValidateResponse
+import wallet.core.jni.HDWallet
 
 class WalletHandler {
     private val coins: MutableMap<String, Coin> = HashMap()
@@ -20,6 +21,7 @@ class WalletHandler {
         coins["TRX"] = TRX()
         coins["SOL"] = SOL()
         coins["NEAR"] = NEAR()
+        coins["TERRA"] = TERRA()
     }
 
     fun getCoin(coin: String?): Coin {

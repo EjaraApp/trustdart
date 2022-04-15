@@ -18,7 +18,9 @@ class WalletHandler {
             "XTZ": XTZ(),
             "TRX": TRX(),
             "SOL": SOL(),
-            "NEAR": NEAR()
+            "NEAR": NEAR(),
+            "TERRA": TERRA(),
+
         ]
     }
     
