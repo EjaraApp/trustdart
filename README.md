@@ -1,5 +1,5 @@
 # trustdart
-A dart library that can interact with the trust wallet core library.
+A dart library that can interact with the trust wallet core library https://github.com/trustwallet/wallet-core. 
 
 ## Install
 - You first need to setup a personal access token for github as decribed here, https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token .
