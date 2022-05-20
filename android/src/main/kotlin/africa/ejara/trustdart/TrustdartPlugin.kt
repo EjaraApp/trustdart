@@ -32,7 +32,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
             "generateMnemonic" -> {
-                var validator = WalletHandler().validate<Any>(
+                var validator = WalletHandler().validate<Any?>(
                     WalletError(
                         WalletHandlerErrorCodes.argumentsNull,
                         "[strength] and [passphrase] are required.",
@@ -40,7 +40,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     ), arrayOf(call.arguments())
                 )
                 if (validator.isValid) {
-                    val wallet = WalletHandler().generateMnemonic(128, call.arguments())
+                    val mnemonicString: String? = call.arguments() 
+                    val wallet = WalletHandler().generateMnemonic(128, mnemonicString as String)
                     validator = WalletHandler().validate<Any?>(
                         WalletError(
                             WalletHandlerErrorCodes.noWallet,
