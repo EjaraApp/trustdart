@@ -14,9 +14,9 @@ class XTZ: Coin  {
         return publicKey
     }
     
-    override func getPublicKeyRaw(path: String, mnemonic: String, passphrase: String) -> String? {
+    override func getPublicKeyRaw(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        let publicKey: String? = String(data: wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data(), encoding: .utf8)
+        let publicKey: [UInt8] = wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data()
         return publicKey
     }
 }

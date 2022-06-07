@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 
@@ -75,9 +76,9 @@ class Trustdart {
   }
 
   /// Returns the hex string format of the public key.
-  static Future<String> getPublicKeyRaw(String mnemonic, String coin, String path, [String passphrase = ""]) async {
+  static Future<Uint8List> getPublicKeyRaw(String mnemonic, String coin, String path, [String passphrase = ""]) async {
     try {
-      final String publicKey = await _channel.invokeMethod('getPublicKeyRaw', <String, String>{
+      final Uint8List publicKey = await _channel.invokeMethod('getPublicKeyRaw', <String, String>{
         'coin': coin,
         'path': path,
         'mnemonic': mnemonic,
@@ -85,7 +86,7 @@ class Trustdart {
       });
       return publicKey;
     } catch (e) {
-      return '';
+      return Uint8List(0);
     }
   }
 

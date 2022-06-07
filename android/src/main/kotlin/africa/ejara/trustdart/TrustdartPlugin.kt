@@ -213,13 +213,16 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 if (validator.isValid) {
                     val publicKey =
                         WalletHandler().getCoin(coin).getPublicKeyRaw(path!!, mnemonic!!, passphrase!!)
-                    validator = WalletHandler().validate(
-                        WalletError(
-                            WalletHandlerErrorCodes.addressNull,
-                            "Could not generate public key.",
-                            null
-                        ), arrayOf(publicKey)
-                    )
+                    if (publicKey != null) {
+                        validator = WalletHandler().validate(
+                            WalletError(
+                                WalletHandlerErrorCodes.addressNull,
+                                "Could not generate public key.",
+                                null
+                            ), publicKey.toTypedArray()
+                            //), arrayOf(publicKey)
+                        )
+                    }
                     if (validator.isValid) return result.success(publicKey)
                 }
                 return result.error(

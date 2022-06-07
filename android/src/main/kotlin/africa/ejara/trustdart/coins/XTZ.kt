@@ -15,10 +15,10 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
         return if (publicKey == null) null else publicKey
     }
 
-    override fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): String? {
+    override fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val publicKey: String? = String(wallet.getKey(coinType, path)
-            .publicKeyEd25519.data(), Charsets.UTF_8)
+        val publicKey: ByteArray? = wallet.getKey(coinType, path)
+            .publicKeyEd25519.data()
         return if (publicKey == null) null else publicKey
     }
 }
