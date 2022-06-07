@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac4777fa-f79a-4ae1-8ecd-ff58b86a3d90" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/NEAR.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/NEAR.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/Coin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/Coin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/XTZ.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/XTZ.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/interfaces/CoinInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/interfaces/CoinInterface.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/trustdart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/trustdart.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/baahkusi/.android/avd/Pixel_3_XL_API_S.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -33,6 +35,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins" />

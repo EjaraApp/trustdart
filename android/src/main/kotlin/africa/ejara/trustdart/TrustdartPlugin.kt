@@ -197,6 +197,37 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorDetails
                 )
             }
+            "getPublicKeyRaw" -> {
+                val path: String? = call.argument("path")
+                val coin: String? = call.argument("coin")
+                val mnemonic: String? = call.argument("mnemonic")
+                val passphrase: String? = call.argument("passphrase")
+
+                var validator = WalletHandler().validate<Any?>(
+                    WalletError(
+                        WalletHandlerErrorCodes.argumentsNull,
+                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        null
+                    ), arrayOf(path, coin, mnemonic, passphrase)
+                )
+                if (validator.isValid) {
+                    val publicKey =
+                        WalletHandler().getCoin(coin).getPublicKeyRaw(path!!, mnemonic!!, passphrase!!)
+                    validator = WalletHandler().validate(
+                        WalletError(
+                            WalletHandlerErrorCodes.addressNull,
+                            "Could not generate public key.",
+                            null
+                        ), arrayOf(publicKey)
+                    )
+                    if (validator.isValid) return result.success(publicKey)
+                }
+                return result.error(
+                    validator.details.errorCode,
+                    validator.details.errorMessage,
+                    validator.details.errorDetails
+                )
+            }
             "getPrivateKey" -> {
                 val path: String? = call.argument("path")
                 val coin: String? = call.argument("coin")

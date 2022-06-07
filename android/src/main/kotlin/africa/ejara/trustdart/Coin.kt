@@ -43,6 +43,13 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
         )
         return if (publicKey == null) null else publicKey
     }
+    
+    override fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): String? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val publicKey: String? = String(wallet.getKey(coinType, path)
+            .getPublicKeySecp256k1(true).data(), Charsets.UTF_8)
+        return if (publicKey == null) null else publicKey
+    }
 
     override fun validateAddress(address: String): Boolean {
         return coinType!!.validate(address)
