@@ -108,7 +108,7 @@ Map<String, dynamic> operations = {
         '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction originator)
     'receiverID':
         '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction recipient)
-    'nonce': 1, // (increments for every new tx)
+    'nonce': 64342672000000, // (increments for every new tx)
     'amount':
         '01000000000000000000000000000000', // // uint128_t / little endian byte order
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //

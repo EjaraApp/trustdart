@@ -44,3 +44,8 @@ Improve error handling and checking for null wallet
 - Replaced `java.util.Base64` with `android.util.Base64`
 
 - Added support for Near Crypto transfer transactions
+
+
+### 0.1.1
+
+- Fixed number conversion in Near.
