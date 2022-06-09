@@ -3,5 +3,4 @@ import wallet.core.jni.CoinType
 
 class TERRA : Coin("TERRA", CoinType.TERRA) {
 
-
 }

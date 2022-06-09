@@ -9,23 +9,18 @@ import WalletCore
 import Flutter
 
 class WalletHandler {
-    let coins: [String: Coin]
-    
-    init(){
-        self.coins = [
-            "BTC": BTC(),
-            "ETH": ETH(),
-            "XTZ": XTZ(),
-            "TRX": TRX(),
-            "SOL": SOL(),
-            "NEAR": NEAR(),
-            "TERRA": TERRA(),
-
-        ]
-    }
+    static let coins: [String: Coin] = [
+        "BTC"   : BTC(),
+        "ETH"   : ETH(),
+        "XTZ"   : XTZ(),
+        "TRX"   : TRX(),
+        "SOL"   : SOL(),
+        "NEAR"  : NEAR(),
+        "TERRA" : TERRA(),
+    ]
     
     func getCoin(_ coin: String) -> Coin {
-        return self.coins[coin]!
+        return WalletHandler.coins[coin]!
     }
     
     func generateMnemonic(strength: Int32, passphrase: String) -> String? {
