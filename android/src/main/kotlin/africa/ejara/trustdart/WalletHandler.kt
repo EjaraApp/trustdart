@@ -4,7 +4,6 @@ import BTC
 import ETH
 import NEAR
 import SOL
-import TERRA
 import TRX
 import XTZ
 import africa.ejara.trustdart.utils.WalletError
@@ -20,7 +19,6 @@ class WalletHandler {
             "TRX"   to TRX(),
             "SOL"   to SOL(),
             "NEAR"  to NEAR(),
-            "TERRA" to TERRA(),
         )
     }
 
