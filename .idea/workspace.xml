@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac4777fa-f79a-4ae1-8ecd-ff58b86a3d90" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/Coin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/Coin.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/TrustdartPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/XTZ.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/XTZ.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/NEAR.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/NEAR.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/SOL.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/coins/SOL.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/interfaces/CoinInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/africa/ejara/trustdart/interfaces/CoinInterface.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/Coin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/Coin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftTrustdartPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftTrustdartPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/coins/NEAR.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/coins/NEAR.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/coins/SOL.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/coins/SOL.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/protocols/CoinProtocol.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/protocols/CoinProtocol.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/trustdart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/trustdart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -5,6 +5,7 @@ import android.util.Base64
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
+import wallet.core.jni.Curve
 import wallet.core.jni.HDWallet
 
 open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
@@ -30,6 +31,18 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey: String? =
                 Base64.encodeToString(wallet.getKey(coinType, path).data(), Base64.DEFAULT)
+        return if (privateKey == null) null else privateKey
+    }
+
+    override fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val walletSeed: ByteArray? = wallet.seed()
+        return if (walletSeed == null) null else walletSeed
+    }
+
+    override fun getPrivateKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val privateKey: ByteArray? = wallet.getKey(coinType, path).data()
         return if (privateKey == null) null else privateKey
     }
 

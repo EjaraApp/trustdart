@@ -13,4 +13,13 @@ class SOL : Coin("SOL", CoinType.SOLANA) {
         )
         return if (publicKey == null) null else publicKey
     }
+
+    override fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val publicKey: ByteArray? = wallet.getKey(coinType, path)
+                .publicKeyEd25519.data()
+        return if (publicKey == null) null else publicKey
+    }
+
+
 }

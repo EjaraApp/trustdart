@@ -105,6 +105,35 @@ class Trustdart {
     }
   }
 
+  /// Returns the hex string format of the private key.
+  static Future<Uint8List> getPrivateKeyRaw(String mnemonic, String coin, String path, [String passphrase = ""]) async {
+    try {
+      final Uint8List privateKey = await _channel.invokeMethod('getPrivateKeyRaw', <String, String>{
+        'coin': coin,
+        'path': path,
+        'mnemonic': mnemonic,
+        'passphrase': passphrase,
+      });
+      return privateKey;
+    } catch (e) {
+      return Uint8List(0);
+    }
+  }
+
+  static Future<Uint8List> getSeed(String mnemonic, String coin, String path, [String passphrase = ""]) async {
+    try {
+      final Uint8List privateKey = await _channel.invokeMethod('getSeed', <String, String>{
+        'coin': coin,
+        'path': path,
+        'mnemonic': mnemonic,
+        'passphrase': passphrase,
+      });
+      return privateKey;
+    } catch (e) {
+      return Uint8List(0);
+    }
+  }
+
   ///signs a transaction
   static Future<String> signTransaction(String mnemonic, String coin, String path, Map txData,
       [String passphrase = ""]) async {

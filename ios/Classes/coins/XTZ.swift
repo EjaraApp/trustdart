@@ -19,4 +19,10 @@ class XTZ: Coin  {
         let publicKey: [UInt8] = wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data()
         return publicKey
     }
+    
+    override func getSeed(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+        let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
+        let publicKey: [UInt8] = wallet!.getSeed()
+        return publicKey
+    }
 }
