@@ -49,3 +49,7 @@ Improve error handling and checking for null wallet
 ### 0.1.1
 
 - Fixed number conversion in Near.
+
+### 0.1.2
+
+- Memory optimization & minor bug fixes
