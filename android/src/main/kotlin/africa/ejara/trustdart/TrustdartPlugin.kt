@@ -40,8 +40,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     ), arrayOf(call.arguments())
                 )
                 if (validator.isValid) {
-                    val mnemonicString: String? = call.arguments() 
-                    val wallet = WalletHandler().generateMnemonic(128, mnemonicString as String)
+                    val wallet = WalletHandler().generateMnemonic(128, call.arguments()!!)
                     validator = WalletHandler().validate<Any?>(
                         WalletError(
                             WalletHandlerErrorCodes.noWallet,
