@@ -5,6 +5,7 @@ import android.util.Base64
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
+import wallet.core.jni.Curve
 import wallet.core.jni.HDWallet
 
 open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
@@ -18,29 +19,46 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     }
 
     override fun generateAddress(
-        path: String,
-        mnemonic: String,
-        passphrase: String
+            path: String,
+            mnemonic: String,
+            passphrase: String
     ): Map<String, String?>? {
         val wallet = HDWallet(mnemonic, passphrase)
         return mapOf("legacy" to coinType!!.deriveAddress(wallet.getKey(coinType, path)))
     }
 
-
     override fun getPrivateKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey: String? =
-            Base64.encodeToString(wallet.getKey(coinType, path).data(), Base64.DEFAULT)
+                Base64.encodeToString(wallet.getKey(coinType, path).data(), Base64.DEFAULT)
+        return if (privateKey == null) null else privateKey
+    }
+
+    override fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val walletSeed: ByteArray? = wallet.seed()
+        return if (walletSeed == null) null else walletSeed
+    }
+
+    override fun getPrivateKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val privateKey: ByteArray? = wallet.getKey(coinType, path).data()
         return if (privateKey == null) null else privateKey
     }
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val publicKey: String? = Base64.encodeToString(
-            wallet.getKey(coinType, path)
-                .getPublicKeySecp256k1(true).data(),
-            Base64.DEFAULT
-        )
+        val publicKey: String? =
+                Base64.encodeToString(
+                        wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data(),
+                        Base64.DEFAULT
+                )
+        return if (publicKey == null) null else publicKey
+    }
+
+    override fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        val publicKey: ByteArray? = wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data()
         return if (publicKey == null) null else publicKey
     }
 
@@ -49,15 +67,14 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     }
 
     override fun signTransaction(
-        path: String,
-        txData: Map<String, Any>,
-        mnemonic: String,
-        passphrase: String
+            path: String,
+            txData: Map<String, Any>,
+            mnemonic: String,
+            passphrase: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
-        val opJson = JSONObject(txData).toString();
+        val opJson = JSONObject(txData).toString()
         return AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())
     }
-
 }

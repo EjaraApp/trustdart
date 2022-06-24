@@ -102,6 +102,26 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 }else {
                     result(err.details)
                 }
+            case "getPublicKeyRaw":
+                let args = call.arguments as! [String: String]
+                let path: String? = args["path"]
+                let coin: String? = args["coin"]
+                let mnemonic: String? = args["mnemonic"]
+                let passphrase: String? = args["passphrase"]
+        
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+                if isValid {
+                    // generate address
+                    let publicKey = WalletHandler().getCoin(coin!).getPublicKeyRaw(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
+                    let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .addressNull, message: "Failed to generate public key.", details: nil), path, coin, mnemonic, passphrase)
+                    if isValid {
+                        result(publicKey)
+                    }else {
+                        result(err.details)
+                    }
+                }else {
+                    result(err.details)
+                }
             case "getPrivateKey":
                 let args = call.arguments as! [String: String]
                 let path: String? = args["path"]
@@ -113,6 +133,46 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 if isValid {
                     // generate address
                     let privateKey = WalletHandler().getCoin(coin!).getPrivateKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
+                    let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .addressNull, message: "Failed to generate private key.", details: nil), path, coin, mnemonic, passphrase)
+                    if isValid {
+                        result(privateKey)
+                    }else {
+                        result(err.details)
+                    }
+                }else {
+                    result(err.details)
+                }
+            case "getPrivateKeyRaw":
+                let args = call.arguments as! [String: String]
+                let path: String? = args["path"]
+                let coin: String? = args["coin"]
+                let mnemonic: String? = args["mnemonic"]
+                let passphrase: String? = args["passphrase"]
+        
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+                if isValid {
+                    // generate address
+                    let privateKey = WalletHandler().getCoin(coin!).getPrivateKeyRaw(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
+                    let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .addressNull, message: "Failed to generate private key.", details: nil), path, coin, mnemonic, passphrase)
+                    if isValid {
+                        result(privateKey)
+                    }else {
+                        result(err.details)
+                    }
+                }else {
+                    result(err.details)
+                }
+            case "getSeed":
+                let args = call.arguments as! [String: String]
+                let path: String? = args["path"]
+                let coin: String? = args["coin"]
+                let mnemonic: String? = args["mnemonic"]
+                let passphrase: String? = args["passphrase"]
+        
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+                if isValid {
+                    // generate address
+                    let privateKey = WalletHandler().getCoin(coin!).getSeed(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
                     let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .addressNull, message: "Failed to generate private key.", details: nil), path, coin, mnemonic, passphrase)
                     if isValid {
                         result(privateKey)

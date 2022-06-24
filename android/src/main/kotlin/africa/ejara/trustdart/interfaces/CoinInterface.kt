@@ -1,19 +1,18 @@
 package africa.ejara.trustdart.interfaces
 
 interface CoinInterface {
-    fun generateAddress(
-        path: String,
-        mnemonic: String,
-        passphrase: String
-    ): Map<String, String?>?
+    fun generateAddress(path: String, mnemonic: String, passphrase: String): Map<String, String?>?
 
+    fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray?
     fun getPrivateKey(path: String, mnemonic: String, passphrase: String): String?
+    fun getPrivateKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray?
     fun getPublicKey(path: String, mnemonic: String, passphrase: String): String?
+    fun getPublicKeyRaw(path: String, mnemonic: String, passphrase: String): ByteArray?
     fun validateAddress(address: String): Boolean
     fun signTransaction(
-        path: String,
-        txData: Map<String, Any>,
-        mnemonic: String,
-        passphrase: String
+            path: String,
+            txData: Map<String, Any>,
+            mnemonic: String,
+            passphrase: String
     ): String?
 }
