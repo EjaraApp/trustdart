@@ -68,7 +68,7 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
         val fees = (txData["fees"] as Int).toLong()
         val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
         // now we set new byte size
-        if (byteFee > 1) input.setByteFee(byteFee)
+        if (byteFee > 1) input.byteFee = byteFee
         output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
         return Numeric.toHexString(output.encoded.toByteArray())
     }

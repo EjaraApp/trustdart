@@ -41,9 +41,9 @@ object Numeric {
         while (i < len) {
             data[(i + 1) / 2] =
                 ((Character.digit(
-                    cleanInput.get(i),
+                    cleanInput[i],
                     16
-                ) shl 4) + Character.digit(cleanInput.get(i + 1), 16)).toByte()
+                ) shl 4) + Character.digit(cleanInput[i + 1], 16)).toByte()
             i += 2
         }
         return data

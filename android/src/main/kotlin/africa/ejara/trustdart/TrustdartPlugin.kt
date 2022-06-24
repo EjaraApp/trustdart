@@ -196,7 +196,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorDetails
                 )
             }
-            "getPublicKeyRaw" -> {
+            "getRawPublicKey" -> {
                 val path: String? = call.argument("path")
                 val coin: String? = call.argument("coin")
                 val mnemonic: String? = call.argument("mnemonic")
@@ -211,7 +211,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 )
                 if (validator.isValid) {
                     val publicKey =
-                        WalletHandler().getCoin(coin).getPublicKeyRaw(path!!, mnemonic!!, passphrase!!)
+                        WalletHandler().getCoin(coin).getRawPublicKey(path!!, mnemonic!!, passphrase!!)
                     if (publicKey != null) {
                         validator = WalletHandler().validate(
                             WalletError(
@@ -293,7 +293,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorDetails
                 )
             }
-            "getPrivateKeyRaw" -> {
+            "getRawPrivateKey" -> {
                 val path: String? = call.argument("path")
                 val coin: String? = call.argument("coin")
                 val mnemonic: String? = call.argument("mnemonic")
@@ -308,7 +308,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 )
                 if (validator.isValid) {
                     val privateKey = WalletHandler().getCoin(coin)
-                        .getPrivateKeyRaw(path!!, mnemonic!!, passphrase!!)
+                        .getRawPrivateKey(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
                             WalletHandlerErrorCodes.addressNull,

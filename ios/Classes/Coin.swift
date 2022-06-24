@@ -35,16 +35,14 @@ class Coin: CoinProtocol {
         return privateKey
     }
     
-    func getPrivateKeyRaw(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    func getRawPrivateKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        let privateKey: [UInt8] = wallet!.getKey(coin: self.coinType, derivationPath: path).data
-        return privateKey
+        return wallet!.getKey(coin: self.coinType, derivationPath: path).data.bytes
     }
    
     func getSeed(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        let privateKey: [UInt8] = wallet!.getSeed()
-        return privateKey
+        return wallet!.seed.bytes
     }
     
     func getPublicKey(path: String, mnemonic: String, passphrase: String) -> String? {
@@ -53,10 +51,9 @@ class Coin: CoinProtocol {
         return publicKey
     }
     
-    func getPublicKeyRaw(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        let publicKey: [UInt8] = wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeySecp256k1(compressed: true).data()
-        return publicKey
+        return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeySecp256k1(compressed: true).data.bytes
     }
     
     func validateAddress(address: String) -> Bool {
