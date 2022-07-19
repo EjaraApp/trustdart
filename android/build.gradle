@@ -42,7 +42,7 @@ android {
     }
 
     dependencies {
-        implementation "com.trustwallet:wallet-core:2.9.5"
+        implementation "com.trustwallet:wallet-core:2.9.7"
     }
 }
 

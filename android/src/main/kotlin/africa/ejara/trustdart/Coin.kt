@@ -1,7 +1,7 @@
 package africa.ejara.trustdart
 
 import africa.ejara.trustdart.interfaces.CoinInterface
-import android.util.Base64
+import africa.ejara.trustdart.utils.base64String
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
@@ -9,7 +9,7 @@ import wallet.core.jni.HDWallet
 
 open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
-    private var name: String? = null
+    var name: String? = null
     var coinType: CoinType? = null
 
     init {
@@ -28,7 +28,7 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
     override fun getPrivateKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return Base64.encodeToString(wallet.getKey(coinType, path).data(), Base64.DEFAULT)
+        return wallet.getKey(coinType, path).data().base64String()
     }
 
     override fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray? {
@@ -42,10 +42,7 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return Base64.encodeToString(
-                        wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data(),
-                        Base64.DEFAULT
-                )
+        return wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data().base64String()
     }
 
     override fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
