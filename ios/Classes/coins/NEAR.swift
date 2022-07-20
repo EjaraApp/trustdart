@@ -10,10 +10,19 @@ class NEAR: Coin  {
     
     override func getPublicKey(path: String, mnemonic: String, passphrase: String) -> String? {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        let publicKey: String? = wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data.base64EncodedString()
-        return publicKey
+        return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data.base64EncodedString()
     }
 
+    override func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+        let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
+        return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data.bytes
+    }
+    
+    override func getSeed(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+        let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
+        return wallet!.seed.bytes
+    }
+    
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
         

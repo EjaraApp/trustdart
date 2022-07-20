@@ -8,17 +8,18 @@ import wallet.core.jni.Base58
 import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
+import africa.ejara.trustdart.utils.base64String
 
 class NEAR : Coin("NEAR", CoinType.NEAR) {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val publicKey: String? = Base64.encodeToString(
-            wallet.getKey(coinType, path)
-                .publicKeyEd25519.data(),
-            Base64.DEFAULT
-        )
-        return if (publicKey == null) null else publicKey
+        return wallet.getKey(coinType, path).publicKeyEd25519.data().base64String()
+    }
+
+    override fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        return wallet.getKey(coinType, path).publicKeyEd25519.data()
     }
 
     override fun signTransaction(
