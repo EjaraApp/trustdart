@@ -53,3 +53,10 @@ Improve error handling and checking for null wallet
 ### 0.1.2
 
 - Memory optimization & minor bug fixes
+
+### 0.1.3
+
+- Fixed Base64 encoding issue which causes the app to crash on lower version of Android.
+- Upgrade WalletCore to 2.9.7.
+- Updated grade version to 7.2.1.
+- added new methods on TrustDart; getSeed, getRawPrivateKey & getRawPublicKey.
