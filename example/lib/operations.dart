@@ -142,6 +142,7 @@ runOperations() async {
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
     // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+    String dataToSign = "Just some random data and adafafaf";
 
     for (Coin coin in coinList) {
       print('Check for ${coin.code} on path ${coin.path} ...');
@@ -199,7 +200,7 @@ runOperations() async {
         coin.code,
         coin.path,
       );
-      print('Address Check ...');
+      print('Seed Check ...');
       print([
         seed,
       ]);
@@ -225,6 +226,15 @@ runOperations() async {
       );
       print('Transaction Check ...');
       print([tx]);
+
+      String signedData = (await Trustdart.signDataWithPrivateKey(
+        dondo,
+        coin.code,
+        coin.path,
+        dataToSign,
+      ));
+      print('Sign Data with Priv Key Check ...');
+      print([signedData]);
       print('');
     }
   } catch (e) {

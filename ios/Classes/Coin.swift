@@ -35,14 +35,15 @@ class Coin: CoinProtocol {
         return privateKey
     }
     
-    func getRawPrivateKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    
+    func getRawPrivateKey(path: String, mnemonic: String, passphrase: String) -> FlutterStandardTypedData {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        return wallet!.getKey(coin: self.coinType, derivationPath: path).data.bytes
+        return FlutterStandardTypedData(bytes: wallet!.getKey(coin: self.coinType, derivationPath: path).data)
     }
    
-    func getSeed(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    func getSeed(path: String, mnemonic: String, passphrase: String) -> FlutterStandardTypedData {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        return wallet!.seed.bytes
+        return FlutterStandardTypedData(bytes: wallet!.seed)
     }
     
     func getPublicKey(path: String, mnemonic: String, passphrase: String) -> String? {
@@ -51,13 +52,22 @@ class Coin: CoinProtocol {
         return publicKey
     }
     
-    func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> FlutterStandardTypedData {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeySecp256k1(compressed: true).data.bytes
+        return FlutterStandardTypedData(bytes: wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeySecp256k1(compressed: true).data)
     }
     
     func validateAddress(address: String) -> Bool {
         return self.coinType.validate(address: address)
+    }
+    
+    func signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String) -> String? {
+        let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
+        let privateKey = wallet?.getKey(coin: self.coinType, derivationPath: path)
+        if privateKey != nil {
+            return privateKey?.sign(digest: txData.data(using: .utf8)!, curve: self.coinType.curve)?.hexString
+        }
+        return nil
     }
 
     func signTransaction(path: String, txData: [String: Any], mnemonic: String, passphrase: String) -> String? {

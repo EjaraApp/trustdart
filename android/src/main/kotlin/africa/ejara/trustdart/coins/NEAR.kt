@@ -1,4 +1,3 @@
-import android.util.Base64
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
@@ -9,6 +8,8 @@ import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
+import africa.ejara.trustdart.utils.toHex
+import wallet.core.jni.Curve
 
 class NEAR : Coin("NEAR", CoinType.NEAR) {
 
