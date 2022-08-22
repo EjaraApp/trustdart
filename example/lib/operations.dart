@@ -142,7 +142,7 @@ runOperations() async {
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
     // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-    String dataToSign = "Just some random data and adafafaf";
+    String dataToSign = "Just some random data to be signed.";
 
     for (Coin coin in coinList) {
       print('Check for ${coin.code} on path ${coin.path} ...');
