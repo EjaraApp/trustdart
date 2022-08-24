@@ -1,7 +1,9 @@
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.utils.base64String
+import africa.ejara.trustdart.utils.toHex
 import android.util.Base64
 import wallet.core.jni.CoinType
+import wallet.core.jni.Curve
 import wallet.core.jni.HDWallet
 
 

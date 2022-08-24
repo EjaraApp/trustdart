@@ -16,13 +16,9 @@ class SOL: Coin  {
         return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data.base64EncodedString()
     }
 
-    override func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
+    override func getRawPublicKey(path: String, mnemonic: String, passphrase: String) -> FlutterStandardTypedData {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        return wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data.bytes
+        return FlutterStandardTypedData(bytes: wallet!.getKey(coin: self.coinType, derivationPath: path).getPublicKeyEd25519().data)
     }
     
-    override func getSeed(path: String, mnemonic: String, passphrase: String) -> [UInt8] {
-        let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
-        return wallet!.seed.bytes
-    }
 }

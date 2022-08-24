@@ -8,5 +8,6 @@ interface CoinInterface {
     fun getPublicKey(path: String, mnemonic: String, passphrase: String): String?
     fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray?
     fun validateAddress(address: String): Boolean
+    fun signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String): String?
     fun signTransaction(path: String, txData: Map<String, Any>, mnemonic: String, passphrase: String): String?
 }

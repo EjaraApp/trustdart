@@ -165,6 +165,37 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorDetails
                 )
             }
+            "signDataWithPrivateKey" -> {
+                val coin: String? = call.argument("coin")
+                val path: String? = call.argument("path")
+                val mnemonic: String? = call.argument("mnemonic")
+                val passphrase: String? = call.argument("passphrase")
+                val txData: String? = call.argument("txData")
+                var validator = WalletHandler().validate(
+                    WalletError(
+                        WalletHandlerErrorCodes.argumentsNull,
+                        "[path], [coin], [mnemonic], [passphrase] and [txData] are required.",
+                        null
+                    ), arrayOf(path, coin, mnemonic, txData, passphrase)
+                )
+                if (validator.isValid) {
+                    val txHash = WalletHandler().getCoin(coin)
+                        .signDataWithPrivateKey(path!!, mnemonic!!, passphrase!!, txData!!)
+                    validator = WalletHandler().validate(
+                        WalletError(
+                            WalletHandlerErrorCodes.txHashNull,
+                            "Could not sign data.",
+                            null
+                        ), arrayOf(txHash)
+                    )
+                    if (validator.isValid) return result.success(txHash)
+                }
+                return result.error(
+                    validator.details.errorCode,
+                    validator.details.errorMessage,
+                    validator.details.errorDetails
+                )
+            }
             "getPublicKey" -> {
                 val path: String? = call.argument("path")
                 val coin: String? = call.argument("coin")

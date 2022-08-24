@@ -82,6 +82,27 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                 }else {
                     result(err.details)
                 }
+            case "signDataWithPrivateKey":
+                let args = call.arguments as! [String: Any]
+                let coin: String? = args["coin"] as? String
+                let path: String? = args["path"] as? String
+                let txData: String? = args["txData"] as? String
+                let mnemonic: String? = args["mnemonic"] as? String
+                let passphrase: String? = args["passphrase"] as? String
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin], [path], [mnemonic] and [passphrase] are required.", details: nil), coin, path, mnemonic, passphrase)
+
+                if isValid {
+                    let txHash = WalletHandler().getCoin(coin!).signDataWithPrivateKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!, txData: txData!)
+                    
+                    let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .txHashNull, message: "Failed to sign data.", details: nil), txHash)
+                    if isValid {
+                        result(txHash)
+                    }else {
+                        result(err.details)
+                    }
+                }else {
+                    result(err.details)
+                }
             case "getPublicKey":
                 let args = call.arguments as! [String: String]
                 let path: String? = args["path"]
