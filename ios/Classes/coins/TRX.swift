@@ -28,8 +28,8 @@ class TRX: Coin  {
                     
                     let input = TronSigningInput.with {
                         $0.transaction = TronTransaction.with {
-                            $0.feeLimit = txData["feeLimit"] as! Int64
                             $0.transferTrc20Contract = contract
+                            $0.feeLimit = txData["feeLimit"] as! Int64
                             $0.timestamp = txData["timestamp"] as! Int64
                             $0.blockHeader = TronBlockHeader.with {
                                 $0.timestamp = txData["blockTime"] as! Int64
@@ -77,6 +77,7 @@ class TRX: Coin  {
                 let input = TronSigningInput.with {
                     $0.transaction = TronTransaction.with {
                         $0.transfer = transfer
+                        $0.feeLimit = txData["feeLimit"] as! Int64
                         $0.timestamp = txData["timestamp"] as! Int64
                         $0.blockHeader = TronBlockHeader.with {
                             $0.timestamp = txData["blockTime"] as! Int64

@@ -99,6 +99,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     .setTimestamp(txData["timestamp"] as Long)
                     .setTransfer(transfer)
                     .setBlockHeader(blockHeader)
+                    .setFeeLimit((txData["feeLimit"] as Int).toLong())
                     .build()
 
                 val signingInput = Tron.SigningInput.newBuilder()
