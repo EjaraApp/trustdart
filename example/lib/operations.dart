@@ -234,7 +234,7 @@ runOperations() async {
         dataToSign,
       ));
       print('Sign Data with Priv Key Check ...');
-      print([signedData]);
+      print(signedData);
       print('');
     }
   } catch (e) {

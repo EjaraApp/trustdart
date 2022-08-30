@@ -60,3 +60,8 @@ Improve error handling and checking for null wallet
 - Upgrade WalletCore to 2.9.7.
 - Updated grade version to 7.2.1.
 - added new methods on TrustDart; getSeed, getRawPrivateKey & getRawPublicKey.
+
+### 0.1.4
+
+- Fixed `getSeed, getRawPrivateKey & getRawPublicKey` methods returning empty array.
+- Added `signDataWithPrivateKey`.
