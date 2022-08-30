@@ -36,10 +36,10 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
-                    .setTimestamp(txData["timestamp"] as Long)
                     .setTransferTrc20Contract(trc20Contract)
-                    .setBlockHeader(blockHeader)
+                    .setTimestamp(txData["timestamp"] as Long)
                     .setFeeLimit((txData["feeLimit"] as Int).toLong())
+                    .setBlockHeader(blockHeader)
                     .build()
 
                 val signingInput = Tron.SigningInput.newBuilder()
@@ -67,8 +67,8 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
-                    .setTimestamp(txData["timestamp"] as Long)
                     .setTransferAsset(trc10Contract)
+                    .setTimestamp(txData["timestamp"] as Long)
                     .setBlockHeader(blockHeader)
                     .build()
 
@@ -97,6 +97,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
 
                 val transaction = Tron.Transaction.newBuilder()
                     .setTimestamp(txData["timestamp"] as Long)
+                    .setFeeLimit((txData["feeLimit"] as Int).toLong())
                     .setTransfer(transfer)
                     .setBlockHeader(blockHeader)
                     .build()
