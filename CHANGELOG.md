@@ -65,3 +65,9 @@ Improve error handling and checking for null wallet
 
 - Fixed `getSeed, getRawPrivateKey & getRawPublicKey` methods returning empty array.
 - Added `signDataWithPrivateKey`.
+
+
+### 0.1.5
+
+- Updated the gradle version in Android.
+- Reverted to adding the feeLimit option in TRON (TRX). For instance, it provides the flexibility of setting the feeLimit to 0 for TRX send.
