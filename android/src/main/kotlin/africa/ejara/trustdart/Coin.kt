@@ -3,6 +3,7 @@ package africa.ejara.trustdart
 import africa.ejara.trustdart.interfaces.CoinInterface
 import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toHex
+import africa.ejara.trustdart.utils.toHexByteArray
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
@@ -61,7 +62,7 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     override fun signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
-        return privateKey.sign(txData.toByteArray(Charsets.UTF_8), coinType!!.curve()).toHex()
+        return privateKey.sign(txData.toHexByteArray(), coinType!!.curve()).toHex()
     }
 
     override fun signTransaction(
