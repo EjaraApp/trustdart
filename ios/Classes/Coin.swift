@@ -65,7 +65,7 @@ class Coin: CoinProtocol {
         let wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
         let privateKey = wallet?.getKey(coin: self.coinType, derivationPath: path)
         if privateKey != nil {
-            return privateKey?.sign(digest: txData.data(using: .utf8)!, curve: self.coinType.curve)?.hexString
+            return privateKey?.sign(digest: Data(hexString: txData)!, curve: self.coinType.curve)?.hexString
         }
         return nil
     }
