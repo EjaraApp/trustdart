@@ -115,19 +115,6 @@ Map<String, dynamic> operations = {
         '01000000000000000000000000000000', // // uint128_t / little endian byte order
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
-  'TERRA': {
-    'signerID':
-        'terra1tw3n7ksphms0tcxa244d5psrk79zg0vw6msssn', // (account ID of the transaction originator)
-    'receiverID':
-        'terra169kufqsmax6suq36zn0gyxtgxla5efs6qmc235', // (account ID of the transaction recipient)
-    'nonce': 1, // (increments for every new tx)
-    'amount':
-        '01000000000000000000000000000000', // // uint128_t / little endian byte order
-    'nonce': 64342672000000, // (increments for every new tx)
-    'amount':
-        '01000000000000000000000000000000', // // uint128_t / little endian byte order
-    'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
-  },
 };
 
 runOperations() async {
@@ -142,7 +129,7 @@ runOperations() async {
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
     // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-    String dataToSign = "Just some random data to be signed.";
+    String dataToSign = "03f5a22ee15cd6434751ea528328dd071738e1cfb39fb3c60d306528ff6f46b6e06c00bf43035fb548c011acf2efc84106075b8aa100038827bafcd916904ede02e80701a15985af2de2c555defbac9b8675efd9563285d400ffff07636f6c6c65637400000004008ea010";
 
     for (Coin coin in coinList) {
       print('Check for ${coin.code} on path ${coin.path} ...');
