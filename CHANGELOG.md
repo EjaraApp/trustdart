@@ -71,3 +71,8 @@ Improve error handling and checking for null wallet
 
 - Updated the gradle version in Android.
 - Reverted to adding the feeLimit option in TRON (TRX). For instance, it provides the flexibility of setting the feeLimit to 0 for TRX send.
+
+
+### 0.1.6
+
+- Updated raw sign for tezos
