@@ -115,6 +115,13 @@ Map<String, dynamic> operations = {
         '01000000000000000000000000000000', // // uint128_t / little endian byte order
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
+  'XLM': {
+    "ownerAddress": "GDCYBNRRPIHLHG7X7TKPUPAZ7WVUXCN3VO7WCCK64RIFV5XM5V5K4A52", // from address
+    "toAddress": "GAE2SZV4VLGBAPRYRFV2VY7YYLYGYIP5I7OU7BSP6DJT7GAZ35OKFDYI", //
+    "amount": 10000000,
+    "fee": 1000,
+    "sequence": 2,
+  }
 };
 
 runOperations() async {
