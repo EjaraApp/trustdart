@@ -116,11 +116,13 @@ Map<String, dynamic> operations = {
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
   'XLM': {
-    "ownerAddress": "GDPAC6LJ4MDJA5GPVJZDXBNPDKIJNQ6XCKGKVR3TXEBWEPHWJOW5RL6F", // from address
-    "toAddress": "GAE2SZV4VLGBAPRYRFV2VY7YYLYGYIP5I7OU7BSP6DJT7GAZ35OKFDYI", //
-    "amount": 10000000,
+    "ownerAddress":
+        "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV", // from address
+    "toAddress": "GAHK7EEG2WWHVKDNT4CEQFZGKF2LGDSW2IVM4S5DP42RBW3K6BTODB4A", //
+    "amount": 40000000,
     "fee": 1000,
-    "sequence": 2,
+    "sequence": 183629192141733889,
+    "memo": 431470875
   }
 };
 
@@ -136,7 +138,8 @@ runOperations() async {
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
     // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-    String dataToSign = "03f5a22ee15cd6434751ea528328dd071738e1cfb39fb3c60d306528ff6f46b6e06c00bf43035fb548c011acf2efc84106075b8aa100038827bafcd916904ede02e80701a15985af2de2c555defbac9b8675efd9563285d400ffff07636f6c6c65637400000004008ea010";
+    String dataToSign =
+        "03f5a22ee15cd6434751ea528328dd071738e1cfb39fb3c60d306528ff6f46b6e06c00bf43035fb548c011acf2efc84106075b8aa100038827bafcd916904ede02e80701a15985af2de2c555defbac9b8675efd9563285d400ffff07636f6c6c65637400000004008ea010";
 
     for (Coin coin in coinList) {
       print('Check for ${coin.code} on path ${coin.path} ...');
@@ -218,7 +221,10 @@ runOperations() async {
         coin.path,
         operations[coin.code],
       );
-      print('Transaction Check ...');
+      print('Transaction Check ...' +
+          dondo +
+          'coin.code**************8 ' +
+          coin.code);
       print([tx]);
 
       String signedData = (await Trustdart.signDataWithPrivateKey(
