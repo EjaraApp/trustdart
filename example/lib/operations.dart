@@ -116,14 +116,42 @@ Map<String, dynamic> operations = {
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
   'XLM': {
-    "ownerAddress":
-        "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV", // from address
-    "toAddress": "GAHK7EEG2WWHVKDNT4CEQFZGKF2LGDSW2IVM4S5DP42RBW3K6BTODB4A", //
-    "amount": 40000000,
-    "fee": 1000,
-    "sequence": 183629192141733889,
-    "memo": 431470875
-  }
+    "cmd": 'sendAsset',
+    "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
+    "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "asset": "USDT",
+    "amount": 30000,
+    "fee": 10000,
+    "sequence": 184158241918287874,
+  },
+  // 'XLM': {
+  //   "cmd": 'XLM',
+  //   "ownerAddress":
+  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+  //   "amount": 40000000,
+  //   "fee": 10000,
+  //   "sequence": 183629192141733900,
+  // },
+  // 'XLM': {
+  //   "cmd": "createAssetAccount",
+  //   "ownerAddress":
+  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
+  //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //
+  //   "amount": 39000000,
+  //   "fee": 10000,
+  //   "sequence": 184070843628781572
+  // }
+  // 'XLM': {
+  //   "cmd": "ChangeTrust",
+  //   "ownerAddress":
+  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
+  //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //
+  //   "assetCode": "USDT",
+  //   "validBefore": 1695723258,
+  //   "fee": 10000,
+  //   "sequence": 184070843628781573
+  // }
 };
 
 runOperations() async {
@@ -134,6 +162,7 @@ runOperations() async {
     print('Here is our mnemonic: \n$mnemonic');
     String dondo =
         "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
@@ -221,10 +250,7 @@ runOperations() async {
         coin.path,
         operations[coin.code],
       );
-      print('Transaction Check ...' +
-          dondo +
-          'coin.code**************8 ' +
-          coin.code);
+      print('Transaction Check ...');
       print([tx]);
 
       String signedData = (await Trustdart.signDataWithPrivateKey(
