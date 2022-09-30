@@ -115,35 +115,25 @@ Map<String, dynamic> operations = {
         '01000000000000000000000000000000', // // uint128_t / little endian byte order
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
+  // 'XLM': {
+  //   "cmd": 'SendAsset',
+  //   "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
+  //   "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "asset": "USDT",
+  //   "amount": 900000,
+  //   "fee": 10000,
+  //   "sequence": 184158241918287877,
+  // },
   'XLM': {
-    "cmd": 'sendAsset',
-    "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
-    "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-    "asset": "USDT",
-    "amount": 30000,
+    "cmd": 'XLM',
+    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+    "amount": 40000000,
     "fee": 10000,
-    "sequence": 184158241918287874,
+    "sequence": 183629192141733900,
   },
   // 'XLM': {
-  //   "cmd": 'XLM',
-  //   "ownerAddress":
-  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-  //   "amount": 40000000,
-  //   "fee": 10000,
-  //   "sequence": 183629192141733900,
-  // },
-  // 'XLM': {
-  //   "cmd": "createAssetAccount",
-  //   "ownerAddress":
-  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
-  //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //
-  //   "amount": 39000000,
-  //   "fee": 10000,
-  //   "sequence": 184070843628781572
-  // }
-  // 'XLM': {
-  //   "cmd": "ChangeTrust",
+  //   "cmd": "CreateAsset",
   //   "ownerAddress":
   //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
   //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //
