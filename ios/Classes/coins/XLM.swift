@@ -20,22 +20,81 @@ class XLM: Coin  {
     
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
+        let cmd = txData["cmd"] as! String
+        var txHash: String?
         
-        let operation = StellarOperationPayment.with {
-            $0.destination = txData["toAddress"] as String
-            $0.amount = (txData["amount"] as Int).toLong()
+        switch(cmd){
+            case "CreateAsset":
+                let asset = StellarAsset.with {
+                    $0.issuer = txData["toAddress"] as! String
+                    $0.alphanum4 = txData["assetCode"] as! String
+                }
+            
+                let operation = StellarOperationChangeTrust.with {
+                    $0.asset = asset
+                    $0.validBefore = txData["validBefore"] as! Int64
+                }
+            
+                let signingInput = StellarSigningInput.with {
+                    $0.account = txData["ownerAddress"] as! String
+                    $0.fee = txData["fee"] as! Int32
+                    $0.sequence = txData["sequence"] as! Int64
+                    $0.passphrase = StellarPassphrase.stellar.description
+                    $0.opChangeTrust = operation
+                    $0.privateKey = privateKey!.data
+                }
+                
+                let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
+                txHash = output.signature
+            case "SendAsset":
+                let asset = StellarAsset.with {
+                    $0.issuer = txData["ownerAddress"] as! String
+                    $0.issuer = txData["asset"] as! String
+                }
+            
+                let operation = StellarOperationPayment.with {
+                    $0.destination = txData["toAddress"] as! String
+                    $0.amount = txData["amount"] as! Int64
+                    $0.asset = asset
+                }
+            
+                let signingInput = StellarSigningInput.with {
+                    $0.account = txData["ownerAddress"] as! String
+                    $0.fee = txData["fee"] as! Int32
+                    $0.sequence = txData["sequence"] as! Int64
+                    $0.passphrase = StellarPassphrase.stellar.description
+                    $0.opPayment = operation
+                    $0.privateKey = privateKey!.data
+                }
+                
+                let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
+                txHash = output.signature
+            case "XLM":
+                let operation = StellarOperationPayment.with {
+                    $0.destination = txData["toAddress"] as! String
+                    $0.amount = txData["amount"] as! Int64
+                }
+            
+                let signingInput = StellarSigningInput.with {
+                    $0.account = txData["ownerAddress"] as! String
+                    $0.fee = txData["fee"] as! Int32
+                    $0.sequence = txData["sequence"] as! Int64
+                    $0.passphrase = StellarPassphrase.stellar.description
+                    $0.opPayment = operation
+                    $0.privateKey = privateKey!.data
+                    if (txData["memo"] != nil) {
+                        $0.memoID = StellarMemoId.with {
+                            $0.id = txData["memo"] as! Int64
+                        }
+                    }
+                }
+                
+                let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
+                txHash = output.signature
+            default:
+                txHash = nil
         }
-        let input = StellarSigningInput.with {
-            $0.passphrase = StellarPassphrase.stellar.description
-            $0.fee = (txData["fee"] as Int).toLong()
-            $0.sequence = (txData["sequence"] as Int).toLong() // from account info api
-            $0.account = txData["ownerAddress"] as String
-            $0.privateKey = privateKey!.data
-            $0.opPayment = operation
-        }
         
-        let output: StellarSigningOutput = AnySigner.sign(input: input, coin: .stellar)
-        return output.signature.hexString
-        
+        return txHash
     }
 }

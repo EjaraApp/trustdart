@@ -22,8 +22,12 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        var memoId = Stellar.MemoId.newBuilder().build();
         return wallet.getKey(coinType, path).publicKeyEd25519.data().base64String()
+    }
+
+    override fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
+        val wallet = HDWallet(mnemonic, passphrase)
+        return wallet.getKey(coinType, path).publicKeyEd25519.data()
     }
 
     override fun signTransaction(
@@ -33,9 +37,8 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
         pass_phrase: String
     ): String? {
         val cmd = txData["cmd"] as String
-        val wallet = HDWallet(mnemonic, pass_phrase)
-        val secretKey = wallet.getKey(coinType, path)
-        val txHash: String?;        
+        val secretKey = HDWallet(mnemonic, pass_phrase).getKey(coinType, path)
+        val txHash: String?
         when (cmd) {
             "CreateAsset" -> {
                 val assetUsdt = Stellar.Asset.newBuilder()
@@ -57,7 +60,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                     opChangeTrust = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
                 }
-                val output = AnySigner.sign(signingInput.build(), CoinType.STELLAR, SigningOutput.parser())
+                val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
                 txHash= output.signature
             }
             "SendAsset" -> {
@@ -81,7 +84,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                     opPayment = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
                 }
-                val output = AnySigner.sign(signingInput.build(), CoinType.STELLAR, SigningOutput.parser())
+                val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
                 txHash = output.signature
 
             }
@@ -100,16 +103,15 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                     opPayment = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
                     if (txData["memo"] != null) {
-                        memoId= Stellar.MemoId.newBuilder().setId((txData["memo"] as Int).toLong()).build()
+                        memoId = Stellar.MemoId.newBuilder().setId((txData["memo"] as Int).toLong()).build()
                     }
                 }
-                val output = AnySigner.sign(signingInput.build(), CoinType.STELLAR, SigningOutput.parser())
+                val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
                 txHash= output.signature
             }
             else -> txHash = null;
         }
         return txHash
-
     }
 
 }
