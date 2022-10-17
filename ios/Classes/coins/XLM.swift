@@ -58,14 +58,13 @@ class XLM: Coin  {
                         $0.issuer = txData["asset"] as! String
                     }
                 }
-            
                 let operation = StellarOperationPayment.with {
                     $0.destination = txData["toAddress"] as! String
                     $0.amount = txData["amount"] as! Int64
                     if (txData["asset"] != nil) {
                     $0.asset = asset
                     }
-                }
+                } 
             
                 let signingInput = StellarSigningInput.with {
                     $0.account = txData["ownerAddress"] as! String
