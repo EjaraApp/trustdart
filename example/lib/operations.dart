@@ -116,7 +116,7 @@ Map<String, dynamic> operations = {
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
   // 'XLM': {
-  //   "cmd": 'SendAsset',
+  //   "cmd": 'Payment',
   //   "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
   //   "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
   //   "asset": "USDT",
@@ -124,16 +124,19 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184158241918287877,
   // },
-  'XLM': {
-    "cmd": 'XLM',
-    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-    "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-    "amount": 40000000,
-    "fee": 10000,
-    "sequence": 183629192141733900,
-  },
   // 'XLM': {
-  //   "cmd": "CreateAsset",
+  //   "cmd": 'Payment',
+  //   "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+  //   "amount": 40000000,
+  //   "fee": 10000,
+  //   "sequence": 183629192141733900,
+  // },
+  'XLM': {
+    "cmd": "SponsoreTrust",
+  }
+  // 'XLM': {
+  //   "cmd": "ChangeTrust",
   //   "ownerAddress":
   //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
   //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //

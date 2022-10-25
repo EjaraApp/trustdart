@@ -64,8 +64,9 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 txHash= output.signature
             }
             "Payment" -> {
+                val stellarAsset = Stellar.Asset.newBuilder();
                 if (txData["asset"] != null) {
-                    val stellarAsset = Stellar.Asset.newBuilder()
+                    
                     stellarAsset.apply {
                         issuer = txData["ownerAddress"] as String
                         alphanum4 = txData["asset"] as String

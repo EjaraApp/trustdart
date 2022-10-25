@@ -52,10 +52,11 @@ class XLM: Coin  {
                 let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
                 txHash = output.signature
             case "Payment":
-                if (txData["asset"] != nil) {
-                    let asset = StellarAsset.with {
-                        $0.issuer = txData["ownerAddress"] as! String
-                        $0.issuer = txData["asset"] as! String
+                
+                let asset = StellarAsset.with {
+                    $0.issuer = txData["ownerAddress"] as! String
+                    if (txData["asset"] != nil) {
+                        $0.alphanum4 = txData["asset"] as! String
                     }
                 }
                 let operation = StellarOperationPayment.with {
