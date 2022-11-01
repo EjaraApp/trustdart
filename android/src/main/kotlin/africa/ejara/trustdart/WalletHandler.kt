@@ -6,6 +6,8 @@ import NEAR
 import SOL
 import TRX
 import XTZ
+import africa.ejara.trustdart.coins.XLM
+
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
 import wallet.core.jni.HDWallet
@@ -19,6 +21,8 @@ class WalletHandler {
             "TRX"   to TRX(),
             "SOL"   to SOL(),
             "NEAR"  to NEAR(),
+            "XLM"   to XLM(),
+
         )
     }
 

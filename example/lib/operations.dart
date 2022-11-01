@@ -115,6 +115,36 @@ Map<String, dynamic> operations = {
         '01000000000000000000000000000000', // // uint128_t / little endian byte order
     'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
   },
+  // 'XLM': {
+  //   "cmd": 'Payment',
+  //   "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
+  //   "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "asset": "USDT",
+  //   "amount": 900000,
+  //   "fee": 10000,
+  //   "sequence": 184158241918287877,
+  // },
+  // 'XLM': {
+  //   "cmd": 'Payment',
+  //   "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+  //   "amount": 40000000,
+  //   "fee": 10000,
+  //   "sequence": 183629192141733900,
+  // },
+  'XLM': {
+    "cmd": "SponsoreTrust",
+  }
+  // 'XLM': {
+  //   "cmd": "ChangeTrust",
+  //   "ownerAddress":
+  //       "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY", //
+  //   "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI", //
+  //   "assetCode": "USDT",
+  //   "validBefore": 1695723258,
+  //   "fee": 10000,
+  //   "sequence": 184070843628781573
+  // }
 };
 
 runOperations() async {
@@ -125,11 +155,13 @@ runOperations() async {
     print('Here is our mnemonic: \n$mnemonic');
     String dondo =
         "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
     // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-    String dataToSign = "03f5a22ee15cd6434751ea528328dd071738e1cfb39fb3c60d306528ff6f46b6e06c00bf43035fb548c011acf2efc84106075b8aa100038827bafcd916904ede02e80701a15985af2de2c555defbac9b8675efd9563285d400ffff07636f6c6c65637400000004008ea010";
+    String dataToSign =
+        "03f5a22ee15cd6434751ea528328dd071738e1cfb39fb3c60d306528ff6f46b6e06c00bf43035fb548c011acf2efc84106075b8aa100038827bafcd916904ede02e80701a15985af2de2c555defbac9b8675efd9563285d400ffff07636f6c6c65637400000004008ea010";
 
     for (Coin coin in coinList) {
       print('Check for ${coin.code} on path ${coin.path} ...');
