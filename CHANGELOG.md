@@ -76,3 +76,8 @@ Improve error handling and checking for null wallet
 ### 0.1.6
 
 - Updated raw sign for tezos
+
+
+### 0.1.7
+
+- Stellar Integration
