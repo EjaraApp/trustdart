@@ -31,12 +31,15 @@ class BNB : Coin("BNB", CoinType.BINANCE) {
         val txHash: String?
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
-        val publicKey = privateKey.getPublicKeySecp256k1(true)
+        // val publicKey = privateKey.getPublicKeySecp256k1(true)
+        val publicKey = txData["fromAddress"] as String
         val signingInput = Binance.SigningInput.newBuilder()
-        signingInput.chainId = (txData["chainID"] as Int).toLong()
+        signingInput.chainId = txData["chainID"] as String
         signingInput.accountNumber = (txData["accountNumber"] as Int).toLong()
         signingInput.sequence = (txData["sequence"] as Int).toLong()
-
+        if (txData["memo"] != null) {
+            memo = Binance.memo.newBuilder().setId((txData["memo"] as Int).toLong()).build()
+        }
         signingInput.privateKey = ByteString.copyFrom(privateKey.data())
 
         val token = Binance.SendOrder.Token.newBuilder()

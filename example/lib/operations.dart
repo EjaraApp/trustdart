@@ -142,7 +142,16 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184070843628781573
   // }
-  'BNB': {}
+  'BNB': {
+    "chainID": "",
+    "accountNumber": 0,
+    "sequence": 0,
+    "source": 0,
+    "memo": 0,
+    "fromAddress": "",
+    "toAddress": "",
+    "amount": 0,
+  }
 };
 
 runOperations() async {
@@ -152,8 +161,7 @@ runOperations() async {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
     String dondo =
-        "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
-    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
 
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
