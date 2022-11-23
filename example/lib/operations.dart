@@ -124,17 +124,14 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184158241918287877,
   // },
-  // 'XLM': {
-  //   "cmd": 'Payment',
-  //   "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-  //   "amount": 40000000,
-  //   "fee": 10000,
-  //   "sequence": 183629192141733900,
-  // },
   'XLM': {
-    "cmd": "SponsoreTrust",
-  }
+    "cmd": 'Payment',
+    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+    "amount": 40000000,
+    "fee": 10000,
+    "sequence": 183629192141733900,
+  },
   // 'XLM': {
   //   "cmd": "ChangeTrust",
   //   "ownerAddress":
@@ -145,6 +142,7 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184070843628781573
   // }
+  'BNB': {}
 };
 
 runOperations() async {
@@ -154,7 +152,8 @@ runOperations() async {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
     String dondo =
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
+    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
 
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
@@ -235,6 +234,7 @@ runOperations() async {
         address['legacy']! + '0',
       );
       print('Invalid Check ...');
+      print(coin.code);
       print([invalid]);
 
       String tx = await Trustdart.signTransaction(
