@@ -7,6 +7,7 @@ import SOL
 import TRX
 import XTZ
 import africa.ejara.trustdart.coins.XLM
+import africa.ejara.trustdart.coins.BNB
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
@@ -22,6 +23,7 @@ class WalletHandler {
             "SOL"   to SOL(),
             "NEAR"  to NEAR(),
             "XLM"   to XLM(),
+            "BNB"   to BNB(),
 
         )
     }
