@@ -6,8 +6,9 @@ import NEAR
 import SOL
 import TRX
 import XTZ
-import africa.ejara.trustdart.coins.XLM
-import africa.ejara.trustdart.coins.BNB
+import XLM
+import BNB
+import BSC
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
@@ -24,7 +25,7 @@ class WalletHandler {
             "NEAR"  to NEAR(),
             "XLM"   to XLM(),
             "BNB"   to BNB(),
-
+            "BSC"   to BSC(),
         )
     }
 

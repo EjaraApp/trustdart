@@ -16,4 +16,6 @@ List<Coin> coinList = [
   Coin(code: 'TRX', path: "m/44'/195'/0'/0/0"),
   Coin(code: 'XLM', path: "m/44'/148'/0'"),
   Coin(code: 'BNB', path: "m/44'/714'/0'/0/0"),
+  Coin(code: 'BSC', path: "m/44'/60'/0'/0/0"),
+  //
 ];

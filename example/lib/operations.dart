@@ -143,14 +143,22 @@ Map<String, dynamic> operations = {
   //   "sequence": 184070843628781573
   // }
   'BNB': {
-    "chainID": "",
-    "accountNumber": 0,
-    "sequence": 0,
+    "chainID": "Binance-Chain-Tigris",
+    "accountNumber": 7321705,
+    "sequence": 2,
     "source": 0,
-    "memo": 0,
-    "fromAddress": "",
-    "toAddress": "",
-    "amount": 0,
+    "memo": "532127419",
+    "fromAddress": "bnb19fy0e8m8zwqa3wn7dly7lyp9vl6ealhg4hkvtw",
+    "toAddress": "bnb136ns6lfw4zs5hg4n85vdthaad7hq5m4gtkgf23",
+    "amount": 10000,
+  },
+  'BSC': {
+    "chainID": "0x38",
+    "nonce": "0x01",
+    "gasPrice": "0x012a05f200",
+    "gasLimit": "0x5208",
+    "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
+    "amount": "0x00de0b6b3a7640",
   }
 };
 

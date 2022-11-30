@@ -1,5 +1,3 @@
-package africa.ejara.trustdart.coins
-
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
