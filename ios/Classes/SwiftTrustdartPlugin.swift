@@ -35,7 +35,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let mnemonic: String? = args["mnemonic"]
             let passphrase: String? = args["passphrase"]
             
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: ErrorResponse.addressNull, details: nil), path, coin, mnemonic, passphrase)
             if isValid {
                 // generate address
                 let address = WalletHandler().getCoin(coin!).generateAddress(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
@@ -109,7 +109,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let mnemonic: String? = args["mnemonic"]
             let passphrase: String? = args["passphrase"]
             
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: ErrorResponse.addressNull, details: nil), path, coin, mnemonic, passphrase)
             if isValid {
                 // generate address
                 let publicKey = WalletHandler().getCoin(coin!).getPublicKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
@@ -129,7 +129,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let mnemonic: String? = args["mnemonic"]
             let passphrase: String? = args["passphrase"]
             
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: ErrorResponse.addressNull, details: nil), path, coin, mnemonic, passphrase)
             if isValid {
                 // generate address
                 let publicKey = WalletHandler().getCoin(coin!).getRawPublicKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
@@ -149,7 +149,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let mnemonic: String? = args["mnemonic"]
             let passphrase: String? = args["passphrase"]
             
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: ErrorResponse.addressNull, details: nil), path, coin, mnemonic, passphrase)
             if isValid {
                 // generate address
                 let privateKey = WalletHandler().getCoin(coin!).getPrivateKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)
@@ -169,7 +169,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let mnemonic: String? = args["mnemonic"]
             let passphrase: String? = args["passphrase"]
             
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[path], [coin], [mnemonic] and [passphrase] are required.", details: nil), path, coin, mnemonic, passphrase)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: ErrorResponse.addressNull, details: nil), path, coin, mnemonic, passphrase)
             if isValid {
                 // generate address
                 let privateKey = WalletHandler().getCoin(coin!).getRawPrivateKey(path: path!, mnemonic: mnemonic!, passphrase: passphrase!)

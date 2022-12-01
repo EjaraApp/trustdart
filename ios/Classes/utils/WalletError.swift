@@ -23,6 +23,5 @@ enum WalletHandlerErrorCodes: String {
 
 
 struct ErrorResponse {
-    static let privateKeyNull = ""
     static let addressNull = "[path], [coin], [mnemonic] and [passphrase] are required."
 }
