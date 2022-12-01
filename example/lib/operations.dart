@@ -168,9 +168,7 @@ runOperations() async {
   try {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
-    String dondo =
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
-
+    String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
