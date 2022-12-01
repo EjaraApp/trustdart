@@ -15,20 +15,20 @@ import africa.ejara.trustdart.utils.WalletValidateResponse
 import wallet.core.jni.HDWallet
 
 class WalletHandler {
+
     companion object {
         val coins = mapOf(
-            "BTC"   to BTC(),
-            "ETH"   to ETH(),
-            "XTZ"   to XTZ(),
-            "TRX"   to TRX(),
-            "SOL"   to SOL(),
-            "NEAR"  to NEAR(),
-            "XLM"   to XLM(),
-            "BNB"   to BNB(),
-            "BSC"   to BSC(),
+            "BTC" to BTC(),
+            "ETH" to ETH(),
+            "XTZ" to XTZ(),
+            "TRX" to TRX(),
+            "SOL" to SOL(),
+            "NEAR" to NEAR(),
+            "XLM" to XLM(),
+            "BNB" to BNB(),
+            "BSC" to BSC(),
         )
     }
-
 
     fun getCoin(coin: String?): Coin {
         return coins[coin]!!
@@ -51,4 +51,5 @@ class WalletHandler {
         }
         return WalletValidateResponse(isValid, walletError)
     }
+
 }

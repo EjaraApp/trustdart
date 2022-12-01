@@ -14,36 +14,36 @@ class TRX: Coin  {
     
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         let cmd = txData["cmd"] as! String
-         var txHash: String?
+        var txHash: String?
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
         if privateKey != nil {
             switch cmd {
             case "TRC20":
-                    let contract = TronTransferTRC20Contract.with {
-                        $0.ownerAddress = txData["ownerAddress"] as! String
-                        $0.toAddress = txData["toAddress"] as! String
-                        $0.contractAddress = txData["contractAddress"] as! String
-                        $0.amount = Data(hexString: txData["amount"] as! String)!
-                    }
-                    
-                    let input = TronSigningInput.with {
-                        $0.transaction = TronTransaction.with {
-                            $0.transferTrc20Contract = contract
-                            $0.feeLimit = txData["feeLimit"] as! Int64
-                            $0.timestamp = txData["timestamp"] as! Int64
-                            $0.blockHeader = TronBlockHeader.with {
-                                $0.timestamp = txData["blockTime"] as! Int64
-                                $0.number = txData["number"] as! Int64
-                                $0.version = txData["version"] as! Int32
-                                $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
-                                $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
-                                $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
-                            }
+                let contract = TronTransferTRC20Contract.with {
+                    $0.ownerAddress = txData["ownerAddress"] as! String
+                    $0.toAddress = txData["toAddress"] as! String
+                    $0.contractAddress = txData["contractAddress"] as! String
+                    $0.amount = Data(hexString: txData["amount"] as! String)!
+                }
+                
+                let input = TronSigningInput.with {
+                    $0.transaction = TronTransaction.with {
+                        $0.transferTrc20Contract = contract
+                        $0.feeLimit = txData["feeLimit"] as! Int64
+                        $0.timestamp = txData["timestamp"] as! Int64
+                        $0.blockHeader = TronBlockHeader.with {
+                            $0.timestamp = txData["blockTime"] as! Int64
+                            $0.number = txData["number"] as! Int64
+                            $0.version = txData["version"] as! Int32
+                            $0.txTrieRoot = Data(hexString: txData["txTrieRoot"] as! String)!
+                            $0.parentHash = Data(hexString: txData["parentHash"] as! String)!
+                            $0.witnessAddress = Data(hexString: txData["witnessAddress"] as! String)!
                         }
-                        $0.privateKey = privateKey!.data
                     }
-                    let output: TronSigningOutput = AnySigner.sign(input: input, coin: self.coinType)
-                    txHash = output.json
+                    $0.privateKey = privateKey!.data
+                }
+                let output: TronSigningOutput = AnySigner.sign(input: input, coin: self.coinType)
+                txHash = output.json
             case "TRC10":
                 let transferAsset = TronTransferAssetContract.with {
                     $0.ownerAddress = txData["ownerAddress"] as! String

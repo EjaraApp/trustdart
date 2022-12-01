@@ -8,8 +8,6 @@ import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
-import africa.ejara.trustdart.utils.toHex
-import wallet.core.jni.Curve
 
 class NEAR : Coin("NEAR", CoinType.NEAR) {
 
@@ -24,15 +22,16 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
     }
 
     override fun signTransaction(
-            path: String,
-            txData: Map<String, Any>,
-            mnemonic: String,
-            passphrase: String
+        path: String,
+        txData: Map<String, Any>,
+        mnemonic: String,
+        passphrase: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val secretKey = wallet.getKey(coinType, path)
         val transferAction = NEAR.Transfer.newBuilder().apply {
-            deposit = ByteString.copyFrom(Numeric.hexStringToByteArray((txData["amount"] as String)))
+            deposit =
+                ByteString.copyFrom(Numeric.hexStringToByteArray((txData["amount"] as String)))
         }.build()
         val signingInput = NEAR.SigningInput.newBuilder().apply {
             signerId = txData["signerID"] as String
@@ -48,4 +47,5 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
         val output = AnySigner.sign(signingInput, CoinType.NEAR, SigningOutput.parser())
         return Numeric.toHexString(output.signedTransaction.toByteArray())
     }
+
 }

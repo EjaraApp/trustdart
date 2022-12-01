@@ -1,5 +1,6 @@
 package africa.ejara.trustdart
 
+import africa.ejara.trustdart.utils.ErrorResponse
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletHandlerErrorCodes
 import androidx.annotation.NonNull
@@ -34,7 +35,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
             "generateMnemonic" -> {
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
+                        WalletHandlerErrorCodes.ArgumentsNull,
                         "[strength] and [passphrase] are required.",
                         null
                     ), arrayOf(call.arguments())
@@ -43,7 +44,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     val wallet = WalletHandler().generateMnemonic(128, call.arguments()!!)
                     validator = WalletHandler().validate<Any?>(
                         WalletError(
-                            WalletHandlerErrorCodes.noWallet,
+                            WalletHandlerErrorCodes.NoWallet,
                             "Could not generated mnemonic.",
                             null
                         ), arrayOf(wallet)
@@ -61,7 +62,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 val passphrase: String? = call.argument("passphrase")
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
+                        WalletHandlerErrorCodes.ArgumentsNull,
                         "[mnemonic] and [passphrase] are required.",
                         null
                     ), arrayOf(mnemonic, passphrase)
@@ -70,7 +71,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     val wallet = WalletHandler().checkMnemonic(mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate<HDWallet?>(
                         WalletError(
-                            WalletHandlerErrorCodes.noWallet,
+                            WalletHandlerErrorCodes.NoWallet,
                             "Failed to generate wallet.",
                             null
                         ), arrayOf(wallet)
@@ -90,8 +91,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 val passphrase: String? = call.argument("passphrase")
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
@@ -100,7 +101,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .generateAddress(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.addressNull,
+                            WalletHandlerErrorCodes.AddressNull,
                             "Could not generate address.",
                             null
                         ), arrayOf(address)
@@ -118,16 +119,14 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 val coin: String? = call.argument("coin")
                 val validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
+                        WalletHandlerErrorCodes.ArgumentsNull,
                         "[coin] and [address] are required.",
                         null
                     ), arrayOf(coin, address)
                 )
-                if (validator.isValid) {
-                    if (WalletHandler().getCoin(coin)
-                            .validateAddress(address!!)
-                    ) return result.success(true)
-                }
+                if (validator.isValid && WalletHandler().getCoin(coin)
+                        .validateAddress(address!!)
+                ) return result.success(true)
                 return result.error(
                     validator.details.errorCode,
                     validator.details.errorMessage,
@@ -142,7 +141,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 val txData: Map<String, Any>? = call.argument("txData")
                 var validator = WalletHandler().validate(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
+                        WalletHandlerErrorCodes.ArgumentsNull,
                         "[path], [coin], [mnemonic], [passphrase] and [txData] are required.",
                         null
                     ), arrayOf(path, coin, mnemonic, txData, passphrase)
@@ -152,7 +151,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .signTransaction(path!!, txData!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.txHashNull,
+                            WalletHandlerErrorCodes.TxHashNull,
                             "Could not sign transaction.",
                             null
                         ), arrayOf(txHash)
@@ -173,7 +172,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 val txData: String? = call.argument("txData")
                 var validator = WalletHandler().validate(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
+                        WalletHandlerErrorCodes.ArgumentsNull,
                         "[path], [coin], [mnemonic], [passphrase] and [txData] are required.",
                         null
                     ), arrayOf(path, coin, mnemonic, txData, passphrase)
@@ -183,7 +182,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .signDataWithPrivateKey(path!!, mnemonic!!, passphrase!!, txData!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.txHashNull,
+                            WalletHandlerErrorCodes.TxHashNull,
                             "Could not sign data.",
                             null
                         ), arrayOf(txHash)
@@ -204,8 +203,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
 
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
@@ -214,8 +213,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         WalletHandler().getCoin(coin).getPublicKey(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.addressNull,
-                            "Could not generate public key.",
+                            WalletHandlerErrorCodes.AddressNull,
+                            ErrorResponse.publicKeyNull,
                             null
                         ), arrayOf(publicKey)
                     )
@@ -235,19 +234,20 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
 
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
                 if (validator.isValid) {
                     val publicKey =
-                        WalletHandler().getCoin(coin).getRawPublicKey(path!!, mnemonic!!, passphrase!!)
+                        WalletHandler().getCoin(coin)
+                            .getRawPublicKey(path!!, mnemonic!!, passphrase!!)
                     if (publicKey != null) {
                         validator = WalletHandler().validate(
                             WalletError(
-                                WalletHandlerErrorCodes.addressNull,
-                                "Could not generate public key.",
+                                WalletHandlerErrorCodes.AddressNull,
+                                ErrorResponse.publicKeyNull,
                                 null
                             ), publicKey.toTypedArray()
                             //), arrayOf(publicKey)
@@ -269,8 +269,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
 
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
@@ -279,10 +279,9 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .getSeed(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.addressNull,
-                            "Could not generate private key.",
+                            WalletHandlerErrorCodes.AddressNull,
+                            ErrorResponse.privateKeyNull,
                             null
-                        //), privateKey!!.toTypedArray()
                         ), arrayOf(privateKey)
                     )
                     if (validator.isValid) return result.success(privateKey)
@@ -301,8 +300,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
 
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
@@ -311,8 +310,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .getPrivateKey(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.addressNull,
-                            "Could not generate private key.",
+                            WalletHandlerErrorCodes.AddressNull,
+                            ErrorResponse.privateKeyNull,
                             null
                         ), arrayOf(privateKey)
                     )
@@ -332,8 +331,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
 
                 var validator = WalletHandler().validate<Any?>(
                     WalletError(
-                        WalletHandlerErrorCodes.argumentsNull,
-                        "[path], [coin], [mnemonic] and [passphrase] are required.",
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        ErrorResponse.argumentsNull,
                         null
                     ), arrayOf(path, coin, mnemonic, passphrase)
                 )
@@ -342,8 +341,8 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                         .getRawPrivateKey(path!!, mnemonic!!, passphrase!!)
                     validator = WalletHandler().validate(
                         WalletError(
-                            WalletHandlerErrorCodes.addressNull,
-                            "Could not generate private key.",
+                            WalletHandlerErrorCodes.AddressNull,
+                            ErrorResponse.privateKeyNull,
                             null
                         ), privateKey!!.toTypedArray()
                     )
