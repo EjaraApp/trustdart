@@ -124,17 +124,14 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184158241918287877,
   // },
-  // 'XLM': {
-  //   "cmd": 'Payment',
-  //   "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-  //   "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-  //   "amount": 40000000,
-  //   "fee": 10000,
-  //   "sequence": 183629192141733900,
-  // },
   'XLM': {
-    "cmd": "SponsoreTrust",
-  }
+    "cmd": 'Payment',
+    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+    "amount": 40000000,
+    "fee": 10000,
+    "sequence": 183629192141733900,
+  },
   // 'XLM': {
   //   "cmd": "ChangeTrust",
   //   "ownerAddress":
@@ -145,6 +142,24 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184070843628781573
   // }
+  'BNB': {
+    "chainID": "Binance-Chain-Tigris",
+    "accountNumber": 7321705,
+    "sequence": 2,
+    "source": 0,
+    "memo": "532127419",
+    "fromAddress": "bnb19fy0e8m8zwqa3wn7dly7lyp9vl6ealhg4hkvtw",
+    "toAddress": "bnb136ns6lfw4zs5hg4n85vdthaad7hq5m4gtkgf23",
+    "amount": 10000,
+  },
+  'BSC': {
+    "chainID": "0x38",
+    "nonce": "0x01",
+    "gasPrice": "0x012a05f200",
+    "gasLimit": "0x5208",
+    "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
+    "amount": "0x00de0b6b3a7640",
+  }
 };
 
 runOperations() async {
@@ -153,9 +168,7 @@ runOperations() async {
   try {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
-    String dondo =
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
-
+    String dondo = "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
@@ -235,6 +248,7 @@ runOperations() async {
         address['legacy']! + '0',
       );
       print('Invalid Check ...');
+      print(coin.code);
       print([invalid]);
 
       String tx = await Trustdart.signTransaction(

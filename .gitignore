@@ -4,3 +4,4 @@
 .pub/
 build/
 .idea/
+pubspec.lock

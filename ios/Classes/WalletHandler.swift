@@ -17,6 +17,8 @@ class WalletHandler {
         "SOL"   : SOL(),
         "NEAR"  : NEAR(),
         "XLM"   : XLM(),
+        "BNB"   : BNB(),
+        "BSC"   : BSC(),
     ]
     
     func getCoin(_ coin: String) -> Coin {

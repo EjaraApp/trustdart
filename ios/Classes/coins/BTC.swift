@@ -18,11 +18,11 @@ class BTC: Coin  {
             return ["legacy": legacyAddress!.description,
                     "segwit": self.coinType.deriveAddress(privateKey: privateKey!),
                     "p2sh": scriptHashAddress!.description,
-                    ]
+            ]
         }else {
             return nil
         }
-       
+        
     }
     
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {

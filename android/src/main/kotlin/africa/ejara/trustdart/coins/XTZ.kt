@@ -19,10 +19,16 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
             .publicKeyEd25519.data()
     }
 
-    override fun signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String): String? {
+    override fun signDataWithPrivateKey(
+        path: String,
+        mnemonic: String,
+        passphrase: String,
+        txData: String
+    ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val hash: ByteArray? = Hash.blake2b(txData.toHexBytes(), 32)
-        return  privateKey.sign(hash, coinType!!.curve()).toHex()
+        return privateKey.sign(hash, coinType!!.curve()).toHex()
     }
+
 }
