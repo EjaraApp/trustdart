@@ -9,6 +9,8 @@ import XTZ
 import XLM
 import BNB
 import BSC
+import DOGE
+
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
@@ -26,6 +28,7 @@ class WalletHandler {
             "XLM"   to XLM(),
             "BNB"   to BNB(),
             "BSC"   to BSC(),
+            "DOGE"  to DOGE(),
         )
     }
 
