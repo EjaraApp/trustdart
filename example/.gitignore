@@ -44,3 +44,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+ios/build/Pods.build/
+ios/Pods/
+ios/Podfile.lock
+android/.settings/
+android/app/.classpath
+android/app/.project
+pubspec.lock
+.fvm/
+.zshrc
+
+# Code scanning tool
+/.scannerwork/
+*/.scannerwork/*

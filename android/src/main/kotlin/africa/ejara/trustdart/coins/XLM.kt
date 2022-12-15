@@ -3,17 +3,10 @@ import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
-import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
-import africa.ejara.trustdart.utils.toHexByteArray
 import wallet.core.jni.proto.Stellar
 import wallet.core.jni.proto.Stellar.SigningOutput
 import wallet.core.jni.StellarPassphrase
-import android.util.Log
-import wallet.core.jni.PrivateKey
-import wallet.core.jni.proto.Stellar.Asset.Builder;
-
-
 
 
 class XLM : Coin("XLM", CoinType.STELLAR) {
@@ -47,7 +40,8 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 val operation = Stellar.OperationChangeTrust.newBuilder()
                 operation.apply {
                     asset = assetUsdt.build()
-                    validBefore = (txData["validBefore"] as Int).toLong()  // till when the asset trust is valid (timestamp)
+                    validBefore =
+                        (txData["validBefore"] as Int).toLong()  // till when the asset trust is valid (timestamp)
                 }
                 val signingInput = Stellar.SigningInput.newBuilder()
                 signingInput.apply {
@@ -59,16 +53,16 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                     privateKey = ByteString.copyFrom(secretKey.data())
                 }
                 val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
-                txHash= output.signature
+                txHash = output.signature
             }
             "Payment" -> {
                 val stellarAsset = Stellar.Asset.newBuilder();
                 if (txData["asset"] != null) {
-                    
+
                     stellarAsset.apply {
                         issuer = txData["ownerAddress"] as String
                         alphanum4 = txData["asset"] as String
-                    }   
+                    }
                 }
                 val operation = Stellar.OperationPayment.newBuilder()
                 operation.apply {
@@ -87,7 +81,8 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                     opPayment = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
                     if (txData["memo"] != null) {
-                        memoId = Stellar.MemoId.newBuilder().setId((txData["memo"] as Int).toLong()).build()
+                        memoId = Stellar.MemoId.newBuilder().setId((txData["memo"] as Int).toLong())
+                            .build()
                     }
                 }
                 val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())

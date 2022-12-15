@@ -21,9 +21,9 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     }
 
     override fun generateAddress(
-            path: String,
-            mnemonic: String,
-            passphrase: String
+        path: String,
+        mnemonic: String,
+        passphrase: String
     ): Map<String, String>? {
         val wallet = HDWallet(mnemonic, passphrase)
         return mapOf("legacy" to coinType!!.deriveAddress(wallet.getKey(coinType, path)))
@@ -59,21 +59,27 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
         return coinType!!.validate(address)
     }
 
-    override fun signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String): String? {
+    override fun signDataWithPrivateKey(
+        path: String,
+        mnemonic: String,
+        passphrase: String,
+        txData: String
+    ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         return privateKey.sign(txData.toHexByteArray(), coinType!!.curve()).toHex()
     }
 
     override fun signTransaction(
-            path: String,
-            txData: Map<String, Any>,
-            mnemonic: String,
-            passphrase: String
+        path: String,
+        txData: Map<String, Any>,
+        mnemonic: String,
+        passphrase: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
         val opJson = JSONObject(txData).toString()
         return AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())
     }
+
 }

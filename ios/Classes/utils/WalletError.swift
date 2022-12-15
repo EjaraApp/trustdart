@@ -20,3 +20,8 @@ enum WalletHandlerErrorCodes: String {
     case argumentsNull = "arguments_null"
     case txHashNull = "txhash_null"
 }
+
+
+struct ErrorResponse {
+    static let addressNull = "[path], [coin], [mnemonic] and [passphrase] are required."
+}

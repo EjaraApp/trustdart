@@ -160,7 +160,17 @@ Map<String, dynamic> operations = {
     "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
     "amount": "0x00de0b6b3a7640",
   },
-  'DOGE': {}
+  'DOGE': {
+    "txid": "f9951bb9536cdabec3ad1b9ceaf8170051bd80372db22cfb59901036526891b0",
+    "vout": 0,
+    "value": 4500,
+    "script": "001434977ae25a9298fac1feef0b1a52be058ab13751",
+    "toAddress": "DBVdaWiPdsHxMrfQynRtCe9yEXomxM2Xui",
+    "amount": 3000,
+    "fees": 1000,
+    "changeAddress": "DBVdaWiPdsHxMrfQynRtCe9yEXomxM2Xui",
+    "change": 500
+  },
 };
 
 runOperations() async {
@@ -169,9 +179,10 @@ runOperations() async {
   try {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
+
     String dondo =
-        "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
-    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        // "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
+        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
 
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);

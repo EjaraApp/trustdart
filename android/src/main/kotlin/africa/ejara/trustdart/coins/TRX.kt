@@ -147,4 +147,5 @@ class TRX : Coin("TRX", CoinType.TRON) {
         }
         return txHash;
     }
+
 }
