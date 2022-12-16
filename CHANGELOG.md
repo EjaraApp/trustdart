@@ -81,3 +81,7 @@ Improve error handling and checking for null wallet
 ### 0.1.7
 
 - Stellar Integration
+
+### 0.1.8
+
+- Binance chains integrations
