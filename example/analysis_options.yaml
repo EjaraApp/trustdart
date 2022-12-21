@@ -1,0 +1,27 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+    language:
+      strict-inference: true
+    errors: 
+      prefer_const_constructors: error
+      avoid_empty_else: error
+      avoid_unused_constructor_parameters: error
+      always_put_required_named_parameters_first: error
+      avoid_relative_lib_imports: error
+      always_use_package_imports: error
+      lines_longer_than_80_chars: error
+
+
+
+
+linter:
+    rules:
+        prefer_const_declarations: true
+        avoid_empty_else: true
+        avoid_unused_constructor_parameters: true
+        always_put_required_named_parameters_first: true
+        avoid_relative_lib_imports: true
+        always_use_package_imports: true
+        prefer_const_constructors: true
+        lines_longer_than_80_chars: true

@@ -1,6 +1,6 @@
 name: trustdart
 description: A dart library that can interact with the trust wallet core library.
-version: 0.1.7
+version: 0.1.8
 homepage: https://github.com/EjaraApp/trustdart
 
 environment:
