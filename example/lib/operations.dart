@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars, avoid_print, duplicate_ignore
-
 import 'dart:typed_data';
 
 import 'package:trustdart/trustdart.dart';
@@ -70,7 +68,7 @@ Map<String, dynamic> operations = {
     "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
     "contractAddress":
         "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
-    "timestamp": DateTime.now(),
+    "timestamp": DateTime.now().millisecondsSinceEpoch,
     "amount":
         "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
     // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
