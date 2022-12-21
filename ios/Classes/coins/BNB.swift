@@ -9,8 +9,7 @@ class BNB: Coin  {
 
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
         let publicKey = privateKey?.getPublicKeySecp256k1(compressed: true)
-        print(publicKey)
-
+        
         let token = BinanceSendOrder.Token.with {
             $0.denom = "BNB" // BNB or BEP2 token symbol
             $0.amount = txData["amount"] as! Int64
@@ -27,10 +26,10 @@ class BNB: Coin  {
         }
 
         let input = BinanceSigningInput.with {
-            $0.chainID = txData["chainID"] as! String // Chain id (network id),                 from /v1/node-info api
-            $0.accountNumber = txData["accountNumber"] as! Int64          // On chain account / address number,     from /v1/account/<address> api
-            $0.sequence = txData["sequence"] as! Int64                   // Sequence number, plus 1 for new order, from /v1/account/<address> api
-            $0.source = txData["source"] as! Int64                     // BEP10 source id
+            $0.chainID = txData["chainID"] as! String // Chain id (network id)
+            $0.accountNumber = txData["accountNumber"] as! Int64    // On chain account / address number
+            $0.sequence = txData["sequence"] as! Int64  // Sequence number, plus 1 for new order
+            $0.source = txData["source"] as! Int64  // BEP10 source id
             $0.privateKey = privateKey!.data
            if (txData["memo"] != nil) {
                 $0.memo = txData["memo"] as! String

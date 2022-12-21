@@ -19,9 +19,8 @@ class BSC : Coin("BSC", CoinType.SMARTCHAIN) {
     ): String? {
         val signingInput = Ethereum.SigningInput.newBuilder()
         val wallet = HDWallet(mnemonic, passphrase)
-        val private_key = wallet.getKey(coinType, path)
         signingInput.apply {
-            privateKey = ByteString.copyFrom(private_key.data())
+            privateKey = ByteString.copyFrom(wallet.getKey(coinType, path).data())
             toAddress = txData["toAddress"] as String
             chainId = ByteString.copyFrom((txData["chainID"] as String).toHexByteArray())
             nonce = ByteString.copyFrom((txData["nonce"] as String).toHexByteArray())
@@ -35,8 +34,8 @@ class BSC : Coin("BSC", CoinType.SMARTCHAIN) {
         }
 
         val sign = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
-        return "0x" + Numeric.toHexString(sign.encoded.toByteArray())
-
+        return Numeric.toHexString(sign.encoded.toByteArray())
     }
+
 }
 

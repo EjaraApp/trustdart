@@ -10,6 +10,7 @@ import wallet.core.jni.proto.Bitcoin
 
 
 class BTC : Coin("BTC", CoinType.BITCOIN) {
+
     override fun generateAddress(
         path: String,
         mnemonic: String,
@@ -72,4 +73,5 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
         output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
         return Numeric.toHexString(output.encoded.toByteArray())
     }
+
 }

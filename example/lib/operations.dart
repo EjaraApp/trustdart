@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars, avoid_print, duplicate_ignore
+
 import 'dart:typed_data';
 
 import 'package:trustdart/trustdart.dart';
@@ -38,6 +40,7 @@ Map<String, dynamic> operations = {
     "chainId": "AQ==",
     "gasPrice": "1pOkAA==",
     "gasLimit": "Ugg=",
+    "nonce": "AQ==",
     "toAddress": "0x7d8bf18C7cE84b3E175b339c4Ca93aEd1dD166F1",
     "transaction": {
       "transfer": {"amount": "A0i8paFgAA=="}
@@ -67,8 +70,7 @@ Map<String, dynamic> operations = {
     "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
     "contractAddress":
         "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
-    "timestamp": DateTime.now()
-        .millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
+    "timestamp": DateTime.now(),
     "amount":
         "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
     // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
@@ -176,6 +178,7 @@ Map<String, dynamic> operations = {
   },
 };
 
+// ignore: inference_failure_on_function_return_type
 runOperations() async {
   // Platform messages may fail, so we use a try/catch PlatformException.
   // We also handle the message potentially returning null.
@@ -185,7 +188,6 @@ runOperations() async {
 
     String dondo =
         "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
-
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
@@ -230,6 +232,7 @@ runOperations() async {
         coin.path,
       );
       print('Raw Publick Key Check ...');
+      // ignore: avoid_print
       print([
         rawPubKey,
       ]);

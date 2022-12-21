@@ -12,8 +12,16 @@ class WalletError(
 data class WalletValidateResponse(val isValid: Boolean, val details: WalletError)
 
 enum class WalletHandlerErrorCodes(val value: String) {
-    noWallet("no_wallet"),
-    addressNull("address_null"),
-    argumentsNull("arguments_null"),
-    txHashNull("txhash_null")
+    NoWallet("no_wallet"),
+    AddressNull("address_null"),
+    ArgumentsNull("arguments_null"),
+    TxHashNull("txhash_null")
+}
+
+class ErrorResponse {
+    companion object {
+        const val argumentsNull = "[path], [coin], [mnemonic] and [passphrase] are required."
+        const val privateKeyNull = "Could not generate private key."
+        const val publicKeyNull = "Could not generate public key."
+    }
 }
