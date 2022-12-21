@@ -124,10 +124,18 @@ Map<String, dynamic> operations = {
   //   "fee": 10000,
   //   "sequence": 184158241918287877,
   // },
+  // 'XLM': {
+  //   "cmd": 'Payment',
+  //   "ownerAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+  //   "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  //   "amount": 2000000,
+  //   "fee": 10000,
+  //   "sequence": 183629192141733925,
+  // },
   'XLM': {
-    "cmd": 'Payment',
-    "ownerAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-    "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "cmd": 'createAccount',
+    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "toAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
     "amount": 2000000,
     "fee": 10000,
     "sequence": 183629192141733925,
@@ -161,15 +169,18 @@ Map<String, dynamic> operations = {
     "amount": "0x00de0b6b3a7640",
   },
   'DOGE': {
-    "txid": "f9951bb9536cdabec3ad1b9ceaf8170051bd80372db22cfb59901036526891b0",
-    "vout": 0,
-    "value": 4500,
-    "script": "001434977ae25a9298fac1feef0b1a52be058ab13751",
+    "utxos": [
+      {
+        "txid":
+            "ec6cc99e0084361ada185f059d53ad4db12d2a716299dcb3f74e6dfdd87cc2cb",
+        "vout": 1,
+        "value": 3840100000,
+      },
+    ],
     "toAddress": "DBVdaWiPdsHxMrfQynRtCe9yEXomxM2Xui",
-    "amount": 3000,
-    "fees": 1000,
-    "changeAddress": "DBVdaWiPdsHxMrfQynRtCe9yEXomxM2Xui",
-    "change": 500
+    "amount": 50000000,
+    "fees": 5000,
+    "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
 };
 
@@ -181,8 +192,8 @@ runOperations() async {
     print('Here is our mnemonic: \n$mnemonic');
 
     String dondo =
-        // "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
+    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
 
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);

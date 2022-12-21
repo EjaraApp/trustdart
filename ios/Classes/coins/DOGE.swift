@@ -9,18 +9,43 @@ class DOGE: Coin  {
         super.init(name: "DOGE", coinType: .dogecoin)
     }
 
-    // override func testDeriveFromDpub() {
-    //     let dgub = "dgub8rjvUmFc6cqR6NRBEj2FBZCHUDUrykPyv24Vea6bCsPex5PzNFrRtr4KN37XgwuVzzC2MikJRW2Ddcp99Ehsqp2iaU4eerNCJVruKxz6Gci"
-    //     let pubkey8 = HDWallet.getPublicKeyFromExtended(
-    //         extended: dgub,
-    //         coin: .dogecoin,
-    //         derivationPath: DerivationPath(purpose: .bip44, coin: coin.slip44Id, account: 0, change: 0, address: 8).description
-    //     )!
-
-    //     let address = BitcoinAddress(publicKey: pubkey8, prefix: coin.p2pkhPrefix)!
-    //     let p = XCTAssertEqual(address.description, "DLrjRgrVqbbpGrSQUtSYgsiWWMvRz5skQE")
-    //     print("pppppppp: ", p)
+    override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
+        let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: coinType, derivationPath: path)
+        let publicKey = privateKey!.getPublicKeySecp256k1(compressed: true)
+        let address = BitcoinAddress(publicKey: publicKey, prefix: coinType.p2pkhPrefix)
+        let script = BitcoinScript.lockScriptForAddress(address: address!.description, coin: coinType)
+        let utxos: [[String: Any]] = txData["utxos"] as! [[String: Any]]
+        var unspent: [BitcoinUnspentTransaction] = []
         
-    // }
-
+        if privateKey != nil {
+            for utx in utxos {
+                unspent.append(BitcoinUnspentTransaction.with {
+                    $0.outPoint.hash = Data.reverse(hexString: utx["txid"] as! String)
+                    $0.outPoint.index = UInt32(utx["vout"] as! Int)
+                    $0.outPoint.sequence = UINT32_MAX
+                    $0.amount = Int64(utx["value"] as! Int) // actual amount is the amount / 10^8
+                    $0.script = script.data
+                })
+            }
+            
+            
+            let input: BitcoinSigningInput = BitcoinSigningInput.with {
+                $0.hashType = BitcoinScript.hashTypeForCoin(coinType: coinType)
+                $0.toAddress = txData["toAddress"] as! String
+                $0.changeAddress = txData["changeAddress"] as! String
+                $0.privateKey = [privateKey!.data]
+                $0.amount = Int64(txData["amount"] as! Int)
+                $0.coinType = coinType.rawValue
+                $0.byteFee = Int64(txData["fees"] as! Int)
+                $0.utxo = unspent
+            }
+            
+            let output: BitcoinSigningOutput = AnySigner.sign(input: input, coin: coinType)
+            print(output.error)
+            return output.encoded.hexString
+        }else {
+            return nil
+        }
+        
+    }
 }
