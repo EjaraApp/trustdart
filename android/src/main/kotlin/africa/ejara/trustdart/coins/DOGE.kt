@@ -53,11 +53,10 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
             input.addUtxo(utxo)
         }
 
-        var output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
+        val output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
 
          return Numeric.toHexString(output.encoded.toByteArray())
      }
-
 
 }
 
