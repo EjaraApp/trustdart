@@ -68,8 +68,7 @@ Map<String, dynamic> operations = {
     "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
     "contractAddress":
         "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
-    "timestamp": DateTime.now()
-        .millisecondsSinceEpoch, // current timestamp (or timestamp as at signing) milliseconds
+    "timestamp": DateTime.now().millisecondsSinceEpoch,
     "amount":
         "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
     // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
@@ -127,11 +126,11 @@ Map<String, dynamic> operations = {
   // },
   'XLM': {
     "cmd": 'Payment',
-    "ownerAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-    "toAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
-    "amount": 40000000,
+    "ownerAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+    "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+    "amount": 2000000,
     "fee": 10000,
-    "sequence": 183629192141733900,
+    "sequence": 183629192141733925,
   },
   // 'XLM': {
   //   "cmd": "ChangeTrust",
@@ -146,7 +145,7 @@ Map<String, dynamic> operations = {
   'BNB': {
     "chainID": "Binance-Chain-Tigris",
     "accountNumber": 7321705,
-    "sequence": 2,
+    "sequence": 6,
     "source": 0,
     "memo": "532127419",
     "fromAddress": "bnb19fy0e8m8zwqa3wn7dly7lyp9vl6ealhg4hkvtw",
@@ -155,20 +154,36 @@ Map<String, dynamic> operations = {
   },
   'BSC': {
     "chainID": "0x38",
-    "nonce": "0x01",
+    "nonce": "0x05",
     "gasPrice": "0x012a05f200",
     "gasLimit": "0x5208",
     "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
     "amount": "0x00de0b6b3a7640",
-  }
+  },
+  'DOGE': {
+    "utxos": [
+      {
+        "txid":
+            "ec6cc99e0084361ada185f059d53ad4db12d2a716299dcb3f74e6dfdd87cc2cb",
+        "vout": 1,
+        "value": 2840100000,
+      },
+    ],
+    "toAddress": "DBVdaWiPdsHxMrfQynRtCe9yEXomxM2Xui",
+    "amount": 300000,
+    "fees": 5000,
+    "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
+  },
 };
 
+// ignore: inference_failure_on_function_return_type
 runOperations() async {
   // Platform messages may fail, so we use a try/catch PlatformException.
   // We also handle the message potentially returning null.
   try {
     String mnemonic = await Trustdart.generateMnemonic();
     print('Here is our mnemonic: \n$mnemonic');
+
     String dondo =
         "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
     // dondo = "a d f d s e w q t y u l";
@@ -215,6 +230,7 @@ runOperations() async {
         coin.path,
       );
       print('Raw Publick Key Check ...');
+      // ignore: avoid_print
       print([
         rawPubKey,
       ]);

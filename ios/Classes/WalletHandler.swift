@@ -19,6 +19,7 @@ class WalletHandler {
         "XLM"   : XLM(),
         "BNB"   : BNB(),
         "BSC"   : BSC(),
+        "DOGE"  : DOGE(),
     ]
     
     func getCoin(_ coin: String) -> Coin {

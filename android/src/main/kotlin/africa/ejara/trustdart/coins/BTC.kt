@@ -67,9 +67,11 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
         // a hack is used for now to calculate the byteFee
         val size = output.encoded.toByteArray().size;
         val fees = (txData["fees"] as Int).toLong()
-        val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
-        // now we set new byte size
-        if (byteFee > 1) input.byteFee = byteFee
+        if (size > 0) { // prevent division by zero
+            val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
+            // now we set new byte size
+            if (byteFee > 1) input.byteFee = byteFee
+        }
         output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
         return Numeric.toHexString(output.encoded.toByteArray())
     }
