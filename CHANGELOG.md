@@ -85,3 +85,7 @@ Improve error handling and checking for null wallet
 ### 0.1.8
 
 - Binance chains integrations
+
+### 0.1.9
+
+- Doge coin integrations
