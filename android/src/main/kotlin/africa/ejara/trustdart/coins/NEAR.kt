@@ -8,6 +8,11 @@ import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
+import java.util.Base64
+
 
 class NEAR : Coin("NEAR", CoinType.NEAR) {
 
@@ -21,6 +26,7 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
         return wallet.getKey(coinType, path).publicKeyEd25519.data()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun signTransaction(
         path: String,
         txData: Map<String, Any>,
@@ -45,7 +51,21 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
         }.build()
 
         val output = AnySigner.sign(signingInput, CoinType.NEAR, SigningOutput.parser())
-        return Numeric.toHexString(output.signedTransaction.toByteArray())
+        val encodeOutput = Base64.getEncoder().encodeToString(output.signedTransaction.toByteArray());
+
+        return encodeOutput.toString()
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

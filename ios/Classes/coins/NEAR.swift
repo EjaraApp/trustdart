@@ -39,6 +39,7 @@ class NEAR: Coin  {
             $0.privateKey = privateKey!.data
         }
         let output: NEARSigningOutput = AnySigner.sign(input: input, coin: .near)
-        return output.signedTransaction.hexString
+
+        return Data(output.signedTransaction).base64EncodedString();
     }
 }

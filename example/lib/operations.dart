@@ -78,7 +78,7 @@ Map<String, dynamic> operations = {
     "blockTime":
         1638519600000, // timestamp of block to be included milliseconds
     "txTrieRoot":
-        "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304", // trie root of block
+        "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304",
     "witnessAddress":
         "41e5e572797a3d479030e2596a239bd142a890a305", // address of witness that signed block
     "parentHash":
@@ -107,14 +107,24 @@ Map<String, dynamic> operations = {
   },
   'NEAR': {
     'signerID':
-        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction originator)
+        'a58a655c0b44452a6a7aa379f39d52bba802b8fe5ac2c8e7842ce38726fb2e54', // (account ID of the transaction originator)
     'receiverID':
-        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction recipient)
-    'nonce': 1, // (increments for every new tx)
+        '57bd8dabea6ff06dbf071391d6f41d8c62c9620ef2449379052dbd09c46b0bbf', // (account ID of the transaction recipient)
+    'nonce': 84284300000001, // (increments for every new tx)
     'amount':
-        '01000000000000000000000000000000', // // uint128_t / little endian byte order
-    'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
+        '000078b527b2b338c807000000000000', // // uint128_t / little endian byte order
+    'blockHash': '4XpDq8jScfyBF9q4rLXdgJ5egf4tdJQQ91w1haSPfz9h', //
   },
+  // 'NEAR': {
+  //   'signerID':
+  //       '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction originator)
+  //   'receiverID':
+  //       '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction recipient)
+  //   'nonce': 1, // (increments for every new tx)
+  //   'amount':
+  //       '01000000000000000000000000000000', // // uint128_t / little endian byte order
+  //   'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
+  // },
   // 'XLM': {
   //   "cmd": 'Payment',
   //   "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
