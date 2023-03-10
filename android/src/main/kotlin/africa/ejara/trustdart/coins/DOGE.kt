@@ -28,7 +28,7 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
          val script = BitcoinScript.lockScriptForAddress(address.description(), coinType)
 
          val input = Bitcoin.SigningInput.newBuilder()
-         .setAmount((txData["amount"] as Int).toLong())
+         .setAmount(castAmountToLong(txData["amount"]))
          .setHashType(BitcoinSigHashType.ALL.value())
          .setToAddress(txData["toAddress"] as String)
          .setChangeAddress(txData["changeAddress"] as String)
@@ -45,7 +45,7 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
                 .build()
 
             val utxo = Bitcoin.UnspentTransaction.newBuilder()
-                .setAmount(utx["value"] as Long)
+                .setAmount(castAmountToLong(utx["value"]))
                 .setOutPoint(outPoint)
                 .setScript(ByteString.copyFrom(script.data()))
                 .build()
@@ -57,6 +57,14 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
 
          return Numeric.toHexString(output.encoded.toByteArray())
      }
+
+     fun castAmountToLong(amount: Any?): Long {
+        if(amount is Int){
+            return amount.toLong()
+         }else{
+            return amount as Long
+         }
+    }
 
 }
 
