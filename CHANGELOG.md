@@ -89,3 +89,7 @@ Improve error handling and checking for null wallet
 ### 0.1.9
 
 - Doge coin integrations
+
+### 0.1.10
+
+- Doge coin fixes
