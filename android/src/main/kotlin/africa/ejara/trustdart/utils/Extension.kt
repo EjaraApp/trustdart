@@ -27,3 +27,11 @@ fun String.toHexBytesInByteString(): ByteString {
 fun ByteArray.base64String(): String {
     return Base64.encodeToString(this, Base64.DEFAULT).toString()
 }
+
+fun Any.toLong(): Long {
+    return if(this is Int){
+        this.toLong()
+    }else{
+        this as Long
+    }
+}
