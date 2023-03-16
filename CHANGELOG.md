@@ -93,3 +93,7 @@ Improve error handling and checking for null wallet
 ### 0.1.10
 
 - Doge coin fixes
+
+### 0.1.11
+
+- Android long/int conversion issues fixed.
