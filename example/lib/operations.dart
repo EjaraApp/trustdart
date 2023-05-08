@@ -7,7 +7,6 @@ import 'package:trustdart_example/coins.dart';
 
 Map<String, dynamic> operations = {
   'XTZ': {
-    "cmd": "tezos",
     "operationList": {
       "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
       "operations": [
@@ -61,6 +60,7 @@ Map<String, dynamic> operations = {
   //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "value": "123",
+  //   "amount": "0"
   //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "fee": 100000,
   //   "counter": 2993173,
@@ -218,7 +218,8 @@ runOperations() async {
     print('Here is our mnemonic: \n$mnemonic');
 
     String dondo =
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        "rebel fantasy bamboo install asset fiscal leaf same disagree ancient wool extend";
+    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
