@@ -6,52 +6,52 @@ import 'package:trustdart/trustdart.dart';
 import 'package:trustdart_example/coins.dart';
 
 Map<String, dynamic> operations = {
-  // 'XTZ': {
-  //   "operationList": {
-  //     "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
-  //     "operations": [
-  //       {
-  //         "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
-  //         "fee": 1272,
-  //         "counter": 30738,
-  //         "gasLimit": 10100,
-  //         "storageLimit": 257,
-  //         "kind": 107,
-  //         "revealOperationData": {
-  //           "publicKey": "8z6GkG6TaQVnpYr2gc6r8Q/mS7m0Qf6Ef9VinW8mKXM="
-  //         }
-  //       },
-  //       {
-  //         "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
-  //         "fee": 1272,
-  //         "counter": 30739,
-  //         "gasLimit": 10100,
-  //         "storageLimit": 257,
-  //         "kind": 108,
-  //         "transactionOperationData": {
-  //           "destination": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
-  //           "amount": 1
-  //         }
-  //       }
-  //     ]
-  //   }
-  // },
-
   'XTZ': {
-    "cmd": "FA2",
-    "amount": "10",
-    "tokenId": "1",
-    "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
-    "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
-    "destination": "KT1DYk1XDzHredJq1EyNkDindiWDqZyekXGj",
-    "transactionAmount": 0,
-    "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
-    "fee": 100000,
-    "counter": 2993173,
-    "gasLimit": 100000,
-    "storageLimit": 0,
-    "branch": "BKvEAX9HXfJZWYfTQbR1C7B3ADoKY6a1aKVRF7qQqvc9hS8Rr3m",
+    "operationList": {
+      "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
+      "operations": [
+        {
+          "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+          "fee": 1272,
+          "counter": 30738,
+          "gasLimit": 10100,
+          "storageLimit": 257,
+          "kind": 107,
+          "revealOperationData": {
+            "publicKey": "8z6GkG6TaQVnpYr2gc6r8Q/mS7m0Qf6Ef9VinW8mKXM="
+          }
+        },
+        {
+          "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+          "fee": 1272,
+          "counter": 30739,
+          "gasLimit": 10100,
+          "storageLimit": 257,
+          "kind": 108,
+          "transactionOperationData": {
+            "destination": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+            "amount": 1
+          }
+        }
+      ]
+    }
   },
+
+  // 'XTZ': {
+  //   "cmd": "FA2",
+  //   "amount": "10",
+  //   "tokenId": "1",
+  //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "destination": "KT1DYk1XDzHredJq1EyNkDindiWDqZyekXGj",
+  //   "transactionAmount": 0,
+  //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "fee": 100000,
+  //   "counter": 2993173,
+  //   "gasLimit": 100000,
+  //   "storageLimit": 0,
+  //   "branch": "BKvEAX9HXfJZWYfTQbR1C7B3ADoKY6a1aKVRF7qQqvc9hS8Rr3m",
+  // },
   // 'XTZ': {
   //   "cmd": "FA12",
   //   "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
@@ -60,7 +60,7 @@ Map<String, dynamic> operations = {
   //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "value": "123",
-  //   "amount": "0"
+  //   "amount": "0",
   //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "fee": 100000,
   //   "counter": 2993173,

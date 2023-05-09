@@ -29,8 +29,8 @@ class XTZ: Coin  {
     }
 
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
-        var txHash: String?
-        let cmd = txData["cmd"] as! String
+        var txHash: String? = nil
+        let cmd: String? = txData["cmd"] as String
         let branch = txData["branch"] as! String
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)!.getKey(coin: self.coinType, derivationPath: path)
         let publicKey = privateKey.getPublicKeyEd25519().data
@@ -135,9 +135,10 @@ class XTZ: Coin  {
                 txHash = output.encoded.hexString
 
             default:
-            txHash = nil
+                let opJson =  Utils.objToJson(from: txData)
+                let output =  AnySigner.signJSON(opJson!, key: privateKey.data, coin: self.coinType)
+                txHash = output       
         }
-        
         return txHash    
         
     }
