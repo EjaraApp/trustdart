@@ -30,14 +30,14 @@ class XTZ: Coin  {
 
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         var txHash: String? = nil
-        let cmd: String? = txData["cmd"] as String
-        let branch = txData["branch"] as! String
+        let cmd = txData["cmd"] == nil ? "" : txData["cmd"] as! String
+        
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)!.getKey(coin: self.coinType, derivationPath: path)
         let publicKey = privateKey.getPublicKeyEd25519().data
         
         switch(cmd){
             case "FA2":
-                
+                let branch = txData["branch"] as! String
                 var operationList = TezosOperationList()
                 operationList.branch = branch
                 
@@ -90,6 +90,7 @@ class XTZ: Coin  {
 
                 txHash = output.encoded.hexString
             case "FA12": 
+                let branch = txData["branch"] as! String
                 var operationList = TezosOperationList()
                 operationList.branch = branch
                 
