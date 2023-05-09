@@ -71,14 +71,14 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                     .build()
 
                 val transactionData = TransactionOperationData.newBuilder()
-                    .setAmount(txData["transactionAmount"] !!.toLong())
+                    .setAmount(txData["transactionAmount"]!!.toLong())
                     .setDestination(txData["destination"] as String)
                     .setParameters(parameters)
                     .build()
 
                 val transaction = Operation.newBuilder()
                     .setSource(txData["source"] as String)
-                    .setFee(txData["fee"] !!.toLong())
+                    .setFee(txData["fee"]!!.toLong())
                     .setCounter(txData["counter"]!!.toLong())
                     .setGasLimit(txData["gasLimit"]!!.toLong())
                     .setStorageLimit(txData["storageLimit"]!!.toLong())
