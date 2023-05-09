@@ -3,11 +3,13 @@ import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toHex
 import africa.ejara.trustdart.utils.toHexBytes
+import android.util.Log
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.Hash
 import wallet.core.jni.proto.Tezos.*
 import com.google.protobuf.ByteString
+import org.json.JSONObject
 import wallet.core.jni.CoinType.TEZOS
 import wallet.core.java.AnySigner
 import wallet.core.jni.proto.Tezos
@@ -43,10 +45,11 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
         mnemonic: String,
         passphrase: String
     ): String? {
-        val cmd = txData["cmd"] as String
-        val txHash: String?
+        val cmd: String? = txData["cmd"] as String?
         val wallet = HDWallet(mnemonic, passphrase)
-        val privateKey = ByteString.copyFrom(wallet.getKey(coinType, path).data())
+        val privateKey = wallet.getKey(coinType, path)
+        val txHash: String?
+        val publicKey = privateKey.publicKeyEd25519.data()
 
         when (cmd) {
             "FA2" -> {
@@ -70,29 +73,43 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                     .setFa2Parameters(fa2)
                     .build()
 
+                var revealOperationData = RevealOperationData.newBuilder()
+                    .setPublicKey(ByteString.copyFrom(publicKey))
+
                 val transactionData = TransactionOperationData.newBuilder()
-                    .setAmount(txData["transactionAmount"]!!.toLong())
+                    .setAmount(txData["transactionAmount"] as Long)
                     .setDestination(txData["destination"] as String)
                     .setParameters(parameters)
                     .build()
 
+                val reveal = Operation.newBuilder()
+                .setSource(txData["source"] as String)
+                .setFee(txData["fee"] as Long)
+                .setCounter(txData["counter"] as Long)
+                .setGasLimit(txData["gasLimit"] as Long)
+                .setStorageLimit(txData["storageLimit"] as Long)
+                .setKind(Operation.OperationKind.REVEAL)
+                .setRevealOperationData(revealOperationData)
+                .build()
+
                 val transaction = Operation.newBuilder()
                     .setSource(txData["source"] as String)
-                    .setFee(txData["fee"]!!.toLong())
-                    .setCounter(txData["counter"]!!.toLong())
-                    .setGasLimit(txData["gasLimit"]!!.toLong())
-                    .setStorageLimit(txData["storageLimit"]!!.toLong())
+                    .setFee(txData["fee"] as Long)
+                    .setCounter(txData["counter"] as Long)
+                    .setGasLimit(txData["gasLimit"] as Long)
+                    .setStorageLimit(txData["storageLimit"] as Long)
                     .setKind(Operation.OperationKind.TRANSACTION)
                     .setTransactionOperationData(transactionData)
                     .build()
 
                 val operationList = OperationList.newBuilder()
                     .setBranch(txData["branch"] as String)
+                    .addOperations(reveal)
                     .addOperations(transaction)
-                    .build();
+                    .build()
 
                 val signingInput = SigningInput.newBuilder()
-                    .setPrivateKey(privateKey)
+                    .setPrivateKey(ByteString.copyFrom(privateKey.data()))
                     .setOperationList(operationList)
                     .build()
 
@@ -111,29 +128,43 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                     .setFa12Parameters(fa12)
                     .build()
 
+                var revealOperationData = RevealOperationData.newBuilder()
+                    .setPublicKey(ByteString.copyFrom(publicKey))
+
                 val transactionData = TransactionOperationData.newBuilder()
-                    .setAmount(txData["amount"]!!.toLong())
+                    .setAmount(txData["amount"] as Long)
                     .setDestination(txData["destination"] as String)
                     .setParameters(parameters)
                     .build()
 
+                val reveal = Operation.newBuilder()
+                    .setSource(txData["source"] as String)
+                    .setFee(txData["fee"] as Long)
+                    .setCounter(txData["counter"] as Long)
+                    .setGasLimit(txData["gasLimit"] as Long)
+                    .setStorageLimit(txData["storageLimit"] as Long)
+                    .setKind(Operation.OperationKind.REVEAL)
+                    .setRevealOperationData(revealOperationData)
+                    .build()
+
                 val transaction = Operation.newBuilder()
                     .setSource(txData["source"] as String)
-                    .setFee(txData["fee"]!!.toLong())
-                    .setCounter(txData["counter"]!!.toLong())
-                    .setGasLimit(txData["gasLimit"]!!.toLong())
-                    .setStorageLimit(txData["storageLimit"]!!.toLong())
+                    .setFee((txData["fee"] as String).toLong())
+                    .setCounter(txData["counter"] as Long)
+                    .setGasLimit(txData["gasLimit"] as Long)
+                    .setStorageLimit(txData["storageLimit"] as Long)
                     .setKind(Operation.OperationKind.TRANSACTION)
                     .setTransactionOperationData(transactionData)
-                    .build();
+                    .build()
 
                 val operationList = OperationList.newBuilder()
                     .setBranch(txData["branch"] as String)
+                    .addOperations(reveal)
                     .addOperations(transaction)
-                    .build();
+                    .build()
 
                 val signingInput = SigningInput.newBuilder()
-                    .setPrivateKey(privateKey)
+                    .setPrivateKey(ByteString.copyFrom(privateKey.data()))
                     .setOperationList(operationList)
                     .build()
 
@@ -141,7 +172,11 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                 txHash = Numeric.toHexString(result.encoded.toByteArray())
 
             }
-            else -> txHash = null;
+            else -> {
+                val opJson = JSONObject(txData).toString()
+                val result = AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())
+                txHash = result
+            }
         }
         return txHash
     }

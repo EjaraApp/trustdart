@@ -29,10 +29,11 @@ class XTZ: Coin  {
     }
 
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
-        let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
-        let cmd = txData["cmd"] as! String
         var txHash: String?
+        let cmd = txData["cmd"] as! String
         let branch = txData["branch"] as! String
+        let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)!.getKey(coin: self.coinType, derivationPath: path)
+        let publicKey = privateKey.getPublicKeyEd25519().data
         
         switch(cmd){
             case "FA2":
@@ -56,6 +57,18 @@ class XTZ: Coin  {
                         }]
                 }
 
+                var revealOperationData = TezosRevealOperationData()
+                    revealOperationData.publicKey = publicKey
+
+                var revealOperation = TezosOperation()
+                    revealOperation.source = txData["source"] as! String;
+                    revealOperation.fee = txData["fee"] as! Int64
+                    revealOperation.counter = txData["counter"] as! Int64
+                    revealOperation.gasLimit = txData["gasLimit"] as! Int64
+                    revealOperation.storageLimit = txData["storageLimit"] as! Int64
+                    revealOperation.kind = .reveal
+                    revealOperation.revealOperationData = revealOperationData
+
                 let transactionOperation = TezosOperation.with {
                     $0.source = txData["source"] as! String
                     $0.fee = txData["fee"] as! Int64
@@ -66,11 +79,11 @@ class XTZ: Coin  {
                     $0.transactionOperationData = transactionOperationData
                 }
                 
-                operationList.operations = [ transactionOperation ]
+                operationList.operations = [ transactionOperation, revealOperation ]
 
                 let input = TezosSigningInput.with {
                     $0.operationList = operationList
-                    $0.privateKey = privateKey!.data
+                    $0.privateKey = privateKey.data
                 }
 
                 let output: TezosSigningOutput = AnySigner.sign(input: input, coin: .tezos)
@@ -88,6 +101,18 @@ class XTZ: Coin  {
                     $0.parameters.fa12Parameters.to   = txData["toAddress"] as! String;
                     $0.parameters.fa12Parameters.value = txData["value"] as! String;
                 }
+
+                var revealOperationData = TezosRevealOperationData()
+                    revealOperationData.publicKey = publicKey
+
+                var revealOperation = TezosOperation()
+                    revealOperation.source = txData["source"] as! String;
+                    revealOperation.fee = txData["fee"] as! Int64
+                    revealOperation.counter = txData["counter"] as! Int64
+                    revealOperation.gasLimit = txData["gasLimit"] as! Int64
+                    revealOperation.storageLimit = txData["storageLimit"] as! Int64
+                    revealOperation.kind = .reveal
+                    revealOperation.revealOperationData = revealOperationData
                 
                 let transactionOperation = TezosOperation.with {
                     $0.source = txData["source"] as! String;
@@ -99,11 +124,11 @@ class XTZ: Coin  {
                     $0.transactionOperationData = transactionOperationData
                 }
                 
-                operationList.operations = [ transactionOperation ]
+                operationList.operations = [ transactionOperation, revealOperation ]
 
                 let input = TezosSigningInput.with {
                     $0.operationList = operationList
-                    $0.privateKey = privateKey!.data
+                    $0.privateKey = privateKey.data
                 }
 
                 let output: TezosSigningOutput = AnySigner.sign(input: input, coin: .tezos) 
