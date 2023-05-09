@@ -1,5 +1,6 @@
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
+import africa.ejara.trustdart.utils.toLong
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
 import wallet.core.jni.BitcoinAddress
@@ -37,7 +38,7 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
         val utxos: List<Map<String, Any>> = txData["utxos"] as List<Map<String, Any>>
 
         val input = Bitcoin.SigningInput.newBuilder()
-            .setAmount((txData["amount"] as Int).toLong())
+            .setAmount(txData["amount"]!!.toLong())
             .setHashType(BitcoinScript.hashTypeForCoin(coinType))
             .setToAddress(txData["toAddress"] as String)
             .setChangeAddress(txData["changeAddress"] as String)
@@ -45,16 +46,16 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
             .addPrivateKey(ByteString.copyFrom(privateKey.data()))
 
         for (utx in utxos) {
-            val txHash = Numeric.hexStringToByteArray(utx["txid"] as String);
-            txHash.reverse();
+            val txHash = Numeric.hexStringToByteArray(utx["txid"] as String)
+            txHash.reverse()
             val outPoint = Bitcoin.OutPoint.newBuilder()
                 .setHash(ByteString.copyFrom(txHash))
                 .setIndex(utx["vout"] as Int)
                 .setSequence(Long.MAX_VALUE.toInt())
                 .build()
-            val txScript = Numeric.hexStringToByteArray(utx["script"] as String);
+            val txScript = Numeric.hexStringToByteArray(utx["script"] as String)
             val utxo = Bitcoin.UnspentTransaction.newBuilder()
-                .setAmount((utx["value"] as Int).toLong())
+                .setAmount(utx["value"]!!.toLong())
                 .setOutPoint(outPoint)
                 .setScript(ByteString.copyFrom(txScript))
                 .build()
@@ -65,11 +66,13 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
         // since we want to set our own fee
         // but such functionality is not obvious in the trustwalletcore library
         // a hack is used for now to calculate the byteFee
-        val size = output.encoded.toByteArray().size;
-        val fees = (txData["fees"] as Int).toLong()
-        val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
-        // now we set new byte size
-        if (byteFee > 1) input.byteFee = byteFee
+        val size = output.encoded.toByteArray().size
+        val fees = txData["fees"]!!.toLong()
+        if (size > 0) { // prevent division by zero
+            val byteFee = fees.div(size) // this gives the fee per byte truncated to Long
+            // now we set new byte size
+            if (byteFee > 1) input.byteFee = byteFee
+        }
         output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
         return Numeric.toHexString(output.encoded.toByteArray())
     }

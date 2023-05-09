@@ -10,7 +10,7 @@ analyzer:
       always_put_required_named_parameters_first: error
       avoid_relative_lib_imports: error
       always_use_package_imports: error
-      lines_longer_than_80_chars: error
+      # lines_longer_than_80_chars: error
 
 
 

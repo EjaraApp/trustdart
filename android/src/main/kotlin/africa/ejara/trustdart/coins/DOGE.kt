@@ -2,6 +2,7 @@ import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.toHexByteArray
 import africa.ejara.trustdart.utils.toHexBytesInByteString
+import africa.ejara.trustdart.utils.toLong
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
 import wallet.core.jni.BitcoinAddress
@@ -28,11 +29,11 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
          val script = BitcoinScript.lockScriptForAddress(address.description(), coinType)
 
          val input = Bitcoin.SigningInput.newBuilder()
-         .setAmount((txData["amount"] as Int).toLong())
+         .setAmount(txData["amount"]!!.toLong())
          .setHashType(BitcoinSigHashType.ALL.value())
          .setToAddress(txData["toAddress"] as String)
          .setChangeAddress(txData["changeAddress"] as String)
-         .setByteFee((txData["fees"] as Int).toLong())
+         .setByteFee(txData["fees"]!!.toLong())
          .setCoinType(CoinType.DOGECOIN.value())
          .addPrivateKey(ByteString.copyFrom(privateKey.data()))
 
@@ -45,7 +46,7 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
                 .build()
 
             val utxo = Bitcoin.UnspentTransaction.newBuilder()
-                .setAmount(utx["value"] as Long)
+                .setAmount(utx["value"]!!.toLong())
                 .setOutPoint(outPoint)
                 .setScript(ByteString.copyFrom(script.data()))
                 .build()
@@ -53,11 +54,10 @@ class DOGE : Coin("DOGE", CoinType.DOGECOIN ) {
             input.addUtxo(utxo)
         }
 
-        var output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
+        val output = AnySigner.sign(input.build(), coinType, Bitcoin.SigningOutput.parser())
 
          return Numeric.toHexString(output.encoded.toByteArray())
      }
-
 
 }
 

@@ -1,5 +1,6 @@
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
+import africa.ejara.trustdart.utils.toLong
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
@@ -17,7 +18,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
         val cmd = txData["cmd"] as String
         val wallet = HDWallet(mnemonic, passphrase)
         val privateKey = wallet.getKey(coinType, path)
-        val txHash: String?;
+        val txHash: String?
         when (cmd) {
             "TRC20" -> {
                 val trc20Contract = Tron.TransferTRC20Contract.newBuilder()
@@ -27,18 +28,18 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     .setAmount(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["amount"] as String))))
 
                 val blockHeader = Tron.BlockHeader.newBuilder()
-                    .setTimestamp(txData["blockTime"] as Long)
+                    .setTimestamp(txData["blockTime"]!!.toLong())
                     .setTxTrieRoot(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["txTrieRoot"] as String))))
                     .setParentHash(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["parentHash"] as String))))
-                    .setNumber((txData["number"] as Int).toLong())
+                    .setNumber(txData["number"]!!.toLong())
                     .setWitnessAddress(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["witnessAddress"] as String))))
                     .setVersion(txData["version"] as Int)
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
                     .setTransferTrc20Contract(trc20Contract)
-                    .setTimestamp(txData["timestamp"] as Long)
-                    .setFeeLimit((txData["feeLimit"] as Int).toLong())
+                    .setTimestamp(txData["timestamp"]!!.toLong())
+                    .setFeeLimit(txData["feeLimit"]!!.toLong())
                     .setBlockHeader(blockHeader)
                     .build()
 
@@ -55,20 +56,20 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     .setOwnerAddress(txData["ownerAddress"] as String)
                     .setAssetName(txData["assetName"] as String)
                     .setToAddress(txData["toAddress"] as String)
-                    .setAmount((txData["amount"] as Int).toLong())
+                    .setAmount(txData["amount"]!!.toLong())
 
                 val blockHeader = Tron.BlockHeader.newBuilder()
-                    .setTimestamp(txData["blockTime"] as Long)
+                    .setTimestamp(txData["blockTime"]!!.toLong())
                     .setTxTrieRoot(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["txTrieRoot"] as String))))
                     .setParentHash(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["parentHash"] as String))))
-                    .setNumber((txData["number"] as Int).toLong())
+                    .setNumber(txData["number"]!!.toLong())
                     .setWitnessAddress(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["witnessAddress"] as String))))
                     .setVersion(txData["version"] as Int)
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
                     .setTransferAsset(trc10Contract)
-                    .setTimestamp(txData["timestamp"] as Long)
+                    .setTimestamp(txData["timestamp"]!!.toLong())
                     .setBlockHeader(blockHeader)
                     .build()
 
@@ -84,20 +85,20 @@ class TRX : Coin("TRX", CoinType.TRON) {
                 val transfer = Tron.TransferContract.newBuilder()
                     .setOwnerAddress(txData["ownerAddress"] as String)
                     .setToAddress(txData["toAddress"] as String)
-                    .setAmount((txData["amount"] as Int).toLong())
+                    .setAmount(txData["amount"]!!.toLong())
 
                 val blockHeader = Tron.BlockHeader.newBuilder()
-                    .setTimestamp(txData["blockTime"] as Long)
+                    .setTimestamp(txData["blockTime"]!!.toLong())
                     .setTxTrieRoot(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["txTrieRoot"] as String))))
                     .setParentHash(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["parentHash"] as String))))
-                    .setNumber((txData["number"] as Int).toLong())
+                    .setNumber(txData["number"]!!.toLong())
                     .setWitnessAddress(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["witnessAddress"] as String))))
                     .setVersion(txData["version"] as Int)
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
-                    .setTimestamp(txData["timestamp"] as Long)
-                    .setFeeLimit((txData["feeLimit"] as Int).toLong())
+                    .setTimestamp(txData["timestamp"]!!.toLong())
+                    .setFeeLimit(txData["feeLimit"]!!.toLong())
                     .setTransfer(transfer)
                     .setBlockHeader(blockHeader)
                     .build()
@@ -114,20 +115,20 @@ class TRX : Coin("TRX", CoinType.TRON) {
                 val freezeContract = Tron.FreezeBalanceContract.newBuilder()
                     .setOwnerAddress(txData["ownerAddress"] as String)
                     .setResource(txData["resource"] as String)
-                    .setFrozenDuration((txData["frozenDuration"] as Int).toLong())
-                    .setFrozenBalance((txData["frozenBalance"] as Int).toLong())
+                    .setFrozenDuration(txData["frozenDuration"]!!.toLong())
+                    .setFrozenBalance(txData["frozenBalance"]!!.toLong())
 
                 val blockHeader = Tron.BlockHeader.newBuilder()
-                    .setTimestamp(txData["blockTime"] as Long)
+                    .setTimestamp(txData["blockTime"]!!.toLong())
                     .setTxTrieRoot(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["txTrieRoot"] as String))))
                     .setParentHash(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["parentHash"] as String))))
-                    .setNumber((txData["number"] as Int).toLong())
+                    .setNumber(txData["number"]!!.toLong())
                     .setWitnessAddress(ByteString.copyFrom(Numeric.hexStringToByteArray((txData["witnessAddress"] as String))))
                     .setVersion(txData["version"] as Int)
                     .build()
 
                 val transaction = Tron.Transaction.newBuilder()
-                    .setTimestamp(txData["timestamp"] as Long)
+                    .setTimestamp(txData["timestamp"]!!.toLong())
                     .setFreezeBalance(freezeContract)
                     .setBlockHeader(blockHeader)
                     .build()
@@ -143,9 +144,9 @@ class TRX : Coin("TRX", CoinType.TRON) {
             "CONTRACT" -> {
                 txHash = null
             }
-            else -> txHash = null;
+            else -> txHash = null
         }
-        return txHash;
+        return txHash
     }
 
 }

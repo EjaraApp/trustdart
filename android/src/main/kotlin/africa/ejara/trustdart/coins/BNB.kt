@@ -5,6 +5,7 @@ import wallet.core.jni.CoinType
 import wallet.core.java.AnySigner
 import wallet.core.jni.proto.Binance
 import africa.ejara.trustdart.Numeric
+import africa.ejara.trustdart.utils.toLong
 
 
 class BNB : Coin("BNB", CoinType.BINANCE) {
@@ -20,16 +21,17 @@ class BNB : Coin("BNB", CoinType.BINANCE) {
         val publicKey = txData["fromAddress"] as String
         val signingInput = Binance.SigningInput.newBuilder()
         signingInput.chainId = txData["chainID"] as String
-        signingInput.accountNumber = (txData["accountNumber"] as Int).toLong()
-        signingInput.sequence = (txData["sequence"] as Int).toLong()
+        signingInput.accountNumber = txData["accountNumber"]!!.toLong()
+        signingInput.sequence = txData["sequence"]!!.toLong()
+        signingInput.source = txData["source"]!!.toLong()
         if (txData["memo"] != null) {
             signingInput.memo = txData["memo"] as String
         }
         signingInput.privateKey = ByteString.copyFrom(privateKey.data())
 
         val token = Binance.SendOrder.Token.newBuilder()
-        token.denom = "BNB"
-        token.amount = (txData["amount"] as Int).toLong()
+        token.denom = name
+        token.amount = txData["amount"]!!.toLong()
 
         val input = Binance.SendOrder.Input.newBuilder()
         input.address = ByteString.copyFrom(AnyAddress(publicKey, coinType).data())

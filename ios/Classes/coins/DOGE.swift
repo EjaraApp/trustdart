@@ -23,7 +23,7 @@ class DOGE: Coin  {
                     $0.outPoint.hash = Data.reverse(hexString: utx["txid"] as! String)
                     $0.outPoint.index = UInt32(utx["vout"] as! Int)
                     $0.outPoint.sequence = UINT32_MAX
-                    $0.amount = Int64(utx["value"] as! Int) // actual amount is the amount / 10^8
+                    $0.amount = utx["value"] as! Int64
                     $0.script = script.data
                 })
             }
@@ -34,14 +34,13 @@ class DOGE: Coin  {
                 $0.toAddress = txData["toAddress"] as! String
                 $0.changeAddress = txData["changeAddress"] as! String
                 $0.privateKey = [privateKey!.data]
-                $0.amount = Int64(txData["amount"] as! Int)
+                $0.amount = txData["amount"] as! Int64
                 $0.coinType = coinType.rawValue
-                $0.byteFee = Int64(txData["fees"] as! Int)
+                $0.byteFee = txData["fees"] as! Int64
                 $0.utxo = unspent
             }
             
             let output: BitcoinSigningOutput = AnySigner.sign(input: input, coin: coinType)
-            print(output.error)
             return output.encoded.hexString
         }else {
             return nil

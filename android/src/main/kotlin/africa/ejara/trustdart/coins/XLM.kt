@@ -4,6 +4,7 @@ import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.utils.base64String
+import africa.ejara.trustdart.utils.toLong
 import wallet.core.jni.proto.Stellar
 import wallet.core.jni.proto.Stellar.SigningOutput
 import wallet.core.jni.StellarPassphrase
@@ -41,13 +42,13 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 operation.apply {
                     asset = assetUsdt.build()
                     validBefore =
-                        (txData["validBefore"] as Int).toLong()  // till when the asset trust is valid (timestamp)
+                        txData["validBefore"]!!.toLong()  // till when the asset trust is valid (timestamp)
                 }
                 val signingInput = Stellar.SigningInput.newBuilder()
                 signingInput.apply {
                     account = txData["ownerAddress"] as String
                     fee = txData["fee"] as Int
-                    sequence = (txData["sequence"] as Long).toLong()
+                    sequence = txData["sequence"]!!.toLong()
                     passphrase = StellarPassphrase.STELLAR.toString()
                     opChangeTrust = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
@@ -56,7 +57,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 txHash = output.signature
             }
             "Payment" -> {
-                val stellarAsset = Stellar.Asset.newBuilder();
+                val stellarAsset = Stellar.Asset.newBuilder()
                 if (txData["asset"] != null) {
 
                     stellarAsset.apply {
@@ -67,7 +68,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 val operation = Stellar.OperationPayment.newBuilder()
                 operation.apply {
                     destination = txData["toAddress"] as String
-                    amount = (txData["amount"] as Int).toLong()
+                    amount = txData["amount"]!!.toLong()
                     if (txData["asset"] != null) {
                         asset = stellarAsset.build()
                     }
@@ -76,12 +77,12 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 signingInput.apply {
                     account = txData["ownerAddress"] as String
                     fee = txData["fee"] as Int
-                    sequence = (txData["sequence"] as Long).toLong()
+                    sequence = txData["sequence"]!!.toLong()
                     passphrase = StellarPassphrase.STELLAR.toString()
                     opPayment = operation.build()
                     privateKey = ByteString.copyFrom(secretKey.data())
                     if (txData["memo"] != null) {
-                        memoId = Stellar.MemoId.newBuilder().setId((txData["memo"] as Int).toLong())
+                        memoId = Stellar.MemoId.newBuilder().setId(txData["memo"]!!.toLong())
                             .build()
                     }
                 }
@@ -90,7 +91,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
 
             }
 
-            else -> txHash = null;
+            else -> txHash = null
         }
         return txHash
     }

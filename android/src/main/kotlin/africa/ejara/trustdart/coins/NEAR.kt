@@ -8,6 +8,7 @@ import wallet.core.jni.HDWallet
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
+import africa.ejara.trustdart.utils.toLong
 
 class NEAR : Coin("NEAR", CoinType.NEAR) {
 
@@ -35,7 +36,7 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
         }.build()
         val signingInput = NEAR.SigningInput.newBuilder().apply {
             signerId = txData["signerID"] as String
-            nonce = (txData["nonce"] as Number).toLong()
+            nonce = txData["nonce"]!!.toLong()
             receiverId = txData["receiverID"] as String
            addActionsBuilder().apply {
                transfer = transferAction
