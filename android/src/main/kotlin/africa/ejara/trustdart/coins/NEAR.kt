@@ -38,9 +38,9 @@ class NEAR : Coin("NEAR", CoinType.NEAR) {
             signerId = txData["signerID"] as String
             nonce = txData["nonce"]!!.toLong()
             receiverId = txData["receiverID"] as String
-            addActionsBuilder().apply {
-                transfer = transferAction
-            }
+           addActionsBuilder().apply {
+               transfer = transferAction
+           }
             blockHash = ByteString.copyFrom(Base58.decodeNoCheck(txData["blockHash"] as String))
             privateKey = ByteString.copyFrom(secretKey.data())
         }.build()
