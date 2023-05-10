@@ -34,12 +34,30 @@ class XTZ: Coin  {
         
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)!.getKey(coin: self.coinType, derivationPath: path)
         let publicKey = privateKey.getPublicKeyEd25519().data
+        let isRevealed = txData["isRevealed"] as! Bool?
+        var revealOperation: TezosOperation = TezosOperation()
+        var listOfAllOperations: [TezosOperation] = []
+        if(isRevealed == false){
+
+            var revealOperationData = TezosRevealOperationData()
+                revealOperationData.publicKey = publicKey
+
+            revealOperation = TezosOperation()
+                revealOperation.source = txData["source"] as! String;
+                revealOperation.fee = txData["reveal_fee"] as! Int64
+                revealOperation.counter = txData["reveal_counter"] as! Int64
+                revealOperation.gasLimit = txData["reveal_gasLimit"] as! Int64
+                revealOperation.storageLimit = txData["reveal_storageLimit"] as! Int64
+                revealOperation.kind = .reveal
+                revealOperation.revealOperationData = revealOperationData
+
+            listOfAllOperations.append(revealOperation)
+        }
         
         switch(cmd){
             case "FA2":
                 var operationList = TezosOperationList()
                 operationList.branch = txData["branch"] as! String
-                var revealed = txData["revealed"] as! Bool
                 
                 let transferInfos = TezosTxs.with{
                     $0.to = txData["toAddress"] as! String
@@ -67,24 +85,8 @@ class XTZ: Coin  {
                     $0.transactionOperationData = transactionOperationData
                 }
 
-                if(revealed == false){
-
-                    var revealOperationData = TezosRevealOperationData()
-                        revealOperationData.publicKey = publicKey
-
-                    var revealOperation = TezosOperation()
-                        revealOperation.source = txData["source"] as! String;
-                        revealOperation.fee = txData["fee"] as! Int64
-                        revealOperation.counter = txData["counter"] as! Int64
-                        revealOperation.gasLimit = txData["gasLimit"] as! Int64
-                        revealOperation.storageLimit = txData["storageLimit"] as! Int64
-                        revealOperation.kind = .reveal
-                        revealOperation.revealOperationData = revealOperationData
-
-                    operationList.operations = [ transactionOperation, revealOperation ]
-                }else{
-                operationList.operations = [ transactionOperation ]
-                }
+                listOfAllOperations.append(transactionOperation)
+                operationList.operations = listOfAllOperations
                 
 
                 let input = TezosSigningInput.with {
@@ -93,10 +95,9 @@ class XTZ: Coin  {
                 }
 
                 let output: TezosSigningOutput = AnySigner.sign(input: input, coin: .tezos)
-
                 txHash = output.encoded.hexString
+                
             case "FA12": 
-                var revealed = txData["revealed"] as! Bool
                 var operationList = TezosOperationList()
                 operationList.branch = txData["branch"] as! String
                 
@@ -119,24 +120,8 @@ class XTZ: Coin  {
                     $0.transactionOperationData = transactionOperationData
                 }
 
-                if(revealed == false){
-                    var revealOperationData = TezosRevealOperationData()
-                    revealOperationData.publicKey = publicKey
-
-                    var revealOperation = TezosOperation()
-                        revealOperation.source = txData["source"] as! String;
-                        revealOperation.fee = txData["fee"] as! Int64
-                        revealOperation.counter = txData["counter"] as! Int64
-                        revealOperation.gasLimit = txData["gasLimit"] as! Int64
-                        revealOperation.storageLimit = txData["storageLimit"] as! Int64
-                        revealOperation.kind = .reveal
-                        revealOperation.revealOperationData = revealOperationData
-
-                    operationList.operations = [ transactionOperation, revealOperation ]
-
-                }else{
-                    operationList.operations = [ transactionOperation ]
-                }
+                listOfAllOperations.append(transactionOperation)
+                operationList.operations = listOfAllOperations
 
                 let input = TezosSigningInput.with {
                     $0.operationList = operationList
