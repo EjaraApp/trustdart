@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:typed_data';
 
 import 'package:trustdart/trustdart.dart';
@@ -34,6 +36,47 @@ Map<String, dynamic> operations = {
       ]
     }
   },
+
+  // 'XTZ': {
+  //   "cmd": "FA2",
+  //   "isRevealed": false,
+  //   "amount": "10",
+  //   "tokenId": "1",
+  //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "destination": "KT1DYk1XDzHredJq1EyNkDindiWDqZyekXGj",
+  //   "transactionAmount": 0,
+  //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "fee": 100000,
+  //   "counter": 2993174,
+  //   "gasLimit": 100000,
+  //   "storageLimit": 0,
+  //   "branch": "BKvEAX9HXfJZWYfTQbR1C7B3ADoKY6a1aKVRF7qQqvc9hS8Rr3m",
+  //   "reveal_fee": 100000,
+  //   "reveal_counter": 2993173,
+  //   "reveal_gasLimit": 100000,
+  //   "reveal_storageLimit": 0,
+  // },
+  // 'XTZ': {
+  //   "cmd": "FA12",
+  //   "isRevealed": false,
+  //   "branch": "BL8euoCWqNCny9AR3AKjnpi38haYMxjei1ZqNHuXMn19JSQnoWp",
+  //   "transactionAmount": 0,
+  //   "destination": "KT1DYk1XDzHredJq1EyNkDindiWDqZyekXGj",
+  //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "value": "123",
+  //   "amount": "0",
+  //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
+  //   "fee": 100000,
+  //   "counter": 2993173,
+  //   "gasLimit": 100000,
+  //   "storageLimit": 0,
+  //   "reveal_fee": 100000,
+  //   "reveal_counter": 2993173,
+  //   "reveal_gasLimit": 100000,
+  //   "reveal_storageLimit": 0,
+  // },
   'ETH': {
     "chainId": "AQ==",
     "gasPrice": "1pOkAA==",
