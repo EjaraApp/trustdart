@@ -101,3 +101,7 @@ Improve error handling and checking for null wallet
 ### 0.2.0
 
 - Added support for tezos fa2/fa12
+
+### 0.2.1
+
+- Changes for Near update
