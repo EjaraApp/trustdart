@@ -66,7 +66,6 @@ Map<String, dynamic> operations = {
   //   "senderAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "toAddress": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "value": "123",
-  //   "amount": "0",
   //   "source": "tz1ioz62kDw6Gm5HApeQtc1PGmN2wPBtJKUP",
   //   "fee": 100000,
   //   "counter": 2993173,
