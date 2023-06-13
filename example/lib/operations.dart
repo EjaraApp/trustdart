@@ -216,6 +216,15 @@ Map<String, dynamic> operations = {
     "fees": 5000,
     "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
+
+  'MATIC': {
+    "chainID": "0x01",
+    "nonce": "0x00",
+    "gasPrice": "0x07FF684650",
+    "gasLimit": "0x5208",
+    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+    "amount": "0x0DE0B6B3A7640000",
+  },
 };
 
 // ignore: inference_failure_on_function_return_type

@@ -29,6 +29,7 @@ class WalletHandler {
             "BNB"   to BNB(),
             "BSC"   to BSC(),
             "DOGE"  to DOGE(),
+            "MATIC" to MATIC(),
         )
     }
 
