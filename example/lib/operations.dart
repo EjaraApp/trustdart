@@ -216,6 +216,23 @@ Map<String, dynamic> operations = {
     "fees": 5000,
     "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
+  'ADA': {
+    "senderAddress":
+        "addr1q9evp7aqelh4epkacgyeqweqgkvqsl8gdp54mxew5kdvuyhqhuqa6ngy0jrdcnknurcvjgtv4jd84pd7xllgmdz0wtrqgfz5l4",
+    "receiverAddress":
+        "addr1qyk022rpw85g7c0f0wuq6zpkakgjwsftmpd99wqjj4xcsjc74pfgs7t76yuehca7hn4pcl37lsl06ccey0epe5sp4lwslxsyrw",
+    "amount": 40000,
+    "utxos": [
+      {
+        "senderAddress":
+            "addr1q9evp7aqelh4epkacgyeqweqgkvqsl8gdp54mxew5kdvuyhqhuqa6ngy0jrdcnknurcvjgtv4jd84pd7xllgmdz0wtrqgfz5l4",
+        "txid":
+            "76608917328b3768b3985d057e613c7e8f14cb1f27b132a750a363ee64363a57",
+        "index": 0,
+        "amount": 16900000,
+      },
+    ],
+  }
 };
 
 // ignore: inference_failure_on_function_return_type
@@ -227,7 +244,8 @@ runOperations() async {
     print('Here is our mnemonic: \n$mnemonic');
 
     String dondo =
-        "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
+        "able student evoke travel find shift gasp beauty venture dove valid lounge";
+    // "imitate embody law mammal exotic transfer roof hope price swift ordinary uncle";
     // dondo = "a d f d s e w q t y u l";
     bool wallet = await Trustdart.checkMnemonic(dondo);
     print(wallet);
