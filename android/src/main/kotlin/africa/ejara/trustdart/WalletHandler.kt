@@ -10,6 +10,7 @@ import XLM
 import BNB
 import BSC
 import DOGE
+import MATIC
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse

@@ -9,7 +9,7 @@ class MATIC: Coin  {
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: self.coinType, derivationPath: path)
         
         let input = EthereumSigningInput.with {
-            $0.chainID = Data(hexString: txData["chainID"] as! String)!
+            $0.chainID = Data(hexString: txData["chainId"] as! String)!
             $0.nonce = Data(hexString: (txData["nonce"] as! String))!
             $0.gasPrice = Data(hexString: (txData["gasPrice"] as! String))!
             $0.gasLimit = Data(hexString: (txData["gasLimit"] as! String))!
