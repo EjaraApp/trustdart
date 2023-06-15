@@ -5,3 +5,4 @@
 build/
 .idea/
 pubspec.lock
+org.eclipse.buildship.core.prefs
