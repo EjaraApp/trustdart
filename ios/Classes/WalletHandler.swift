@@ -21,6 +21,7 @@ class WalletHandler {
         "BSC"   : BSC(),
         "DOGE"  : DOGE(),
         "MATIC" : MATIC(),
+        "ADA"   : ADA()
     ]
     
     func getCoin(_ coin: String) -> Coin {
@@ -45,5 +46,9 @@ class WalletHandler {
         return (isValid, walletError.self)
     }
 }
+
+
+
+
 
 

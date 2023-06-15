@@ -11,6 +11,7 @@ import BNB
 import BSC
 import DOGE
 import MATIC
+import ADA
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
@@ -31,6 +32,7 @@ class WalletHandler {
             "BSC"   to BSC(),
             "DOGE"  to DOGE(),
             "MATIC" to MATIC(),
+            "ADA"   to ADA(),
         )
     }
 
