@@ -16,8 +16,8 @@ class MATIC : Coin("MATIC", CoinType.POLYGON) {
         mnemonic: String,
         passphrase: String
     ): String? {
-        val signingInput = Ethereum.SigningInput.newBuilder()
         val wallet = HDWallet(mnemonic, passphrase)
+        val signingInput = Ethereum.SigningInput.newBuilder()
         signingInput.apply {
             privateKey = ByteString.copyFrom(wallet.getKey(coinType, path).data())
             toAddress = txData["toAddress"] as String
