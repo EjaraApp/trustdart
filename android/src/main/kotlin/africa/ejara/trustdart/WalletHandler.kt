@@ -8,12 +8,13 @@ import TRX
 import XTZ
 import XLM
 import BNB
-import BSC
+//import BSC
 import DOGE
-import MATIC
+//import MATIC
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
+import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 
 class WalletHandler {
@@ -28,11 +29,24 @@ class WalletHandler {
             "NEAR"  to NEAR(),
             "XLM"   to XLM(),
             "BNB"   to BNB(),
-            "BSC"   to BSC(),
+            "BSC"   to ETH(),
             "DOGE"  to DOGE(),
-            "MATIC" to MATIC(),
+            "MATIC" to ETH(),
         )
     }
+//    val coins = mapOf(
+//        "BTC"   to BTC(),
+//        "ETH"   to ETH("ETH", CoinType.ETHEREUM),
+//        "XTZ"   to XTZ(),
+//        "TRX"   to TRX(),
+//        "SOL"   to SOL(),
+//        "NEAR"  to NEAR(),
+//        "XLM"   to XLM(),
+//        "BNB"   to BNB(),
+//        "BSC"   to ETH("BSC", CoinType.SMARTCHAIN),
+//        "DOGE"  to DOGE(),
+//        "MATIC" to ETH("MATIC", CoinType.POLYGON),
+//    )
 
     fun getCoin(coin: String?): Coin {
         return coins[coin]!!

@@ -216,14 +216,37 @@ Map<String, dynamic> operations = {
     "fees": 5000,
     "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
-  'MATIC': {
-    "chainID": "0x01",
-    "nonce": "0x00",
-    "gasPrice": "0x07FF684650",
-    "gasLimit": "0x5208",
-    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
-    "amount": "0x0DE0B6B3A7640000",
-  },
+  // 'MATIC': {
+  //   "chainID": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  // },
+  //............Polygon USDC test........
+  // 'MATIC': {
+  //   "cmd": "ERC20",
+  //   "chainID": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  //   "contractAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+  // },
+
+  //............Polygon USDT test........
+  // 'MATIC': {
+  //   "cmd": "ERC20",
+  //   "chainID": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  //   "contractAddress": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+  // },
 };
 
 // ignore: inference_failure_on_function_return_type
