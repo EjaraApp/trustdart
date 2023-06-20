@@ -1,4 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:typed_data';
 
@@ -245,6 +244,30 @@ Map<String, dynamic> operations = {
   //   "amount": "0x0DE0B6B3A7640000",
   //   "contractAddress": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
   // },
+    "chainId": "0x89",
+    "nonce": "0x01",
+    "gasPrice": "0x07FF684650",
+    "gasLimit": "0x5208",
+    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+    "amount": "0x3B9ACA00",
+  },
+  'ADA': {
+    "senderAddress":
+        "addr1q9evp7aqelh4epkacgyeqweqgkvqsl8gdp54mxew5kdvuyhqhuqa6ngy0jrdcnknurcvjgtv4jd84pd7xllgmdz0wtrqgfz5l4",
+    "receiverAddress":
+        "addr1qyk022rpw85g7c0f0wuq6zpkakgjwsftmpd99wqjj4xcsjc74pfgs7t76yuehca7hn4pcl37lsl06ccey0epe5sp4lwslxsyrw",
+    "amount": 40000,
+    "utxos": [
+      {
+        "senderAddress":
+            "addr1q9evp7aqelh4epkacgyeqweqgkvqsl8gdp54mxew5kdvuyhqhuqa6ngy0jrdcnknurcvjgtv4jd84pd7xllgmdz0wtrqgfz5l4",
+        "txid":
+            "76608917328b3768b3985d057e613c7e8f14cb1f27b132a750a363ee64363a57",
+        "index": 0,
+        "amount": 16900000,
+      },
+    ],
+  }
 };
 
 // ignore: inference_failure_on_function_return_type

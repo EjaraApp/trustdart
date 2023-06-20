@@ -8,9 +8,9 @@ import TRX
 import XTZ
 import XLM
 import BNB
-//import BSC
 import DOGE
-//import MATIC
+import MATIC
+import ADA
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
@@ -32,22 +32,10 @@ class WalletHandler {
             "BSC"   to ETH(),
             "DOGE"  to DOGE(),
             "MATIC" to ETH(),
+            "ADA"   to ADA(),
         )
     }
-//    val coins = mapOf(
-//        "BTC"   to BTC(),
-//        "ETH"   to ETH("ETH", CoinType.ETHEREUM),
-//        "XTZ"   to XTZ(),
-//        "TRX"   to TRX(),
-//        "SOL"   to SOL(),
-//        "NEAR"  to NEAR(),
-//        "XLM"   to XLM(),
-//        "BNB"   to BNB(),
-//        "BSC"   to ETH("BSC", CoinType.SMARTCHAIN),
-//        "DOGE"  to DOGE(),
-//        "MATIC" to ETH("MATIC", CoinType.POLYGON),
-//    )
-
+    
     fun getCoin(coin: String?): Coin {
         return coins[coin]!!
     }
