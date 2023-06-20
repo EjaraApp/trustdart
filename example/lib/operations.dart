@@ -77,14 +77,12 @@ Map<String, dynamic> operations = {
   //   "reveal_storageLimit": 0,
   // },
   'ETH': {
-    "chainId": "AQ==",
-    "gasPrice": "1pOkAA==",
-    "gasLimit": "Ugg=",
-    "nonce": "AQ==",
-    "toAddress": "0x7d8bf18C7cE84b3E175b339c4Ca93aEd1dD166F1",
-    "transaction": {
-      "transfer": {"amount": "A0i8paFgAA=="}
-    }
+    "chainID": "0x01",
+    "nonce": "0x00",
+    "gasPrice": "0x07FF684650",
+    "gasLimit": "0x5208",
+    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+    "amount": "0x0DE0B6B3A7640000",
   },
   'BTC': {
     // https://blockchain.info/unspent?active=35oxCr5Edc2VjoQkX65TPzxUVGXJ7r4Uny
@@ -216,14 +214,14 @@ Map<String, dynamic> operations = {
     "fees": 5000,
     "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
-  // 'MATIC': {
-  //   "chainID": "0x89",
-  //   "nonce": "0x00",
-  //   "gasPrice": "0x07FF684650",
-  //   "gasLimit": "0x5208",
-  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
-  //   "amount": "0x0DE0B6B3A7640000",
-  // },
+  'MATIC': {
+    "chainID": "0x89",
+    "nonce": "0x00",
+    "gasPrice": "0x07FF684650",
+    "gasLimit": "0x5208",
+    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+    "amount": "0x0DE0B6B3A7640000",
+  },
   //............Polygon USDC test........
   // 'MATIC': {
   //   "cmd": "ERC20",

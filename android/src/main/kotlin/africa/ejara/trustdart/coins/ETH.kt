@@ -17,13 +17,12 @@ open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
         passphrase: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val cmd: String? = txData["cmd"] as String?
+        val cmd: String? = txData["cmd"] as? String
         val signingInput = Ethereum.SigningInput.newBuilder()
 
         signingInput.apply {
             privateKey = ByteString.copyFrom(wallet.getKey(coinType, path).data())
-            toAddress = txData["toAddress"] as String
-            chainId = ByteString.copyFrom((txData["chainId"] as String).toHexByteArray())
+            chainId = ByteString.copyFrom((txData["chainID"] as String).toHexByteArray())
             nonce = ByteString.copyFrom((txData["nonce"] as String).toHexByteArray())
             gasPrice = ByteString.copyFrom((txData["gasPrice"] as String).toHexByteArray())
             gasLimit = ByteString.copyFrom((txData["gasLimit"] as String).toHexByteArray())
@@ -33,12 +32,13 @@ open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
 
                 var transaction = Ethereum.Transaction.newBuilder().apply {
                     erc20Transfer = Ethereum.Transaction.ERC20Transfer.newBuilder().apply {
-                        to = txData["contractAddress"] as String
+                        to = txData["toAddress"] as String
                         amount = ByteString.copyFrom((txData["amount"] as String).toHexByteArray())
                     }.build()
                 }.build()
-
-                signingInput.transaction = transaction
+                signingInput.setToAddress(txData["contractAddress"] as String)
+                signingInput.setTransaction(transaction)
+                
             }
             else -> {
                 var transaction = Ethereum.Transaction.newBuilder().apply {
@@ -47,13 +47,11 @@ open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
                     }.build()
                 }.build()
 
-
+                signingInput.setToAddress(txData["toAddress"] as String)
                 signingInput.setTransaction(transaction)
             }
-
         }
         val sign = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
-
         return Numeric.toHexString(sign.encoded.toByteArray())
 
     }
