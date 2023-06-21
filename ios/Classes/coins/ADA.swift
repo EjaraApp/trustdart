@@ -23,7 +23,7 @@ class ADA: Coin  {
             })
         }
 
-        var input = CardanoSigningInput.with {
+        let input = CardanoSigningInput.with {
             $0.transferMessage.toAddress = txData["receiverAddress"] as! String
             $0.transferMessage.changeAddress =  txData["senderAddress"] as! String
             $0.transferMessage.amount = txData["amount"] as! UInt64

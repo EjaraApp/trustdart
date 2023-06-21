@@ -9,7 +9,6 @@ import XTZ
 import XLM
 import BNB
 import DOGE
-import MATIC
 import ADA
 
 import africa.ejara.trustdart.utils.WalletError
@@ -29,9 +28,7 @@ class WalletHandler {
             "NEAR"  to NEAR(),
             "XLM"   to XLM(),
             "BNB"   to BNB(),
-            "BSC"   to ETH(),
             "DOGE"  to DOGE(),
-            "MATIC" to ETH(),
             "ADA"   to ADA(),
         )
     }
