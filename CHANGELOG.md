@@ -109,3 +109,7 @@ Improve error handling and checking for null wallet
 ### 0.3.0
 
 - Added support for Cardano and All Ethereum / ERC20 compatible tokens and blockchains.
+
+### 0.3.1
+
+- Fixed bug in ethereum
