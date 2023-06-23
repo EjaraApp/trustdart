@@ -22,7 +22,7 @@ open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
 
         signingInput.apply {
             privateKey = ByteString.copyFrom(wallet.getKey(coinType, path).data())
-            chainId = ByteString.copyFrom((txData["chainID"] as String).toHexByteArray())
+            chainId = ByteString.copyFrom((txData["chainId"] as String).toHexByteArray())
             nonce = ByteString.copyFrom((txData["nonce"] as String).toHexByteArray())
             gasPrice = ByteString.copyFrom((txData["gasPrice"] as String).toHexByteArray())
             gasLimit = ByteString.copyFrom((txData["gasLimit"] as String).toHexByteArray())
