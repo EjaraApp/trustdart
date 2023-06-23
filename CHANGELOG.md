@@ -105,3 +105,7 @@ Improve error handling and checking for null wallet
 ### 0.2.1
 
 - Changes for Near update
+
+### 0.3.0
+
+- Added support for Cardano and All Ethereum / ERC20 compatible tokens and blockchains.
