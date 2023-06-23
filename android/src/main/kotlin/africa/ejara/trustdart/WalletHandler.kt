@@ -8,13 +8,12 @@ import TRX
 import XTZ
 import XLM
 import BNB
-import BSC
 import DOGE
-import MATIC
 import ADA
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
+import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 
 class WalletHandler {
@@ -29,13 +28,11 @@ class WalletHandler {
             "NEAR"  to NEAR(),
             "XLM"   to XLM(),
             "BNB"   to BNB(),
-            "BSC"   to BSC(),
             "DOGE"  to DOGE(),
-            "MATIC" to MATIC(),
             "ADA"   to ADA(),
         )
     }
-
+    
     fun getCoin(coin: String?): Coin {
         return coins[coin]!!
     }

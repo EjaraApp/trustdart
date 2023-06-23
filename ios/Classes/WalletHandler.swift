@@ -18,9 +18,7 @@ class WalletHandler {
         "NEAR"  : NEAR(),
         "XLM"   : XLM(),
         "BNB"   : BNB(),
-        "BSC"   : BSC(),
         "DOGE"  : DOGE(),
-        "MATIC" : MATIC(),
         "ADA"   : ADA()
     ]
     
