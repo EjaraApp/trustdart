@@ -256,7 +256,7 @@ Map<String, dynamic> operations = {
         "txid":
             "76608917328b3768b3985d057e613c7e8f14cb1f27b132a750a363ee64363a57",
         "index": 0,
-        "amount": 16900000,
+        "balance": 16900000,
       },
     ],
   }

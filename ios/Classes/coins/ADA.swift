@@ -19,7 +19,7 @@ class ADA: Coin  {
                 $0.outPoint.txHash = Data(hexString: (utx["txid"] as! String))!
                 $0.outPoint.outputIndex = utx["index"] as! UInt64
                 $0.address = utx["senderAddress"] as! String
-                $0.amount = utx["amount"] as! UInt64
+                $0.amount = utx["balance"] as! UInt64
             })
         }
 
@@ -40,7 +40,6 @@ class ADA: Coin  {
             }
             input.utxos.append(utxo)
         }
-
 
         let output: CardanoSigningOutput = AnySigner.sign(input: input, coin: .cardano)
         return output.encoded.hexString
