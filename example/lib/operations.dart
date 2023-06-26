@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'dart:typed_data';
 
 import 'package:trustdart/trustdart.dart';
@@ -77,14 +75,12 @@ Map<String, dynamic> operations = {
   //   "reveal_storageLimit": 0,
   // },
   'ETH': {
-    "chainId": "AQ==",
-    "gasPrice": "1pOkAA==",
-    "gasLimit": "Ugg=",
-    "nonce": "AQ==",
-    "toAddress": "0x7d8bf18C7cE84b3E175b339c4Ca93aEd1dD166F1",
-    "transaction": {
-      "transfer": {"amount": "A0i8paFgAA=="}
-    }
+    "chainId": "0x01",
+    "nonce": "0x00",
+    "gasPrice": "0x07FF684650",
+    "gasLimit": "0x5208",
+    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+    "amount": "0x0DE0B6B3A7640000",
   },
   'BTC': {
     // https://blockchain.info/unspent?active=35oxCr5Edc2VjoQkX65TPzxUVGXJ7r4Uny
@@ -194,14 +190,14 @@ Map<String, dynamic> operations = {
     "toAddress": "bnb136ns6lfw4zs5hg4n85vdthaad7hq5m4gtkgf23",
     "amount": 10000,
   },
-  'BSC': {
-    "chainID": "0x38",
-    "nonce": "0x05",
-    "gasPrice": "0x012a05f200",
-    "gasLimit": "0x5208",
-    "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
-    "amount": "0x00de0b6b3a7640",
-  },
+  // 'ETH': {
+  //   "chainId": "0x38",
+  //   "nonce": "0x05",
+  //   "gasPrice": "0x012a05f200",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xAca4830231E74a9087EFB56a0561f8e1D87776e8",
+  //   "amount": "0x00de0b6b3a7640",
+  // },
   'DOGE': {
     "utxos": [
       {
@@ -216,14 +212,37 @@ Map<String, dynamic> operations = {
     "fees": 5000,
     "changeAddress": "D9pvhnWknRza2HTXhY5WT29D4kvYzTZQAF",
   },
-  'MATIC': {
-    "chainId": "0x89",
-    "nonce": "0x01",
-    "gasPrice": "0x07FF684650",
-    "gasLimit": "0x5208",
-    "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
-    "amount": "0x3B9ACA00",
-  },
+  // 'ETH': {
+  //   "chainId": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  // },
+  //............Polygon USDC test........
+  // 'ETH': {
+  //   "cmd": "ERC20",
+  //   "chainId": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  //   "contractAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+  // },
+
+  //............Polygon USDT test........
+  // 'ETH': {
+  //   "cmd": "ERC20",
+  //   "chainId": "0x89",
+  //   "nonce": "0x00",
+  //   "gasPrice": "0x07FF684650",
+  //   "gasLimit": "0x5208",
+  //   "toAddress": "0xC894F1dCE55358ef44D760d8B1fb3397F5b1c24b",
+  //   "amount": "0x0DE0B6B3A7640000",
+  //   "contractAddress": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+  // },
   'ADA': {
     "senderAddress":
         "addr1q9evp7aqelh4epkacgyeqweqgkvqsl8gdp54mxew5kdvuyhqhuqa6ngy0jrdcnknurcvjgtv4jd84pd7xllgmdz0wtrqgfz5l4",
