@@ -249,6 +249,7 @@ Map<String, dynamic> operations = {
     "receiverAddress":
         "addr1qyk022rpw85g7c0f0wuq6zpkakgjwsftmpd99wqjj4xcsjc74pfgs7t76yuehca7hn4pcl37lsl06ccey0epe5sp4lwslxsyrw",
     "amount": 40000,
+    "ttl": 53333333,
     "utxos": [
       {
         "senderAddress":
