@@ -29,20 +29,20 @@ class ADA : Coin("ADA", CoinType.CARDANO){
             .build()
         val input = Cardano.SigningInput.newBuilder()
             .setTransferMessage(message)
-            .setTtl(53333333)
+            .setTtl(txData["ttl"]!!.toLong())
 
         input.addPrivateKey(ByteString.copyFrom(privateKey.data()))
         for (utx in utxos) {
-            val outpoint1 = Cardano.OutPoint.newBuilder()
+            val outpoint = Cardano.OutPoint.newBuilder()
                 .setTxHash(ByteString.copyFrom(Numeric.hexStringToByteArray(utx["txid"] as String)))
                 .setOutputIndex(utx["index"]!!.toLong())
                 .build()
-            val utxo1 = Cardano.TxInput.newBuilder()
-                .setOutPoint(outpoint1)
+            val utxo = Cardano.TxInput.newBuilder()
+                .setOutPoint(outpoint)
                 .setAddress(utx["senderAddress"] as String)
-                .setAmount(utx["amount"]!!.toLong())
+                .setAmount(utx["balance"]!!.toLong())
                 .build()
-            listOfAllUtxos.add(utxo1)
+            listOfAllUtxos.add(utxo)
         }
         input.addAllUtxos(listOfAllUtxos)
 

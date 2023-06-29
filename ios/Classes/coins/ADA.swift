@@ -19,7 +19,7 @@ class ADA: Coin  {
                 $0.outPoint.txHash = Data(hexString: (utx["txid"] as! String))!
                 $0.outPoint.outputIndex = utx["index"] as! UInt64
                 $0.address = utx["senderAddress"] as! String
-                $0.amount = utx["amount"] as! UInt64
+                $0.amount = utx["balance"] as! UInt64
             })
         }
 
@@ -27,7 +27,7 @@ class ADA: Coin  {
             $0.transferMessage.toAddress = txData["receiverAddress"] as! String
             $0.transferMessage.changeAddress =  txData["senderAddress"] as! String
             $0.transferMessage.amount = txData["amount"] as! UInt64
-            $0.ttl = 53333333
+            $0.ttl = txData["ttl"] as! UInt64
             $0.privateKey = [privateKey!.data]
             $0.utxos = listOfUtxos
         }
@@ -36,3 +36,6 @@ class ADA: Coin  {
         return output.encoded.hexString
         }
 }
+
+
+
