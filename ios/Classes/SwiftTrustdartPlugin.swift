@@ -15,7 +15,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let wallet = WalletHandler().generateMnemonic(strength: 128, passphrase: call.arguments as! String)
             let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .noWallet, message: "Could not generate wallet", details: nil), wallet)
             if isValid {
-                result(wallet)
+                result(wallet) 
             }else {
                 result(err.details)
             }
@@ -77,7 +77,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                     result(txHash)
                 }else {
                     result(err.details)
-                }
+                } 
             }else {
                 result(err.details)
             }
@@ -85,13 +85,12 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
         case "multiSignTransaction":
             let args = call.arguments as! [String: Any]
             let coin: String? = args["coin"] as? String
-            let path: String? = args["path"] as? String
             let txData: [String: Any]? = args["txData"] as? [String: Any]
             let privateKeys: [String]? = args["privateKeys"] as? [String]
-            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin] and [path] are required.", details: nil), coin, path)
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin] are required.", details: nil), coin)
             
             if isValid {
-                let txHash = WalletHandler().getCoin(coin!).multiSignTransaction(path: path!, txData: txData!, privateKeys: privateKeys ?? [] )
+                let txHash = WalletHandler().getCoin(coin!).multiSignTransaction(txData: txData!, privateKeys: privateKeys ?? [] )
                 
                 let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .txHashNull, message: "Failed to sign transaction.", details: nil), txHash)
                 if isValid {

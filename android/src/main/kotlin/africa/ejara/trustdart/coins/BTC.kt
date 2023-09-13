@@ -10,7 +10,7 @@ import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Bitcoin
 
-
+ 
 
 
 class BTC : Coin("BTC", CoinType.BITCOIN) {
@@ -82,7 +82,6 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
 
 
     override fun multiSignTransaction(
-        path: String,
         txData: Map<String, Any>,
         privateKeys: ArrayList<String>
     ): String? {

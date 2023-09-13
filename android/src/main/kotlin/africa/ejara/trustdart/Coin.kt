@@ -44,13 +44,13 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     override fun getRawPrivateKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val wallet = HDWallet(mnemonic, passphrase)
         return wallet.getKey(coinType, path).data()
-    }
+    } 
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
         return wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data().base64String()
     }
-
+ 
     override fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val wallet = HDWallet(mnemonic, passphrase)
         return wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data()
@@ -84,7 +84,6 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
     }
 
     override fun multiSignTransaction(
-        path: String,
         txData: Map<String, Any>,
         privateKeys: ArrayList<String>
     ): String? {

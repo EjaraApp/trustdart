@@ -56,7 +56,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorMessage,
                     validator.details.errorDetails
                 )
-            }
+            } 
             "checkMnemonic" -> {
                 val mnemonic: String? = call.argument("mnemonic")
                 val passphrase: String? = call.argument("passphrase")
@@ -166,19 +166,18 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
             }
             "multiSignTransaction" -> {
                 val coin: String? = call.argument("coin")
-                val path: String? = call.argument("path")
                 val txData: Map<String, Any>? = call.argument("txData")
                 val privateKeys: ArrayList<String>? = call.argument("privateKeys")
                 var validator = WalletHandler().validate(
                     WalletError(
                         WalletHandlerErrorCodes.ArgumentsNull,
-                        "[path], [coin], [privateKeys] and [txData] are required.",
+                        "[coin], [privateKeys] and [txData] are required.",
                         null
-                    ), arrayOf(path, coin, txData, privateKeys)
+                    ), arrayOf(coin, txData, privateKeys)
                 )
                 if (validator.isValid) {
                     val txHash = WalletHandler().getCoin(coin)
-                        .multiSignTransaction(path!!, txData!!, privateKeys!!)
+                        .multiSignTransaction(txData!!, privateKeys!!)
                     validator = WalletHandler().validate(
                         WalletError(
                             WalletHandlerErrorCodes.TxHashNull,

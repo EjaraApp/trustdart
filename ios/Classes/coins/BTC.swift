@@ -48,7 +48,7 @@ class BTC: Coin  {
                 $0.privateKey = [privateKey!.data]
                 $0.plan = BitcoinTransactionPlan.with {
                     $0.amount = txData["amount"] as! Int64
-                    $0.fee = txData["fees"] as! Int64
+                    $0.fee = txData["fees"] as! Int64 
                     $0.change = txData["change"] as! Int64
                     $0.utxos = unspent
                 }
@@ -64,7 +64,7 @@ class BTC: Coin  {
 
 
     
-    override func multiSignTransaction(path: String, txData: [String : Any], privateKeys: [String]) -> String? {
+    override func multiSignTransaction(txData: [String : Any], privateKeys: [String]) -> String? {
         let utxos: [[String: Any]] = txData["utxos"] as! [[String: Any]]
         var unspent: [BitcoinUnspentTransaction] = []
         

@@ -171,15 +171,13 @@ class Trustdart {
     }
   }
 
-  static Future<String> multiSignTransaction(String mnemonic, String coin,
-      String path, Map txData, List<String>? privateKeys,
-      [String passphrase = ""]) async {
+  static Future<String> multiSignTransaction(String coin,
+      String path, Map txData, List<String>? privateKeys) async {
     try {
       final String txHash = await _channel.invokeMethod(
           'multiSignTransaction', <String, dynamic>{
         'coin': coin,
         'txData': txData,
-        'path': path,
         'privateKeys': privateKeys
       });
       return txHash;

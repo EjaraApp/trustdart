@@ -15,7 +15,7 @@ class Coin: CoinProtocol {
     init(name: String, coinType: CoinType){
         self.name = name
         self.coinType = coinType
-    }
+    } 
     
     func getName() -> String {
         return self.name
@@ -82,7 +82,7 @@ class Coin: CoinProtocol {
 
 
 
-    func multiSignTransaction(path: String, txData: [String: Any], privateKeys: [String]) -> String? {
+    func multiSignTransaction(txData: [String: Any], privateKeys: [String]) -> String? {
         let opJson =  Utils.objToJson(from: txData)
         var signatures = [String]()
         
