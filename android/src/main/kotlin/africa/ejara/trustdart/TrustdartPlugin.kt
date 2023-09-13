@@ -164,6 +164,36 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorDetails
                 )
             }
+            "multiSignTransaction" -> {
+                val coin: String? = call.argument("coin")
+                val path: String? = call.argument("path")
+                val txData: Map<String, Any>? = call.argument("txData")
+                val privateKeys: ArrayList<String>? = call.argument("privateKeys")
+                var validator = WalletHandler().validate(
+                    WalletError(
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        "[path], [coin], [privateKeys] and [txData] are required.",
+                        null
+                    ), arrayOf(path, coin, txData, privateKeys)
+                )
+                if (validator.isValid) {
+                    val txHash = WalletHandler().getCoin(coin)
+                        .multiSignTransaction(path!!, txData!!, privateKeys!!)
+                    validator = WalletHandler().validate(
+                        WalletError(
+                            WalletHandlerErrorCodes.TxHashNull,
+                            "Could not sign transaction.",
+                            null
+                        ), arrayOf(txHash)
+                    )
+                    if (validator.isValid) return result.success(txHash)
+                }
+                return result.error(
+                    validator.details.errorCode,
+                    validator.details.errorMessage,
+                    validator.details.errorDetails
+                )
+            }
             "signDataWithPrivateKey" -> {
                 val coin: String? = call.argument("coin")
                 val path: String? = call.argument("path")

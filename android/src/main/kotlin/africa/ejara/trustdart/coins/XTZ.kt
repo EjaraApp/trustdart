@@ -4,7 +4,6 @@ import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toHex
 import africa.ejara.trustdart.utils.toHexBytes
 import africa.ejara.trustdart.utils.toLong
-import android.util.Log
 import com.google.protobuf.ByteString
 import org.json.JSONObject
 import wallet.core.java.AnySigner

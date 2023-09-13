@@ -61,4 +61,43 @@ class BTC: Coin  {
         }
         
     }
+
+
+    
+    override func multiSignTransaction(path: String, txData: [String : Any], privateKeys: [String]) -> String? {
+        let utxos: [[String: Any]] = txData["utxos"] as! [[String: Any]]
+        var unspent: [BitcoinUnspentTransaction] = []
+        
+            for utx in utxos {
+                unspent.append(BitcoinUnspentTransaction.with {
+                    $0.outPoint.hash = Data.reverse(hexString: utx["txid"] as! String)
+                    $0.outPoint.index = utx["vout"] as! UInt32
+                    $0.outPoint.sequence = UINT32_MAX
+                    $0.amount = utx["value"] as! Int64
+                    $0.script = Data(hexString: utx["script"] as! String)!
+                })
+            }
+            let privateKeyDataArray = privateKeys.compactMap { privateKey in
+                return Data(hexString: privateKey)
+            }
+
+            let input: BitcoinSigningInput = BitcoinSigningInput.with {
+                $0.hashType = BitcoinScript.hashTypeForCoin(coinType: .bitcoin)
+                $0.amount = txData["amount"] as! Int64
+                $0.toAddress = txData["toAddress"] as! String
+                $0.changeAddress = txData["changeAddress"] as! String // can be same sender address
+                $0.privateKey = privateKeyDataArray
+                $0.plan = BitcoinTransactionPlan.with {
+                    $0.amount = txData["amount"] as! Int64
+                    $0.fee = txData["fees"] as! Int64
+                    $0.change = txData["change"] as! Int64
+                    $0.utxos = unspent
+                }
+            }
+            
+            let output: BitcoinSigningOutput = AnySigner.sign(input: input, coin: .bitcoin)
+            return output.encoded.hexString
+        
+    }
+
 }

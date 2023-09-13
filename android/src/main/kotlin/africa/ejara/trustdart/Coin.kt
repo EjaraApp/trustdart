@@ -4,6 +4,7 @@ import africa.ejara.trustdart.interfaces.CoinInterface
 import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toHex
 import africa.ejara.trustdart.utils.toHexByteArray
+import com.google.protobuf.ByteString
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
@@ -80,6 +81,21 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
         val privateKey = wallet.getKey(coinType, path)
         val opJson = JSONObject(txData).toString()
         return AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())
+    }
+
+    override fun multiSignTransaction(
+        path: String,
+        txData: Map<String, Any>,
+        privateKeys: ArrayList<String>
+    ): String? {
+        val opJson = JSONObject(txData).toString()
+        val signatures = mutableListOf<String>()
+
+        for (privateKey in privateKeys) {
+            val signature = AnySigner.signJSON(opJson, privateKey.toByteArray(), coinType!!.value())
+            signatures.add(signature)
+        }
+        return signatures.joinToString(",")
     }
 
 }

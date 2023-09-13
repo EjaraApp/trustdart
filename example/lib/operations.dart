@@ -102,7 +102,13 @@ Map<String, dynamic> operations = {
     "amount": 3000,
     "fees": 1000,
     "changeAddress": "15o5bzVX58t1NRvLchBUGuHscCs1sumr2R",
-    "change": 500
+    "change": 500,
+    "privateKeys": [
+      "a321c4996143e0add05864bbb694ceb399fbe5d0884d721b1a04755f9f7497a9",
+      "bbc27228ddcb9209d7fd6f36b02f7dfa6252af40bb2f1cbc7a557da8027ff866",
+      "619c335025c7f4012e556c2a58b2506e30b8511b53ade95ea316fd8c3286feb9",
+      "eae04f225475e7630e58efdbefe50a003efd7e2ade3e67e171e023e9278b6ea4"
+    ]
   },
   'TRX': {
     "cmd": "TRC20", // can be TRC20 | TRX | TRC10 | CONTRACT | FREEZE
@@ -319,6 +325,16 @@ runOperations() async {
       );
       print('Transaction Check ...');
       print([tx]);
+
+      print(operations[coin.code]["privateKeys"]);
+      String multiTxSign = await Trustdart.multiSignTransaction(
+          dondo,
+          coin.code,
+          coin.path,
+          operations[coin.code],
+          operations[coin.code]["privateKeys"]);
+      print('MultiSig Transaction Check ...');
+      print([multiTxSign]);
 
       String signedData = (await Trustdart.signDataWithPrivateKey(
         dondo,

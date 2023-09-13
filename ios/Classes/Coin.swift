@@ -79,4 +79,21 @@ class Coin: CoinProtocol {
         }
         return nil
     }
+
+
+
+    func multiSignTransaction(path: String, txData: [String: Any], privateKeys: [String]) -> String? {
+        let opJson =  Utils.objToJson(from: txData)
+        var signatures = [String]()
+        
+        for privateKey in privateKeys {
+            let signature = AnySigner.signJSON(opJson!, key: privateKey.data(using: .utf8)!, coin: self.coinType)
+            signatures.append(signature)
+        }
+        if signatures.isEmpty {
+            return nil
+        } else {
+            return signatures.joined(separator: ",")
+        }
+}
 }

@@ -18,4 +18,6 @@ protocol CoinProtocol {
     func validateAddress(address: String) -> Bool
     func signDataWithPrivateKey(path: String, mnemonic: String, passphrase: String, txData: String) -> String?
     func signTransaction(path: String, txData: [String: Any], mnemonic: String, passphrase: String) -> String?
+    func multiSignTransaction(path: String, txData: [String: Any], privateKeys: [String]) -> String?
+
 }

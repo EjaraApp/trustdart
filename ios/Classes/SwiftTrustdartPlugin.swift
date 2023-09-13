@@ -81,6 +81,28 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             }else {
                 result(err.details)
             }
+            
+        case "multiSignTransaction":
+            let args = call.arguments as! [String: Any]
+            let coin: String? = args["coin"] as? String
+            let path: String? = args["path"] as? String
+            let txData: [String: Any]? = args["txData"] as? [String: Any]
+            let privateKeys: [String]? = args["privateKeys"] as? [String]
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin] and [path] are required.", details: nil), coin, path)
+            
+            if isValid {
+                let txHash = WalletHandler().getCoin(coin!).multiSignTransaction(path: path!, txData: txData!, privateKeys: privateKeys ?? [] )
+                
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .txHashNull, message: "Failed to sign transaction.", details: nil), txHash)
+                if isValid {
+                    result(txHash)
+                }else {
+                    result(err.details)
+                }
+            }else {
+                result(err.details)
+            }
+
         case "signDataWithPrivateKey":
             let args = call.arguments as! [String: Any]
             let coin: String? = args["coin"] as? String
