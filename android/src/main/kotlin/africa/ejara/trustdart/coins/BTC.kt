@@ -9,7 +9,6 @@ import wallet.core.jni.BitcoinScript
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Bitcoin
-import java.util.*
 
 
 
