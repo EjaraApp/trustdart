@@ -306,7 +306,7 @@ runOperations() async {
       bool valid = await Trustdart.validateAddress(
         coin.code,
         address['legacy']!,
-      ); 
+      );
       print([valid]);
 
       bool invalid = await Trustdart.validateAddress(
@@ -327,11 +327,8 @@ runOperations() async {
       print([tx]);
 
       print(operations[coin.code]["privateKeys"]);
-      String multiTxSign = await Trustdart.multiSignTransaction(
-          dondo,
-          coin.code,
-          operations[coin.code],
-          operations[coin.code]["privateKeys"]);
+      String multiTxSign = await Trustdart.multiSignTransaction(coin.code,
+          operations[coin.code], operations[coin.code]["privateKeys"]);
       print('MultiSig Transaction Check ...');
       print([multiTxSign]);
 
