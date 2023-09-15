@@ -56,7 +56,7 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                     validator.details.errorMessage,
                     validator.details.errorDetails
                 )
-            }
+            } 
             "checkMnemonic" -> {
                 val mnemonic: String? = call.argument("mnemonic")
                 val passphrase: String? = call.argument("passphrase")
@@ -149,6 +149,35 @@ class TrustdartPlugin : FlutterPlugin, MethodCallHandler {
                 if (validator.isValid) {
                     val txHash = WalletHandler().getCoin(coin)
                         .signTransaction(path!!, txData!!, mnemonic!!, passphrase!!)
+                    validator = WalletHandler().validate(
+                        WalletError(
+                            WalletHandlerErrorCodes.TxHashNull,
+                            "Could not sign transaction.",
+                            null
+                        ), arrayOf(txHash)
+                    )
+                    if (validator.isValid) return result.success(txHash)
+                }
+                return result.error(
+                    validator.details.errorCode,
+                    validator.details.errorMessage,
+                    validator.details.errorDetails
+                )
+            }
+            "multiSignTransaction" -> {
+                val coin: String? = call.argument("coin")
+                val txData: Map<String, Any>? = call.argument("txData")
+                val privateKeys: ArrayList<String>? = call.argument("privateKeys")
+                var validator = WalletHandler().validate(
+                    WalletError(
+                        WalletHandlerErrorCodes.ArgumentsNull,
+                        "[coin], [privateKeys] and [txData] are required.",
+                        null
+                    ), arrayOf(coin, txData, privateKeys)
+                )
+                if (validator.isValid) {
+                    val txHash = WalletHandler().getCoin(coin)
+                        .multiSignTransaction(txData!!, privateKeys!!)
                     validator = WalletHandler().validate(
                         WalletError(
                             WalletHandlerErrorCodes.TxHashNull,

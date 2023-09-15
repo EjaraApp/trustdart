@@ -15,7 +15,7 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
             let wallet = WalletHandler().generateMnemonic(strength: 128, passphrase: call.arguments as! String)
             let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .noWallet, message: "Could not generate wallet", details: nil), wallet)
             if isValid {
-                result(wallet)
+                result(wallet) 
             }else {
                 result(err.details)
             }
@@ -77,10 +77,31 @@ public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
                     result(txHash)
                 }else {
                     result(err.details)
+                } 
+            }else {
+                result(err.details)
+            }
+            
+        case "multiSignTransaction":
+            let args = call.arguments as! [String: Any]
+            let coin: String? = args["coin"] as? String
+            let txData: [String: Any]? = args["txData"] as? [String: Any]
+            let privateKeys: [String]? = args["privateKeys"] as? [String]
+            let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .argumentsNull, message: "[coin] are required.", details: nil), coin)
+            
+            if isValid {
+                let txHash = WalletHandler().getCoin(coin!).multiSignTransaction(txData: txData!, privateKeys: privateKeys ?? [] )
+                
+                let (isValid, err) = WalletHandler.validate(walletError: WalletError(code: .txHashNull, message: "Failed to sign transaction.", details: nil), txHash)
+                if isValid {
+                    result(txHash)
+                }else {
+                    result(err.details)
                 }
             }else {
                 result(err.details)
             }
+
         case "signDataWithPrivateKey":
             let args = call.arguments as! [String: Any]
             let coin: String? = args["coin"] as? String
