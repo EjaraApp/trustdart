@@ -117,3 +117,7 @@ Improve error handling and checking for null wallet
 ### 0.3.2
 
 - Fixed bug in cardano
+
+### 0.3.3
+
+- Add multi input, multi private keys sign for bitcoin
