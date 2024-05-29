@@ -66,7 +66,7 @@ class XLM: Coin  {
                 $0.privateKey = privateKey!.data
                 if (txData["memo"] != nil) {
                     $0.memoID = StellarMemoId.with {
-                        $0.id = txData["memo"] as! Int64
+                        $0.id = Int64(txData["memo"] as! String)!
                     }
                 }
             }
@@ -97,7 +97,7 @@ class XLM: Coin  {
                 $0.privateKey = privateKey!.data
                 if (txData["memo"] != nil) {
                     $0.memoID = StellarMemoId.with {
-                        $0.id = txData["memo"] as! Int64
+                        $0.id = Int64(txData["memo"] as! String)!
                     }
                 }
             }

@@ -178,7 +178,8 @@ Map<String, dynamic> operations = {
     "amount": 2000000,
     "fee": 10000,
     "sequence": 183629192141733925,
-    "asset": "USDC"
+    "asset": "USDC",
+    "memo": "3476840067250060816"
   },
   // 'XLM': {
   //   "cmd": "ChangeTrust",

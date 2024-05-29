@@ -29,9 +29,10 @@ fun ByteArray.base64String(): String {
 }
 
 fun Any.toLong(): Long {
-    return if(this is Int){
-        this.toLong()
-    }else{
-        this as Long
+    return when (this) {
+        is Int -> this.toLong()
+        is Long -> this
+        is String -> this.toLongOrNull() ?: throw NumberFormatException("Cannot convert $this to Long")
+        else -> throw IllegalArgumentException("Unsupported type")
     }
 }
