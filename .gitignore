@@ -6,3 +6,8 @@ build/
 .idea/
 pubspec.lock
 org.eclipse.buildship.core.prefs
+android/.classpath
+android/.project
+example/android/.project
+example/android/.classpath
+
