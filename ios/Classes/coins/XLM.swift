@@ -4,6 +4,20 @@
 import WalletCore
 
 class XLM: Coin  {
+    enum NetworkType: String {
+        case mainnet
+        case testnet
+        
+        var passphrase: String {
+            switch self {
+            case .mainnet:
+                return "Public Global Stellar Network ; September 2015"
+            case .testnet:
+                return "Test SDF Network ; September 2015"
+            }
+        }
+    }
+    
     init() {
         super.init(name: "XLM", coinType: .stellar)
     }
@@ -23,6 +37,14 @@ class XLM: Coin  {
         let cmd = txData["cmd"] as! String
         var txHash: String?
         
+        let networkType: NetworkType = {
+            if let network = txData["network"], let type = NetworkType(rawValue: network as! String) {
+                return type
+            } else {
+                return .mainnet // Default to mainnet if network is not provided or invalid
+            }
+        }()
+        
         switch(cmd){
         case "ChangeTrust":
             let asset = StellarAsset.with {
@@ -39,12 +61,12 @@ class XLM: Coin  {
                 $0.account = txData["ownerAddress"] as! String
                 $0.fee = txData["fee"] as! Int32
                 $0.sequence = txData["sequence"] as! Int64
-                $0.passphrase = StellarPassphrase.stellar.description
+                $0.passphrase = networkType.passphrase
                 $0.opChangeTrust = operation
                 $0.privateKey = privateKey!.data
                 if (txData["memo"] != nil) {
                     $0.memoID = StellarMemoId.with {
-                        $0.id = txData["memo"] as! Int64
+                        $0.id = Int64(txData["memo"] as! String)!
                     }
                 }
             }
@@ -52,13 +74,12 @@ class XLM: Coin  {
             let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
             txHash = output.signature
         case "Payment":
-            
-            let asset = StellarAsset.with {
-                $0.issuer = txData["ownerAddress"] as! String
-                if (txData["asset"] != nil) {
-                    $0.alphanum4 = txData["asset"] as! String
-                }
+            var asset = StellarAsset()
+            if let assetString = txData["asset"] as? String, let issuer = txData["issuer"] as? String {
+                asset.alphanum4 = assetString
+                asset.issuer = issuer
             }
+            
             let operation = StellarOperationPayment.with {
                 $0.destination = txData["toAddress"] as! String
                 $0.amount = txData["amount"] as! Int64
@@ -71,12 +92,12 @@ class XLM: Coin  {
                 $0.account = txData["ownerAddress"] as! String
                 $0.fee = txData["fee"] as! Int32
                 $0.sequence = txData["sequence"] as! Int64
-                $0.passphrase = StellarPassphrase.stellar.description
+                $0.passphrase = networkType.passphrase
                 $0.opPayment = operation
                 $0.privateKey = privateKey!.data
                 if (txData["memo"] != nil) {
                     $0.memoID = StellarMemoId.with {
-                        $0.id = txData["memo"] as! Int64
+                        $0.id = Int64(txData["memo"] as! String)!
                     }
                 }
             }
