@@ -121,3 +121,7 @@ Improve error handling and checking for null wallet
 ### 0.3.3
 
 - Add multi input, multi private keys sign for bitcoin
+
+### 0.3.4
+
+- Add support for Stellar testnet transaction signing
