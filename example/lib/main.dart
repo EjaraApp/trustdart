@@ -43,9 +43,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.red,
-                    primary: Colors.black,
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {},
@@ -55,9 +54,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.yellow,
-                    primary: Colors.black,
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {},
@@ -67,9 +65,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.green,
-                    primary: Colors.black,
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {},
