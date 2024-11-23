@@ -6,8 +6,7 @@ This release is a meant to be a proof of concept and to test if this can be inst
 
 Improved readme and added github access tokens for access to trustwallet android package on github maven.
 
-
-### 0.0.3 
+### 0.0.3
 
 Added change logs.
 
@@ -19,11 +18,9 @@ Github Access Tokens Added from Dummy user
 
 Added instructions for setting up github access tokens since dummy access token did not work. Github deletes access tokens committed to github.
 
-
 ### 0.0.6
 
 Added support for TRON TOKENS, TRX, TRC10, TRC20 and Asset Freezing.
-
 
 ### 0.0.7
 
@@ -33,18 +30,15 @@ Added support for Solana, transfere and receive SOL as well as any token on Sola
 
 Changed return of getPrivateKey, getPublicKey to base64 encoding
 
-
 ### 0.0.9
 
 Improve error handling and checking for null wallet
-
 
 ### 0.1.0
 
 - Replaced `java.util.Base64` with `android.util.Base64`
 
 - Added support for Near Crypto transfer transactions
-
 
 ### 0.1.1
 
@@ -66,17 +60,14 @@ Improve error handling and checking for null wallet
 - Fixed `getSeed, getRawPrivateKey & getRawPublicKey` methods returning empty array.
 - Added `signDataWithPrivateKey`.
 
-
 ### 0.1.5
 
 - Updated the gradle version in Android.
 - Reverted to adding the feeLimit option in TRON (TRX). For instance, it provides the flexibility of setting the feeLimit to 0 for TRX send.
 
-
 ### 0.1.6
 
 - Updated raw sign for tezos
-
 
 ### 0.1.7
 
@@ -125,3 +116,7 @@ Improve error handling and checking for null wallet
 ### 0.3.4
 
 - Add support for Stellar testnet transaction signing
+
+### 0.3.5
+
+- Gradle updates
