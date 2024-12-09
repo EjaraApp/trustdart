@@ -117,6 +117,6 @@ Improve error handling and checking for null wallet
 
 - Add support for Stellar testnet transaction signing
 
-### 0.3.5
+### 0.3.6
 
-- Gradle updates
+- WalletCore updates
