@@ -36,3 +36,11 @@ fun Any.toLong(): Long {
         else -> throw IllegalArgumentException("Unsupported type")
     }
 }
+
+fun Any.toInt(): Int {
+    return when (this) {
+        is Int -> this.toInt()
+        is String -> this.toIntOrNull() ?: throw NumberFormatException("Cannot convert $this to Long")
+        else -> throw IllegalArgumentException("Unsupported type")
+    }
+}

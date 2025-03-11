@@ -7,7 +7,6 @@ import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toLong
 import wallet.core.jni.proto.Stellar
 import wallet.core.jni.proto.Stellar.SigningOutput
-import wallet.core.jni.StellarPassphrase
 
 
 class XLM : Coin("XLM", CoinType.STELLAR) {
@@ -15,6 +14,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
     enum class NetworkType(val passphrase: String) {
         MAINNET("Public Global Stellar Network ; September 2015"),
         TESTNET("Test SDF Network ; September 2015");
+
         companion object {
             fun fromString(network: String?): NetworkType {
                 return when (network?.lowercase()) {
@@ -46,7 +46,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
             val network = txData["network"] as? String
             NetworkType.fromString(network)
         }()
-        
+
         val secretKey = HDWallet(mnemonic, pass_phrase).getKey(coinType, path)
         val txHash: String?
         when (cmd) {
@@ -74,6 +74,7 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
                 txHash = output.signature
             }
+
             "Payment" -> {
                 val stellarAsset = Stellar.Asset.newBuilder()
                 if (txData["asset"] != null && txData["issuer"] != null) {

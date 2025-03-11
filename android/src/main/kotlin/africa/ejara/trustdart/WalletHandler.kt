@@ -10,10 +10,10 @@ import XLM
 import BNB
 import DOGE
 import ADA
+import XRP
 
 import africa.ejara.trustdart.utils.WalletError
 import africa.ejara.trustdart.utils.WalletValidateResponse
-import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 
 class WalletHandler {
@@ -30,6 +30,7 @@ class WalletHandler {
             "BNB"   to BNB(),
             "DOGE"  to DOGE(),
             "ADA"   to ADA(),
+            "XRP"    to XRP(),
         )
     }
     

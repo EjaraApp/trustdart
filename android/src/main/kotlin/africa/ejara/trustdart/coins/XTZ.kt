@@ -8,10 +8,8 @@ import com.google.protobuf.ByteString
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
-import wallet.core.jni.CoinType.TEZOS
 import wallet.core.jni.HDWallet
 import wallet.core.jni.Hash
-import wallet.core.jni.proto.Tezos
 import wallet.core.jni.proto.Tezos.*
 
 
@@ -52,10 +50,10 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
         val txHash: String?
         val publicKey = privateKey.publicKeyEd25519.data()
         val isRevealed = txData["isRevealed"] as Boolean?
-        var revealOperation: Tezos.Operation = Operation.newBuilder().build()
-        val listOfAllOperations = mutableListOf<Tezos.Operation>();
+        var revealOperation: Operation
+        val listOfAllOperations = mutableListOf<Operation>();
 
-        if(isRevealed == false){
+        if (isRevealed == false) {
             val revealOperationData = RevealOperationData.newBuilder()
                 .setPublicKey(ByteString.copyFrom(publicKey))
 
@@ -117,14 +115,15 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                     .addAllOperations(listOfAllOperations)
                     .build();
 
-                    val signingInput = SigningInput.newBuilder()
+                val signingInput = SigningInput.newBuilder()
                     .setPrivateKey(ByteString.copyFrom(privateKey.data()))
                     .setOperationList(operationList)
                     .build()
 
-                val result = AnySigner.sign(signingInput, TEZOS, Tezos.SigningOutput.parser())
+                val result = AnySigner.sign(signingInput, coinType, SigningOutput.parser())
                 txHash = Numeric.toHexString(result.encoded.toByteArray())
             }
+
             "FA12" -> {
                 val fa12 = FA12Parameters.newBuilder()
                     .setEntrypoint("transfer")
@@ -165,10 +164,11 @@ class XTZ : Coin("XTZ", CoinType.TEZOS) {
                     .setOperationList(operationList)
                     .build()
 
-                val result = AnySigner.sign(signingInput, TEZOS, Tezos.SigningOutput.parser())
+                val result = AnySigner.sign(signingInput, coinType, SigningOutput.parser())
                 txHash = Numeric.toHexString(result.encoded.toByteArray())
 
             }
+
             else -> {
                 val opJson = JSONObject(txData).toString()
                 val result = AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())

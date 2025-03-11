@@ -51,6 +51,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     AnySigner.sign(signingInput.build(), coinType, Tron.SigningOutput.parser())
                 txHash = output.json
             }
+
             "TRC10" -> {
                 val trc10Contract = Tron.TransferAssetContract.newBuilder()
                     .setOwnerAddress(txData["ownerAddress"] as String)
@@ -81,6 +82,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     AnySigner.sign(signingInput.build(), coinType, Tron.SigningOutput.parser())
                 txHash = output.json
             }
+
             "TRX" -> {
                 val transfer = Tron.TransferContract.newBuilder()
                     .setOwnerAddress(txData["ownerAddress"] as String)
@@ -111,6 +113,7 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     AnySigner.sign(signingInput.build(), coinType, Tron.SigningOutput.parser())
                 txHash = output.json
             }
+
             "FREEZE" -> {
                 val freezeContract = Tron.FreezeBalanceContract.newBuilder()
                     .setOwnerAddress(txData["ownerAddress"] as String)
@@ -141,9 +144,11 @@ class TRX : Coin("TRX", CoinType.TRON) {
                     AnySigner.sign(signingInput.build(), coinType, Tron.SigningOutput.parser())
                 txHash = output.json
             }
+
             "CONTRACT" -> {
                 txHash = null
             }
+
             else -> txHash = null
         }
         return txHash

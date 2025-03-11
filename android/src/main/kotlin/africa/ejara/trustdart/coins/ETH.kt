@@ -8,7 +8,7 @@ import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Ethereum.SigningOutput
 import wallet.core.jni.proto.Ethereum
 
-open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
+open class ETH : Coin("ETH", CoinType.ETHEREUM) {
 
     override fun signTransaction(
         path: String,
@@ -38,8 +38,9 @@ open class ETH: Coin("ETH", CoinType.ETHEREUM)  {
                 }.build()
                 signingInput.setToAddress(txData["contractAddress"] as String)
                 signingInput.setTransaction(transaction)
-                
+
             }
+
             else -> {
                 var transaction = Ethereum.Transaction.newBuilder().apply {
                     transfer = Ethereum.Transaction.Transfer.newBuilder().apply {
