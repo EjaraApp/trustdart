@@ -107,32 +107,42 @@ Map<String, dynamic> operations = {
     ]
   },
   'TRX': {
-    "cmd": "TRC20", // can be TRC20 | TRX | TRC10 | CONTRACT | FREEZE
-    "ownerAddress": "TYjYrDy7yE9vyJfnF5S3EfPrzfXM3eehri", // from address
-    "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW", // to address
-    "contractAddress":
-        "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t", // in case of Trc20 (Tether USDT)
+    "cmd": "TRC20",
+    // can be TRC20 | TRX | TRC10 | CONTRACT | FREEZE
+    "ownerAddress": "TYjYrDy7yE9vyJfnF5S3EfPrzfXM3eehri",
+    // from address
+    "toAddress": "TJpQNJZSktSZQgEthhBapH3zmvg3RaCbKW",
+    // to address
+    "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+    // in case of Trc20 (Tether USDT)
     "timestamp": DateTime.now().millisecondsSinceEpoch,
-    "amount":
-        "000F4240", // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
+    "amount": "000F4240",
+    // 27 * 1000000, // "004C4B40", // "000F4240" = 1000000 sun hex 2's signed complement
     // (https://www.rapidtables.com/convert/number/hex-to-decimal.html)
     // for asset TRC20 | integer for any other in SUN, 1000000 SUN = 1 TRX
     "feeLimit": 10000000,
     // reference block data to be obtained by querying the blockchain
-    "blockTime":
-        1638519600000, // timestamp of block to be included milliseconds
+    "blockTime": 1638519600000,
+    // timestamp of block to be included milliseconds
     "txTrieRoot":
-        "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304", // trie root of block
-    "witnessAddress":
-        "41e5e572797a3d479030e2596a239bd142a890a305", // address of witness that signed block
+        "5807aea383e7de836af95c8b36e22654e4df33e5b92768e55fb936f8a7ae5304",
+    // trie root of block
+    "witnessAddress": "41e5e572797a3d479030e2596a239bd142a890a305",
+    // address of witness that signed block
     "parentHash":
-        "0000000002254183f6d15ba4115b3a5e8a8359adc663f7e6f02fa2bd51c07055", // parent hash of block
-    "version": 23, // block version
-    "number": 35996036, // block number
+        "0000000002254183f6d15ba4115b3a5e8a8359adc663f7e6f02fa2bd51c07055",
+    // parent hash of block
+    "version": 23,
+    // block version
+    "number": 35996036,
+    // block number
     // freezing
-    "frozenDuration": 3, // frozen duration
-    "frozenBalance": 10000000, // frozen balance in SUN
-    "resource": "ENERGY", // Resource type: BANDWIDTH | ENERGY
+    "frozenDuration": 3,
+    // frozen duration
+    "frozenBalance": 10000000,
+    // frozen balance in SUN
+    "resource": "ENERGY",
+    // Resource type: BANDWIDTH | ENERGY
     "assetName": "ALLOW_SAME_TOKEN_NAME"
   },
   'SOL': {
@@ -151,13 +161,17 @@ Map<String, dynamic> operations = {
   },
   'NEAR': {
     'signerID':
-        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction originator)
+        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b',
+    // (account ID of the transaction originator)
     'receiverID':
-        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b', // (account ID of the transaction recipient)
-    'nonce': 1, // (increments for every new tx)
-    'amount':
-        '01000000000000000000000000000000', // // uint128_t / little endian byte order
-    'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM', //
+        '434c894cacb459ca4eeadefc7e9868c2eb68b33c0ba81f8434f2bb435b4bbb7b',
+    // (account ID of the transaction recipient)
+    'nonce': 1,
+    // (increments for every new tx)
+    'amount': '01000000000000000000000000000000',
+    // // uint128_t / little endian byte order
+    'blockHash': '244ZQ9cgj3CQ6bWBdytfrJMuMQ1jdXLFGnr4HhvtCTnM',
+    //
   },
   // 'XLM': {
   //   "cmd": 'Payment',
@@ -271,6 +285,15 @@ Map<String, dynamic> operations = {
         "balance": 16900000,
       },
     ],
+  },
+  'XRP': {
+    "senderAddress": "r9HvPkgsUvi8pfZuGKgstvMVW3RUZbvuv7",
+    "receiverAddress": "rU893viamSnsfP3zjzM2KPxjqZjXSXK6VF",
+    "amount": 10,
+    "fee": 10,
+    "sequence": 32268248,
+    "lastLedgerSequence": 32268269,
+    "memo": "418225058"
   }
 };
 

@@ -4,11 +4,9 @@ import africa.ejara.trustdart.interfaces.CoinInterface
 import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toHex
 import africa.ejara.trustdart.utils.toHexByteArray
-import com.google.protobuf.ByteString
 import org.json.JSONObject
 import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
-import wallet.core.jni.Curve
 import wallet.core.jni.HDWallet
 
 open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {

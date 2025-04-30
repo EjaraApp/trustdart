@@ -19,7 +19,8 @@ class WalletHandler {
         "XLM"   : XLM(),
         "BNB"   : BNB(),
         "DOGE"  : DOGE(),
-        "ADA"   : ADA()
+        "ADA"   : ADA(),
+        "XRP"    : XRP(),
     ]
     
     func getCoin(_ coin: String) -> Coin {

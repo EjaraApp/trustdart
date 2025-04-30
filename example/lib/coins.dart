@@ -1,6 +1,7 @@
 class Coin {
   String code;
   String path;
+
   Coin({
     required this.code,
     required this.path,
@@ -18,4 +19,5 @@ List<Coin> coinList = [
   Coin(code: 'BNB', path: "m/44'/714'/0'/0/0"),
   Coin(code: 'DOGE', path: "m/44'/3'/0'/0/0"),
   Coin(code: 'ADA', path: "m/1852'/1815'/0'/0/0"),
+  Coin(code: 'XRP', path: "m/44'/144'/0'/0/0"),
 ];

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:trustdart_example/operations.dart';
 
 void main() {
@@ -43,7 +43,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.red,
                     textStyle: const TextStyle(fontSize: 20),
                   ),
@@ -54,7 +55,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.yellow,
                     textStyle: const TextStyle(fontSize: 20),
                   ),
@@ -65,7 +67,8 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, padding: const EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.all(16.0),
                     backgroundColor: Colors.green,
                     textStyle: const TextStyle(fontSize: 20),
                   ),

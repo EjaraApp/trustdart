@@ -1,6 +1,5 @@
 import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
-import africa.ejara.trustdart.utils.toHex
 import africa.ejara.trustdart.utils.toLong
 import com.google.protobuf.ByteString
 import wallet.core.java.AnySigner
@@ -9,8 +8,6 @@ import wallet.core.jni.BitcoinScript
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Bitcoin
-
- 
 
 
 class BTC : Coin("BTC", CoinType.BITCOIN) {
@@ -94,7 +91,9 @@ class BTC : Coin("BTC", CoinType.BITCOIN) {
             .setChangeAddress(txData["changeAddress"] as String)
             .setByteFee(1)
 
-        val byteStrings: MutableList<ByteString> = privateKeys.map { ByteString.copyFrom(Numeric.hexStringToByteArray(it)) }.toMutableList()
+        val byteStrings: MutableList<ByteString> =
+            privateKeys.map { ByteString.copyFrom(Numeric.hexStringToByteArray(it)) }
+                .toMutableList()
 
         input.addAllPrivateKey(byteStrings);
 

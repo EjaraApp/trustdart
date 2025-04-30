@@ -2,15 +2,13 @@ import africa.ejara.trustdart.Coin
 import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.toLong
 import com.google.protobuf.ByteString
-import io.flutter.Log
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Cardano
 import wallet.core.java.AnySigner
 
- 
 
-class ADA : Coin("ADA", CoinType.CARDANO){
+class ADA : Coin("ADA", CoinType.CARDANO) {
 
     override fun signTransaction(
         path: String,
@@ -24,7 +22,7 @@ class ADA : Coin("ADA", CoinType.CARDANO){
         val utxos: List<Map<String, Any>> = txData["utxos"] as List<Map<String, Any>>
         val message = Cardano.Transfer.newBuilder()
             .setToAddress(txData["receiverAddress"] as String)
-            .setChangeAddress(txData["senderAddress" ] as String)
+            .setChangeAddress(txData["senderAddress"] as String)
             .setAmount(txData["amount"]!!.toLong())
             .build()
         val input = Cardano.SigningInput.newBuilder()
