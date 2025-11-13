@@ -7,7 +7,7 @@ import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Tron
 
-class TRX : Coin("TRX", CoinType.TRON) {
+class TRX : Coin<String, CoinType>("TRX", CoinType.TRON) {
 
     override fun signTransaction(
         path: String,

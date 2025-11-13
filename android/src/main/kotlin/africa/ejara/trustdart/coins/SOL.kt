@@ -4,7 +4,7 @@ import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 
 
-class SOL : Coin("SOL", CoinType.SOLANA) {
+class SOL : Coin<String, CoinType>("SOL", CoinType.SOLANA) {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)

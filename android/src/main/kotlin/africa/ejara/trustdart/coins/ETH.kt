@@ -8,7 +8,7 @@ import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Ethereum.SigningOutput
 import wallet.core.jni.proto.Ethereum
 
-open class ETH : Coin("ETH", CoinType.ETHEREUM) {
+open class ETH : Coin<String, CoinType>("ETH", CoinType.ETHEREUM) {
 
     override fun signTransaction(
         path: String,

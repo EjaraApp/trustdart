@@ -10,7 +10,7 @@ import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.base64String
 import africa.ejara.trustdart.utils.toLong
 
-class NEAR : Coin("NEAR", CoinType.NEAR) {
+class NEAR : Coin<String, CoinType>("NEAR", CoinType.NEAR) {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)

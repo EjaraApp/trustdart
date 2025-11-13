@@ -10,7 +10,7 @@ import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Bitcoin
 
 
-class BTC : Coin("BTC", CoinType.BITCOIN) {
+class BTC : Coin<String, CoinType>("BTC", CoinType.BITCOIN) {
 
     override fun generateAddress(
         path: String,

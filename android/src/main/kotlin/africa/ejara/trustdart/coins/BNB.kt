@@ -8,7 +8,7 @@ import africa.ejara.trustdart.Numeric
 import africa.ejara.trustdart.utils.toLong
 
 
-class BNB : Coin("BNB", CoinType.BINANCE) {
+class BNB : Coin<String, CoinType>("BNB", CoinType.BINANCE) {
 
     override fun signTransaction(
         path: String,
