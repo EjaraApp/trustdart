@@ -8,7 +8,7 @@ class DOGE: Coin  {
     init() {
         super.init(name: "DOGE", coinType: .dogecoin)
     }
-
+    
     override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: coinType, derivationPath: path)
         let publicKey = privateKey!.getPublicKeySecp256k1(compressed: true)

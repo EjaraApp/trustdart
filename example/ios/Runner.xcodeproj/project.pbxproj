@@ -16,23 +16,13 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		69F70C8F2EC6B1C200F3CC53 /* ccryptocpp.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ccryptocpp.xcframework; path = Pods/../../../ios/Frameworks/ccryptocpp.xcframework; sourceTree = "<group>"; };
+		69F70C902EC6B1C200F3CC53 /* CryptoRs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CryptoRs.xcframework; path = Pods/../../../ios/Frameworks/CryptoRs.xcframework; sourceTree = "<group>"; };
+		69F70C912EC6B1C200F3CC53 /* poseidon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = poseidon.xcframework; path = Pods/../../../ios/Frameworks/poseidon.xcframework; sourceTree = "<group>"; };
 		718B584CCCF8CB07845770EA /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		746EF5F9BD5828082E000908 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -64,6 +54,9 @@
 		3F0DD496D9049BCCB564D3DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69F70C8F2EC6B1C200F3CC53 /* ccryptocpp.xcframework */,
+				69F70C902EC6B1C200F3CC53 /* CryptoRs.xcframework */,
+				69F70C912EC6B1C200F3CC53 /* poseidon.xcframework */,
 				B3ECC066A9795C023DFEC9D1 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
@@ -136,7 +129,6 @@
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				09BB6DED019EBA1D96880678 /* [CP] Embed Pods Frameworks */,
 			);
@@ -205,9 +197,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -8,12 +8,12 @@ class ADA: Coin  {
     init() {
         super.init(name: "ADA", coinType: .cardano)
     }
-
-        override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
+    
+    override func signTransaction(path: String, txData: [String : Any], mnemonic: String, passphrase: String) -> String? {
         let privateKey = HDWallet(mnemonic: mnemonic, passphrase: passphrase)?.getKey(coin: coinType, derivationPath: path)
         let utxos: [[String: Any]] = txData["utxos"] as! [[String: Any]]
         var listOfUtxos: [CardanoTxInput] = []
-
+        
         for utx in utxos {
             listOfUtxos.append(CardanoTxInput.with {
                 $0.outPoint.txHash = Data(hexString: (utx["txid"] as! String))!
@@ -22,7 +22,7 @@ class ADA: Coin  {
                 $0.amount = utx["balance"] as! UInt64
             })
         }
-
+        
         let input = CardanoSigningInput.with {
             $0.transferMessage.toAddress = txData["receiverAddress"] as! String
             $0.transferMessage.changeAddress =  txData["senderAddress"] as! String
@@ -31,10 +31,10 @@ class ADA: Coin  {
             $0.privateKey = [privateKey!.data]
             $0.utxos = listOfUtxos
         }
-
+        
         let output: CardanoSigningOutput = AnySigner.sign(input: input, coin: .cardano)
         return output.encoded.hexString
-        }
+    }
 }
 
 
