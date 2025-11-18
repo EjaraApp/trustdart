@@ -2,10 +2,10 @@ import Flutter
 import UIKit
 import WalletCore
 
-public class SwiftTrustdartPlugin: NSObject, FlutterPlugin {
+public class TrustdartPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "trustdart", binaryMessenger: registrar.messenger())
-        let instance = SwiftTrustdartPlugin()
+        let instance = TrustdartPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     

@@ -13,9 +13,8 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Ejara' => 'justice.agyemang@ejara.africa' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'trustdart/Sources/trustdart/**/*'
   s.dependency 'Flutter'
-  s.dependency 'TrustWalletCore'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
