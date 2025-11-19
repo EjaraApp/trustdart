@@ -2,6 +2,7 @@
  XLM
  */
 import WalletCore
+import Flutter
 
 class XLM: Coin  {
     enum NetworkType: String {

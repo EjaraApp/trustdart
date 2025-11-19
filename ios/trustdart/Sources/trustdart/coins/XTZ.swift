@@ -2,6 +2,7 @@
  XTZ
  */
 import WalletCore
+import Flutter
 
 class XTZ: Coin  {
     init() {

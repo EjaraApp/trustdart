@@ -2,6 +2,7 @@
  NEAR
  */
 import WalletCore
+import Flutter
 
 class NEAR: Coin  {
     init() {
