@@ -11,7 +11,9 @@ let package = Package(
     products: [
         .library(name: "trustdart", targets: ["trustdart"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "WalletCore", path: "wallet-core")
+    ],
     targets: [
         .target(
             name: "trustdart",
