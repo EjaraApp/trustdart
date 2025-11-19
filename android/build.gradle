@@ -56,7 +56,7 @@ android {
     }
 
     dependencies {
-        implementation "com.trustwallet:wallet-core:4.3.23"
+        implementation "com.trustwallet:wallet-core:4.4.1"
         implementation "com.swmansion.starknet:starknet:0.16.1"
     }
 }
