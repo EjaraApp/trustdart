@@ -40,7 +40,7 @@ kotlin {
 
 android {
     namespace 'africa.ejara.trustdart'
-    compileSdkVersion 36
+    compileSdkVersion 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

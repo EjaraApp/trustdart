@@ -28,7 +28,7 @@ kotlin {
 
 android {
     namespace 'africa.ejara.trustdart_example'
-    compileSdkVersion 36
+    compileSdkVersion 35
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
