@@ -9,7 +9,7 @@ import wallet.core.jni.proto.Stellar
 import wallet.core.jni.proto.Stellar.SigningOutput
 
 
-class XLM : Coin<String, CoinType>("XLM", CoinType.STELLAR) {
+class XLM : Coin("XLM", CoinType.STELLAR) {
 
     enum class NetworkType(val passphrase: String) {
         MAINNET("Public Global Stellar Network ; September 2015"),

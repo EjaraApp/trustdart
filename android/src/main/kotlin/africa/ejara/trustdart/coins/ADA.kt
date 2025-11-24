@@ -8,7 +8,7 @@ import wallet.core.jni.proto.Cardano
 import wallet.core.java.AnySigner
 
 
-class ADA : Coin<String, CoinType>("ADA", CoinType.CARDANO) {
+class ADA : Coin("ADA", CoinType.CARDANO) {
 
     override fun signTransaction(
         path: String,

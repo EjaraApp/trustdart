@@ -13,7 +13,7 @@ import wallet.core.jni.Hash
 import wallet.core.jni.proto.Tezos.*
 
 
-class XTZ : Coin<String, CoinType>("XTZ", CoinType.TEZOS) {
+class XTZ : Coin("XTZ", CoinType.TEZOS) {
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)

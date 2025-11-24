@@ -9,7 +9,7 @@ import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Ethereum.SigningOutput
 import wallet.core.jni.proto.Ripple
 
-class XRP: Coin<String, CoinType>("XRP", CoinType.XRP)  {
+class XRP: Coin("XRP", CoinType.XRP)  {
 
     override fun signTransaction(
         path: String,

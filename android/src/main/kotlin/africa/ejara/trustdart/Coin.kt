@@ -9,10 +9,10 @@ import wallet.core.java.AnySigner
 import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 
-open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
+open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
-    var name: T1? = null
-    var coinType: T2? = null
+    var name: String? = null
+    var coinType: CoinType? = null
 
     init {
         name = nameOfCoin
@@ -25,12 +25,12 @@ open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
         passphrase: String
     ): Map<String, String>? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return mapOf("legacy" to (coinType!! as CoinType).deriveAddress(wallet.getKey(coinType as CoinType?, path)))
+        return mapOf("legacy" to coinType!!.deriveAddress(wallet.getKey(coinType, path)))
     }
 
     override fun getPrivateKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return wallet.getKey(coinType as CoinType?, path).data().base64String()
+        return wallet.getKey(coinType, path).data().base64String()
     }
 
     override fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray? {
@@ -40,21 +40,21 @@ open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
 
     override fun getRawPrivateKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return wallet.getKey(coinType as CoinType?, path).data()
+        return wallet.getKey(coinType, path).data()
     } 
 
     override fun getPublicKey(path: String, mnemonic: String, passphrase: String): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return wallet.getKey(coinType as CoinType?, path).getPublicKeySecp256k1(true).data().base64String()
+        return wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data().base64String()
     }
  
     override fun getRawPublicKey(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val wallet = HDWallet(mnemonic, passphrase)
-        return wallet.getKey(coinType as CoinType?, path).getPublicKeySecp256k1(true).data()
+        return wallet.getKey(coinType, path).getPublicKeySecp256k1(true).data()
     }
 
     override fun validateAddress(address: String): Boolean {
-        return (coinType!! as CoinType).validate(address)
+        return coinType!!.validate(address)
     }
 
     override fun signDataWithPrivateKey(
@@ -64,8 +64,8 @@ open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
         txData: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val privateKey = wallet.getKey(coinType as CoinType?, path)
-        return privateKey.sign(txData.toHexByteArray(), (coinType!! as CoinType).curve()).toHex()
+        val privateKey = wallet.getKey(coinType, path)
+        return privateKey.sign(txData.toHexByteArray(), coinType!!.curve()).toHex()
     }
 
     override fun signTransaction(
@@ -75,9 +75,9 @@ open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
         passphrase: String
     ): String? {
         val wallet = HDWallet(mnemonic, passphrase)
-        val privateKey = wallet.getKey(coinType as CoinType?, path)
+        val privateKey = wallet.getKey(coinType, path)
         val opJson = JSONObject(txData).toString()
-        return AnySigner.signJSON(opJson, privateKey.data(), (coinType!! as CoinType).value())
+        return AnySigner.signJSON(opJson, privateKey.data(), coinType!!.value())
     }
 
     override fun multiSignTransaction(
@@ -88,7 +88,7 @@ open class Coin<T1, T2>(nameOfCoin: T1, typeOfCoin: T2) : CoinInterface {
         val signatures = mutableListOf<String>()
 
         for (privateKey in privateKeys) {
-            val signature = AnySigner.signJSON(opJson, privateKey.toByteArray(), (coinType!! as CoinType).value())
+            val signature = AnySigner.signJSON(opJson, privateKey.toByteArray(), coinType!!.value())
             signatures.add(signature)
         }
         return signatures.joinToString(",")

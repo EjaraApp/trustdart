@@ -10,7 +10,7 @@ import wallet.core.jni.CoinType
 import wallet.core.jni.HDWallet
 import wallet.core.jni.proto.Bitcoin
 
-class DOGE : Coin<String, CoinType>("DOGE", CoinType.DOGECOIN) {
+class DOGE : Coin("DOGE", CoinType.DOGECOIN) {
 
     override fun signTransaction(
         path: String,
