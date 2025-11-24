@@ -10,7 +10,6 @@ import XLM
 import BNB
 import DOGE
 import ADA
-import STRK
 import XRP
 
 import africa.ejara.trustdart.utils.WalletError
@@ -32,7 +31,6 @@ class WalletHandler {
             "DOGE"  to DOGE(),
             "ADA"   to ADA(),
             "XRP"    to XRP(),
-            "STRK"  to STRK(),
         )
     }
     
