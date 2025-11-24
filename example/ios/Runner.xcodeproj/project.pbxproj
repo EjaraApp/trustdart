@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		6941E8DC2ECE79BB005ED6A3 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6941E8DB2ECE79BB005ED6A3 /* WalletCore */; };
 		6941E8DE2ECE79BB005ED6A3 /* WalletCoreSwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 6941E8DD2ECE79BB005ED6A3 /* WalletCoreSwiftProtobuf */; };
-		6941E8E12ECEDEA7005ED6A3 /* Starknet in Frameworks */ = {isa = PBXBuildFile; productRef = 6941E8E02ECEDEA7005ED6A3 /* Starknet */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -54,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6941E8E12ECEDEA7005ED6A3 /* Starknet in Frameworks */,
 				6941E8DC2ECE79BB005ED6A3 /* WalletCore in Frameworks */,
 				78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */,
 				6941E8DE2ECE79BB005ED6A3 /* WalletCoreSwiftProtobuf in Frameworks */,
@@ -131,7 +129,6 @@
 				78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */,
 				6941E8DB2ECE79BB005ED6A3 /* WalletCore */,
 				6941E8DD2ECE79BB005ED6A3 /* WalletCoreSwiftProtobuf */,
-				6941E8E02ECEDEA7005ED6A3 /* Starknet */,
 			);
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
@@ -165,7 +162,6 @@
 			packageReferences = (
 				781AD8BC2B33823900A9FFBB /* XCLocalSwiftPackageReference "Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage" */,
 				6941E8DA2ECE79BB005ED6A3 /* XCRemoteSwiftPackageReference "wallet-core" */,
-				6941E8DF2ECEDEA7005ED6A3 /* XCRemoteSwiftPackageReference "starknet.swift" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -533,14 +529,6 @@
 				version = 4.4.1;
 			};
 		};
-		6941E8DF2ECEDEA7005ED6A3 /* XCRemoteSwiftPackageReference "starknet.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/software-mansion/starknet.swift.git";
-			requirement = {
-				kind = exactVersion;
-				version = 0.14.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -553,11 +541,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6941E8DA2ECE79BB005ED6A3 /* XCRemoteSwiftPackageReference "wallet-core" */;
 			productName = WalletCoreSwiftProtobuf;
-		};
-		6941E8E02ECEDEA7005ED6A3 /* Starknet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6941E8DF2ECEDEA7005ED6A3 /* XCRemoteSwiftPackageReference "starknet.swift" */;
-			productName = Starknet;
 		};
 		78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */ = {
 			isa = XCSwiftPackageProductDependency;
