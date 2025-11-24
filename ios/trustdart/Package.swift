@@ -12,7 +12,8 @@ let package = Package(
         .library(name: "trustdart", targets: ["trustdart"])
     ],
     dependencies: [
-        .package(name: "WalletCore", path: "wallet-core")
+        .package(name: "WalletCore", path: "wallet-core"),
+        .package(name: "Starknet", path: "starknet.swift")
     ],
     targets: [
         .target(
