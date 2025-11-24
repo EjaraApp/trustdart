@@ -5,6 +5,7 @@
 //  Created by Jay on 3/29/22.
 //
 import WalletCore
+import Flutter
 
 class SOL: Coin  {
     init() {

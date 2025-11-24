@@ -1,6 +1,5 @@
 //
 //  CoinInterface.swift
-//  Pods-Runner
 //
 //  Created by Jay on 3/29/22.
 //

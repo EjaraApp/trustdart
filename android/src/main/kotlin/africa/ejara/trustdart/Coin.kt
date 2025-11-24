@@ -35,7 +35,6 @@ open class Coin(nameOfCoin: String, typeOfCoin: CoinType) : CoinInterface {
 
     override fun getSeed(path: String, mnemonic: String, passphrase: String): ByteArray? {
         val data = HDWallet(mnemonic, passphrase).seed()
-        print("Seed Data: $data")
         return data
     }
 

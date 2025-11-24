@@ -30,10 +30,10 @@ class WalletHandler {
             "BNB"   to BNB(),
             "DOGE"  to DOGE(),
             "ADA"   to ADA(),
-            "XRP"    to XRP(),
+            "XRP"   to XRP(),
         )
     }
-    
+
     fun getCoin(coin: String?): Coin {
         return coins[coin]!!
     }
