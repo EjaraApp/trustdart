@@ -125,3 +125,7 @@ Improve error handling and checking for null wallet
 
 - XRP integration
 - Switch to SPM in iOS
+
+### 0.3.8
+
+- WalletCore updates
