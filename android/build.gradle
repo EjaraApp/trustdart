@@ -56,7 +56,7 @@ android {
     }
 
     dependencies {
-        implementation "com.trustwallet:wallet-core:4.4.1"
+        implementation "com.trustwallet:wallet-core:4.4.3"
     }
 }
 
