@@ -12,14 +12,14 @@ let package = Package(
         .library(name: "trustdart", targets: ["trustdart"])
     ],
     dependencies: [
-        .package(url: "https://github.com/trustwallet/wallet-core", from: "4.4.4")
+        .package(name: "WalletCore", url: "https://github.com/trustwallet/wallet-core", from: "4.4.4")
     ],
     targets: [
         .target(
             name: "trustdart",
             dependencies: [
-                .product(name: "WalletCore", package: "wallet-core"),
-                .product(name: "WalletCoreSwiftProtobuf", package: "wallet-core")
+                .product(name: "WalletCore", package: "WalletCore"),
+                .product(name: "WalletCoreSwiftProtobuf", package: "WalletCore")
             ]
         )
     ]

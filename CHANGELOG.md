@@ -129,3 +129,7 @@ Improve error handling and checking for null wallet
 ### 0.3.8
 
 - WalletCore updates
+
+### 0.3.9
+
+- WalletCore updates (v4.4.4)
