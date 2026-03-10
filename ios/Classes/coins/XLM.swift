@@ -102,9 +102,37 @@ class XLM: Coin  {
                 }
             }
             
-            let output: StellarSigningOutput = AnySigner.sign(input: signingInput, coin: self.coinType)
+            let output: StellarSigningOutpu = AnySigner.sign(input: signingInput, coin: self.coinType)
             txHash = output.signature
+        case "CreateAccount":
+            var asset = StellarAsset()
+            if let assetString = txData["asset"] as? String, let issuer = txData["issuer"] as? String {
+                asset.alphanum4 = assetString
+                asset.issuer = issuer
+            }
             
+            let operation = StellarOperationCreateAccount.with {
+                $0.destination = txData["toAddress"] as! String
+                $0.amount = txData["amount"] as! Int64
+            }
+            
+            let signingInput = StellarSigningInput.with {
+                $0.account = txData["ownerAddress"] as! String
+                $0.fee = txData["fee"] as! Int32
+                $0.sequence = txData["sequence"] as! Int64
+                $0.passphrase = networkType.passphrase
+                $0.opCreateAccount = operation
+                $0.privateKey = privateKey!.data
+                if (txData["memo"] != nil) {
+                    $0.memoID = StellarMemoId.with {
+                        $0.id = Int64(txData["memo"] as! String)!
+                    }
+                }
+            } 
+            
+            let output: StellarSigningOutpu = AnySigner.sign(input: signingInput, coin: self.coinType)
+            txHash = output.signature
+
         default:
             txHash = nil
         }

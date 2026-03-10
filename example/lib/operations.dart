@@ -174,13 +174,16 @@ Map<String, dynamic> operations = {
     //
   },
   // 'XLM': {
-  //   "cmd": 'Payment',
-  //   "ownerAddress": "GCHYGAVOESDOZONH2UDWHTTEF3FQIZSQFBSMK3ZJ5Z5QS37TXNPN2LWI",
-  //   "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
-  //   "asset": "USDT",
-  //   "amount": 900000,
-  //   "fee": 10000,
-  //   "sequence": 184158241918287877,
+  //   "cmd": 'CreateAccount',
+  //   "ownerAddress": "GCPP3J7CE23VF3EONOIDXDL6QODYTI3YWJ7PNMHTO77WSEXGK2TT4QPV",
+  // "toAddress": "GBPT3GVKY727GYXTO6QAEVET3AW3EUVZZCZOCCO5B5PJXRVS3S4GD2AY",
+  // "issuer": "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5",
+  // "network": "testnet",
+  // "validBefore": 1717806538278,
+  // "amount": 2000000,
+  // "fee": 10000,
+  // "sequence": 183629192141733925,
+  // "memo": "3476840067250060816"
   // },
   'XLM': {
     "cmd": 'Payment',
