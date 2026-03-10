@@ -106,7 +106,35 @@ class XLM : Coin("XLM", CoinType.STELLAR) {
                 }
                 val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
                 txHash = output.signature
-
+            }
+            "CreateAccount" -> {
+                val stellarAsset = Stellar.Asset.newBuilder()
+                if (txData["asset"] != null && txData["issuer"] != null) {
+                    stellarAsset.apply {
+                        issuer = txData["issuer"] as String
+                        alphanum4 = txData["asset"] as String
+                    }
+                }
+                val operation = Stellar.OperationCreateAccount.newBuilder()
+                operation.apply {
+                    destination = txData["toAddress"] as String
+                    amount = txData["amount"]!!.toLong()
+                }
+                val signingInput = Stellar.SigningInput.newBuilder()
+                signingInput.apply {
+                    account = txData["ownerAddress"] as String
+                    fee = txData["fee"] as Int
+                    sequence = txData["sequence"]!!.toLong()
+                    passphrase = networkType.passphrase
+                    opCreateAccount = operation.build()
+                    privateKey = ByteString.copyFrom(secretKey.data())
+                    if (txData["memo"] != null) {
+                        memoId = Stellar.MemoId.newBuilder().setId(txData["memo"]!!.toLong())
+                            .build()
+                    }
+                }
+                val output = AnySigner.sign(signingInput.build(), coinType, SigningOutput.parser())
+                txHash = output.signature
             }
 
             else -> txHash = null
